@@ -6,6 +6,7 @@ import org.vaadin.gwtgraphics.client.DrawingArea;
 import org.vaadin.gwtgraphics.client.Image;
 import org.vaadin.gwtgraphics.client.animation.Animate;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
@@ -40,6 +41,7 @@ public class NodeCanvas extends DrawingArea {
 
 	public void example1() {
 		
+	
 		
 		// setup node1
 		Node node1 = new Node(100, 100, 20);
@@ -63,6 +65,7 @@ public class NodeCanvas extends DrawingArea {
 
 		nodes.add(node1);
 		nodes.add(node2);
+		
 
 		Utility.setRootNodes(nodes);
 
@@ -84,8 +87,9 @@ public class NodeCanvas extends DrawingArea {
 	public void draw() {
 
 		clear();
-		Image im = new Image(200, 200, 200, 200, "file://home/dai-network-lab/Downloads/tiger.svg");
-		add(im);
+		
+		Image image = new Image(0, 0, 200, 200, GWT.getModuleBaseURL() + "switch.svg");
+		add(image);
 		for (Node n : nodes) {
 			n.reSetUp();
 			add(n);
