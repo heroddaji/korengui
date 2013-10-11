@@ -20,29 +20,43 @@ import com.google.gwt.resources.client.ResourceException;
 public class Gateway extends Node{
 	
 	String imageHref = GWT.getModuleBaseURL() + "images/router.svg";
-	OMSVGImageElement image;
+	OMSVGImageElement shape;
 	public Gateway(String ip, int x, int y) {
 		super(ip,x,y);
 	
-		image = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
-		
-		setupEventHandler();
-		
+		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);		
+		setupEventHandler();		
 	}
 	
 	private void setupEventHandler(){
-		image.addMouseDownHandler(new MouseDownHandler() {
+		shape.addMouseDownHandler(new MouseDownHandler() {
 			
 			@Override
 			public void onMouseDown(MouseDownEvent event) {
-				OMSVGDocument doc = OMSVGParser.currentDocument();
-				image.getX().getBaseVal().setValue(300);
+				handleMouseDownEvent(event);
 			}
 		});
 	}
 	
+	private void handleMouseDownEvent(MouseDownEvent event){
+		OMSVGDocument doc = OMSVGParser.currentDocument();
+		MapPanel.INSTANCE.setClickedNode(this);		
+	}
+	
+	@Override
+	public void move(int x, int y){
+		super.move(x, y);
+		shape.getX().getBaseVal().setValue(x);
+		shape.getY().getBaseVal().setValue(y);
+		
+		for(NodePath path: paths.values()){
+			path.adjust();
+		}
+		
+	}
+	
 	@Override
 	public OMSVGElement getShape() {		
-		return image;		
+		return shape;		
 	}
 }
