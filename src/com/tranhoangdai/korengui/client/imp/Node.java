@@ -1,18 +1,27 @@
 package com.tranhoangdai.korengui.client.imp;
 
-import com.google.gwt.dev.util.collect.HashSet;
+import java.util.HashMap;
 
 
-public abstract class Node  {
+public abstract class Node  extends SvgElement{	
 	
-	int id;
-	String name;
-	int parentId;
-	HashSet<Integer> connectedNodes = new HashSet<Integer>();
+	int WIDTH = 50;
+	int HEIGHT = 50;
+	String ipAddress;	
+	HashMap<Integer, NodePath>paths = new HashMap<Integer, NodePath>();
+	int x;
+	int y;
 	
-	public Node(int id, String name){
-		this.id = id;
-		this.name = name;
+	public Node(String ipAddress, int x, int y){
+		this.x = x;
+		this.y = y;
+		this.ipAddress = ipAddress;
 	}
+	
+	protected void addPath(NodePath path){
+		paths.put(path.getId(),path);
+	}
+	
+	
 	
 }

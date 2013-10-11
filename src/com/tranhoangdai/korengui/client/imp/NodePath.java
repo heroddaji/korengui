@@ -1,42 +1,65 @@
 package com.tranhoangdai.korengui.client.imp;
 
-import org.vaadin.gwtgraphics.client.shape.Path;
+import org.vectomatic.dom.svg.OMSVGElement;
+import org.vectomatic.dom.svg.OMSVGImageElement;
+import org.vectomatic.dom.svg.OMSVGLineElement;
+import org.vectomatic.dom.svg.OMSVGPoint;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
-public class NodePath extends Path {
+public class NodePath extends SvgElement {
 
-	Node fromNode;
-	Node toNode;
-	static int x = 0;
-	static int y = 0;
-	int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+	static int INCREASEID = -1;
 
-	public NodePath(int x, int y) {
-		super(x, y);
+	OMSVGLineElement line = null;
+	Node startNode = null;
+	Node endNode = null;
+	int id = -1;
+
+	public NodePath(Node startNode, Node endNode) {
+		id = ++INCREASEID;
+		this.startNode = startNode;
+		this.endNode = endNode;
+
+		startNode.addPath(this);
+		endNode.addPath(this);
+
+		adjust();
 	}
 
-	//flag is use to seperate the 2 constructor
-	public NodePath(int nodeId1, int nodeId2, boolean flag) {
-		super(x, y);
-		
-		fromNode = NodeCanvas.getInstance().getNode(nodeId1);
-		toNode = NodeCanvas.getInstance().getNode(nodeId2);
-		setLoc();		
+	public void adjust() {
+		if (startNode == null || endNode == null) {
+			return;
+		}
+
+		float x1 = ((OMSVGImageElement) startNode.getShape()).getX().getBaseVal().getValue();
+		float y1 = ((OMSVGImageElement) startNode.getShape()).getY().getBaseVal().getValue();
+		float width1 = ((OMSVGImageElement) startNode.getShape()).getWidth().getBaseVal().getValue();
+		float height1 = ((OMSVGImageElement) startNode.getShape()).getHeight().getBaseVal().getValue();
+
+		float x2 = ((OMSVGImageElement) endNode.getShape()).getX().getBaseVal().getValue();
+		float y2 = ((OMSVGImageElement) endNode.getShape()).getY().getBaseVal().getValue();
+		float width2 = ((OMSVGImageElement) endNode.getShape()).getWidth().getBaseVal().getValue();
+		float height2 = ((OMSVGImageElement) endNode.getShape()).getHeight().getBaseVal().getValue();
+
+		if (line == null) {
+			line = new OMSVGLineElement(x1, y1, x2, y2);
+			line.getStyle().setSVGProperty(SVGConstants.CSS_STROKE_PROPERTY, SVGConstants.CSS_BLACK_VALUE);
+		}
+
+		line.getX1().getBaseVal().setValue(x1 + width1 / 2);
+		line.getY1().getBaseVal().setValue(y1 + height1 / 2);
+		line.getX2().getBaseVal().setValue(x2 + width2 / 2);
+		line.getY2().getBaseVal().setValue(y2 + height2 / 2);
+
 	}
 
-	public void reSetUp() {		
-		setLoc();		
+	public int getId() {
+		return id;
 	}
 
-	private void setLoc() {
-		for (int i = 0; i < getStepCount(); i++) {
-			removeStep(i);
-		}	
-		x1 = fromNode.getX();
-		y1 = fromNode.getY();
-		x2 = toNode.getX();
-		y2 = toNode.getY();
-		moveTo(x1, y1);
-		lineTo(x2, y2);
+	@Override
+	public OMSVGElement getShape() {
+		return line;
 	}
 
 }
