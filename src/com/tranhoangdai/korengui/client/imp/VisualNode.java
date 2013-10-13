@@ -34,16 +34,7 @@ public class VisualNode extends Node {
 			public void onMouseDown(MouseDownEvent event) {
 				handleMouseDownEvent(event);
 			}
-		});
-		shape.addDragEnterHandler(new DragEnterHandler() {
-
-			@Override
-			public void onDragEnter(DragEnterEvent event) {
-
-				int a = 0;
-
-			}
-		});
+		});		
 	}
 
 	private void handleMouseDownEvent(MouseDownEvent event) {

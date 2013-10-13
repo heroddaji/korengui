@@ -113,6 +113,9 @@ public class MapPanel extends SimplePanel {
 					
 					node.calculateForces();
 				}
+				
+				event.stopPropagation();
+				event.preventDefault();
 			}
 		});
 	}
@@ -137,6 +140,10 @@ public class MapPanel extends SimplePanel {
 
 	public void setClickedNode(Node clickedNode) {
 		this.clickedNode = clickedNode;
+	}
+	
+	public OMSVGSVGElement getSvg(){
+		return svg;
 	}
 
 }
