@@ -2,6 +2,8 @@ package com.tranhoangdai.korengui.client.imp;
 
 import java.util.HashMap;
 
+import org.vectomatic.dom.svg.OMSVGElement;
+
 public abstract class Node extends SvgElement {
 
 	int WIDTH = 40;
@@ -20,10 +22,13 @@ public abstract class Node extends SvgElement {
 	protected void addPath(NodePath path) {
 		paths.put(path.getId(), path);
 	}	
+	
 	public void move(int x, int y){
 		this.x = x;
 		this.y = y;
 	}
+	
+	public abstract OMSVGElement getTextShape();
 	
 	public void calculateForces(){
 		

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
+import org.vectomatic.dom.svg.OMSVGTextElement;
+import org.vectomatic.dom.svg.OMText;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import com.google.gwt.core.shared.GWT;
@@ -50,6 +52,8 @@ public class MapPanel extends SimplePanel {
 		svg.appendChild(path3.getShape());
 		svg.appendChild(path4.getShape());
 		svg.appendChild(gate1.getShape());
+		svg.appendChild(gate1.getTextShape());
+		
 		svg.appendChild(gate2.getShape());
 		svg.appendChild(switch1.getShape());
 		svg.appendChild(switch2.getShape());

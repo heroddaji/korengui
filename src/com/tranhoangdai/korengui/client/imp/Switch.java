@@ -51,4 +51,10 @@ public class Switch extends Node {
 	public OMSVGElement getShape() {
 		return shape;
 	}
+
+	@Override
+	public OMSVGElement getTextShape() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
