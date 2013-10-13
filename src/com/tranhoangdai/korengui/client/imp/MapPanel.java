@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
-import org.vectomatic.dom.svg.OMSVGTextElement;
-import org.vectomatic.dom.svg.OMText;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import com.google.gwt.core.shared.GWT;
@@ -24,6 +22,7 @@ public class MapPanel extends SimplePanel {
 	OMSVGSVGElement svg = null;
 	Node clickedNode = null;
 	ArrayList<Node> nodes = new ArrayList<Node>();
+	ArrayList<NodePath> paths = new ArrayList<NodePath>();
 
 	public MapPanel() {
 		super();
@@ -42,28 +41,45 @@ public class MapPanel extends SimplePanel {
 		Gateway gate2 = new Gateway("10.0.0.2", 150, 50);
 		Switch switch1 = new Switch("10.0.0.3", 150, 250);
 		Switch switch2 = new Switch("10.0.0.4", 250, 150);
+		EndHost host1 = new EndHost("10.0.0.5", 100, 100);
+		EndHost host2 = new EndHost("10.0.0.6", 80, 80);
+		
 		NodePath path1 = new NodePath(gate1, switch1);
 		NodePath path2 = new NodePath(gate2, switch2);
 		NodePath path3 = new NodePath(gate1, gate2);
 		NodePath path4 = new NodePath(switch1, switch2);
-
-		svg.appendChild(path1.getShape());
-		svg.appendChild(path2.getShape());
-		svg.appendChild(path3.getShape());
-		svg.appendChild(path4.getShape());
-		svg.appendChild(gate1.getShape());
-		svg.appendChild(gate1.getTextShape());
+		NodePath path5 = new NodePath(host1, gate1);
+		NodePath path6 = new NodePath(host2, gate1);
 		
-		svg.appendChild(gate2.getShape());
-		svg.appendChild(switch1.getShape());
-		svg.appendChild(switch2.getShape());
 
-		RootPanel.get().getElement().appendChild(svg.getElement());
-		
 		nodes.add(gate1);
 		nodes.add(gate2);
 		nodes.add(switch1);
 		nodes.add(switch2);
+		nodes.add(host1);
+		nodes.add(host2);
+		
+		paths.add(path1);
+		paths.add(path2);
+		paths.add(path3);
+		paths.add(path4);
+		paths.add(path5);
+		paths.add(path6);
+		
+		for(NodePath path: paths){
+			svg.appendChild(path.getShape());
+			svg.appendChild(path.getShape());
+		}
+		
+		for(Node node: nodes){
+			svg.appendChild(node.getShape());
+			svg.appendChild(node.getTextShape());
+		}
+		
+		
+		RootPanel.get().getElement().appendChild(svg.getElement());
+		
+		
 
 	}
 
