@@ -5,21 +5,12 @@
 	<artifactId>korengui</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<repositories>
-
-
-		<repository>
-			<id>vaadin-addons</id>
-			<url>http://maven.vaadin.com/vaadin-addons</url>
-		</repository>
+		
 	</repositories>
 
 
 	<dependencies>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>gwt-graphics</artifactId>
-			<version>1.0.0</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.vectomatic</groupId>
 			<artifactId>lib-gwt-svg</artifactId>
