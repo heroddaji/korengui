@@ -16,7 +16,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.tranhoangdai.korengui.client.imp.MapPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.

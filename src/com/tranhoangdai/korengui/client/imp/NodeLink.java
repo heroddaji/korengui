@@ -1,27 +1,40 @@
 package com.tranhoangdai.korengui.client.imp;
 
+import java.io.Serializable;
+
 import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGLineElement;
-import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
-public class NodePath extends SvgElement {
-
-	static int INCREASEID = -1;
+public class NodeLink extends SvgElement implements Serializable {
 
 	OMSVGLineElement line = null;
 	Node startNode = null;
 	Node endNode = null;
-	int id = -1;
+	
+	
+	 String srcSwitch;
+     int srcPort;
+     String dstSwitch;
+     int dstPort;
+     String type;
+     String direction;
+ 
 
-	public NodePath(Node startNode, Node endNode) {
-		id = ++INCREASEID;
+	public NodeLink(String srcSwitch, int srcPort, String dstSwitch, int dstPort){
+		this.srcSwitch = srcSwitch;
+		this.srcPort = srcPort;
+		this.dstSwitch = dstSwitch;
+		this.dstPort = dstPort;
+		
+		
+	}
+	
+	public NodeLink(Node startNode, Node endNode) {	
 		this.startNode = startNode;
 		this.endNode = endNode;
-
-		startNode.addPath(this);
-		endNode.addPath(this);
+		
 
 		adjust();
 	}
@@ -51,10 +64,6 @@ public class NodePath extends SvgElement {
 		line.getX2().getBaseVal().setValue(x2 + width2 / 2);
 		line.getY2().getBaseVal().setValue(y2 + height2 / 2);
 
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	@Override

@@ -1,8 +1,12 @@
 package com.tranhoangdai.korengui.client.imp;
 
-import org.vectomatic.dom.svg.OMSVGElement;
-import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
+import java.io.Serializable;
 
-public abstract class SvgElement{
+import org.vectomatic.dom.svg.OMSVGElement;
+
+public abstract class SvgElement implements Serializable{
+	public SvgElement(){
+		
+	}
 	public abstract OMSVGElement getShape();	
 }

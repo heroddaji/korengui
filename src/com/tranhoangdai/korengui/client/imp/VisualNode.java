@@ -31,6 +31,7 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.tranhoangdai.korengui.client.MapPanel;
 
 @SuppressWarnings("unused")
 public class VisualNode extends Node {
@@ -40,6 +41,9 @@ public class VisualNode extends Node {
 	OMSVGTextElement textShape;
 	boolean dragging = false;
 	OMSVGPoint beforeMovePoint = null;
+
+	public VisualNode() {
+	}
 
 	public VisualNode(String ip, int x, int y) {
 		super(ip, x, y);
@@ -183,7 +187,7 @@ public class VisualNode extends Node {
 		moveText(x, y, event);
 
 		// adjust connected paths
-		for (NodePath path : paths.values()) {
+		for (NodeLink path : paths.values()) {
 			path.adjust();
 		}
 
@@ -228,5 +232,15 @@ public class VisualNode extends Node {
 		// OMSVGTransform s = svg.createSVGTransform();
 		// s.setScale(1, 1);
 		// transforms.appendItem(s);
+	}
+	
+	@Override
+	public void setX(float x){
+		shape.getX().getBaseVal().setValue(x);
+		
+	}
+	public void setY(float y){
+		shape.getY().getBaseVal().setValue(y);
+		
 	}
 }
