@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.vectomatic.dom.svg.OMSVGElement;
+import org.vectomatic.dom.svg.OMSVGTextElement;
 
 import com.google.gwt.event.dom.client.MouseEvent;
 
@@ -13,15 +14,15 @@ public abstract class Node extends SvgElement {
 	int WIDTH = 40;
 	int HEIGHT = 40;
 	
-	HashMap<String, NodeLink> paths = new HashMap<String, NodeLink>();
+	HashMap<Integer, NodeLink> localLinks = new HashMap<Integer, NodeLink>();
 	List<NodePort> ports = new ArrayList<NodePort>();
 	NodeAttributes attributes;
 	NodeDescription description;
-
+	OMSVGTextElement textShape;
 	float x;	
 	float y;
 	
-	float scaleFactor = 1.5f;	
+	float scaleFactor = 1.3f;	
 	
 	int action;
 	int buffers;
@@ -113,6 +114,9 @@ public abstract class Node extends SvgElement {
 		this.dpid = ipAddress;
 	}
 	
+	public void addLink(NodeLink link){
+		localLinks.put(link.getId(), link);
+	}
 	
 	public List<NodePort> getPorts() {
 		return ports;
@@ -139,7 +143,9 @@ public abstract class Node extends SvgElement {
 	}
 
 
-	public abstract OMSVGElement getTextShape();
+	public OMSVGElement getTextShape(){
+		return textShape;
+	}
 
 	public abstract void move(MouseEvent<?> event);
 

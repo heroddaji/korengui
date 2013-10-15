@@ -1,10 +1,13 @@
 package com.tranhoangdai.korengui.client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
+import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import com.google.gwt.core.client.GWT;
@@ -28,10 +31,9 @@ public class MapPanel extends FlowPanel {
 
 	public static MapPanel INSTANCE = GWT.create(MapPanel.class);
 
-	OMSVGSVGElement svg = null;
-	Node clickedNode = null;
-	ArrayList<Node> nodes = new ArrayList<Node>();
-	ArrayList<NodeLink> paths = new ArrayList<NodeLink>();
+	OMSVGSVGElement svg = null;		
+	Map<String, Node>nodesmap = new HashMap<String,Node>();
+	Map<Integer, NodeLink> links = new HashMap<Integer,NodeLink>();
 
 	public Button but1;
 	public Button but2;
@@ -96,29 +98,30 @@ public class MapPanel extends FlowPanel {
 		rootPanel.getElement().appendChild(svg.getElement());
 
 		getTopologySwitches();
-		getTopologyLinks();
 		
+		OMSVGTextElement textShape = new OMSVGTextElement(30, 20, OMSVGLength.SVG_LENGTHTYPE_PX, "adfasdf");
 		
-		
-
 	}
 	
 	private void layoutNodes(){
 		
 		float radius = 100;
 		float center = 300;
-		float slice = (float) (2 * Math.PI / nodes.size());
+		float slice = (float) (2 * Math.PI / nodesmap.size());
 		
 		int counter = 1;
-		for(Node node: nodes){
+		for(Node node: nodesmap.values()){
 			float x = (float) (radius * Math.cos(counter * slice) + center);  
 			float y = (float) (radius * Math.sin(counter * slice) + center);
 			((VisualNode)node).setX(x);
 			((VisualNode)node).setY(y);
-			++counter;
-			svg.appendChild(node.getShape());
+			((VisualNode)node).adjustText(x, y); //must do this to reset the text location
+			++counter;			
+			svg.appendChild(node.getShape());			
 			svg.appendChild(node.getTextShape());
 		}
+		
+		getTopologyLinks();
 	}
 
 	private void getTopologySwitches() {
@@ -135,8 +138,8 @@ public class MapPanel extends FlowPanel {
 				if (array != null) {
 					for(int i = 0 ; i < array.size(); i++){
 						JSONObject obj = array.get(i).isObject();
-						Switch theSwitch = new Switch(obj.get("dpid").isString().stringValue(), 0, 0);
-						nodes.add(theSwitch);						
+						Switch theSwitch = new Switch(obj.get("dpid").isString().stringValue(), 0, 0);						
+						nodesmap.put(theSwitch.getDpid(), theSwitch);
 					}
 				}
 				
@@ -157,7 +160,7 @@ public class MapPanel extends FlowPanel {
 		TopologyServiceAsync topo = GWT.create(TopologyService.class);
 
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
-
+			
 			@Override
 			public void onSuccess(String result) {
 
@@ -165,7 +168,18 @@ public class MapPanel extends FlowPanel {
 				JSONArray array = value.isArray();
 				if (array != null) {
 					for(int i = 0 ; i < array.size(); i++){
-						JSONObject obj = array.get(i).isObject();						
+						JSONObject obj = array.get(i).isObject();
+						String srcIp = obj.get("src-switch").isString().stringValue();
+						int srcport = (int) obj.get("src-port").isNumber().doubleValue();
+						String dstIp = obj.get("dst-switch").isString().stringValue();
+						int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
+						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
+						link.findAndMatchNode(nodesmap);
+						link.adjust();
+						links.put(link.getId(), link);
+						
+						svg.getNode().insertFirst(link.getShape().getNode());
+						//svg.appendChild(link.getShape());
 					}
 				}
 			}

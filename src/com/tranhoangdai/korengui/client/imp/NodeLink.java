@@ -1,6 +1,7 @@
 package com.tranhoangdai.korengui.client.imp;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.OMSVGImageElement;
@@ -9,34 +10,32 @@ import org.vectomatic.dom.svg.utils.SVGConstants;
 
 public class NodeLink extends SvgElement implements Serializable {
 
+	private static int UNIQUEID = -1;
 	OMSVGLineElement line = null;
 	Node startNode = null;
 	Node endNode = null;
-	
-	
-	 String srcSwitch;
-     int srcPort;
-     String dstSwitch;
-     int dstPort;
-     String type;
-     String direction;
- 
+	int id;
 
-	public NodeLink(String srcSwitch, int srcPort, String dstSwitch, int dstPort){
+	String srcSwitch;
+	int srcPort;
+	String dstSwitch;
+	int dstPort;
+	String type;
+	String direction;
+
+	public NodeLink(String srcSwitch, int srcPort, String dstSwitch, int dstPort) {
+		id = ++UNIQUEID;
 		this.srcSwitch = srcSwitch;
 		this.srcPort = srcPort;
 		this.dstSwitch = dstSwitch;
 		this.dstPort = dstPort;
-		
-		
 	}
-	
-	public NodeLink(Node startNode, Node endNode) {	
-		this.startNode = startNode;
-		this.endNode = endNode;
-		
 
-		adjust();
+	public void findAndMatchNode(Map<String, Node> nodes) {
+		startNode = nodes.get(srcSwitch);
+		startNode.addLink(this);
+		endNode = nodes.get(dstSwitch);
+		endNode.addLink(this);
 	}
 
 	public void adjust() {
@@ -69,6 +68,14 @@ public class NodeLink extends SvgElement implements Serializable {
 	@Override
 	public OMSVGElement getShape() {
 		return line;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

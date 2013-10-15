@@ -37,17 +37,17 @@ import com.tranhoangdai.korengui.client.MapPanel;
 public class VisualNode extends Node {
 
 	String imageHref = GWT.getModuleBaseURL() + "images/router.svg";
-	OMSVGImageElement shape;
-	OMSVGTextElement textShape;
+	OMSVGImageElement shape;	
 	boolean dragging = false;
 	OMSVGPoint beforeMovePoint = null;
-
+	private boolean isScaleUp = false;
 	public VisualNode() {
 	}
 
 	public VisualNode(String ip, int x, int y) {
 		super(ip, x, y);
 		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
+		
 	}
 
 	protected void setupEventHandler() {
@@ -79,8 +79,7 @@ public class VisualNode extends Node {
 
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
-				handleMouseOverEvent(event);
-
+				scaleUp(event);
 			}
 		});
 
@@ -88,14 +87,44 @@ public class VisualNode extends Node {
 
 			@Override
 			public void onMouseOut(MouseOutEvent event) {
-				handleMouseOutEvent(event);
-
+				scaleDown(event);
 			}
 		});
 	}
+	
+	private void handleMouseDownEvent(MouseDownEvent event) {
+		dragging = true;
+		beforeMovePoint = getLocalCoordinates(event);
+		DOMHelper.setCaptureElement(shape, null);
+		event.stopPropagation();
+		event.preventDefault();
 
-	private void handleMouseOutEvent(MouseOutEvent event) {
+	}
 
+	private void handleMouseMoveEvent(MouseMoveEvent event) {
+		if (!dragging) {
+			return;
+		}
+		move(event);
+		
+		event.stopPropagation();
+		event.preventDefault();
+	}
+
+	private void handleMouseUpEvent(MouseUpEvent event) {
+		dragging = false;
+		DOMHelper.releaseCaptureElement();
+		
+		if(isScaleUp){
+			scaleDown(event);
+		}
+		
+		event.stopPropagation();
+		event.preventDefault();
+	}
+
+	private void scaleDown(MouseEvent<?> event) {
+		isScaleUp = false;
 		OMSVGSVGElement svg = MapPanel.INSTANCE.getSvg();
 		float x = ((shape.getX().getBaseVal().getValue() + shape.getWidth().getBaseVal().getValue() / 2) * (1 - scaleFactor)) / scaleFactor;
 		float y = ((shape.getY().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (1 - scaleFactor)) / scaleFactor;
@@ -110,7 +139,8 @@ public class VisualNode extends Node {
 		event.preventDefault();
 	}
 
-	private void handleMouseOverEvent(MouseOverEvent event) {
+	private void scaleUp(MouseEvent<?> event) {
+		isScaleUp = true;
 		OMSVGSVGElement svg = MapPanel.INSTANCE.getSvg();
 		float x = (shape.getX().getBaseVal().getValue() + shape.getWidth().getBaseVal().getValue() / 2) * (scaleFactor - 1);
 		float y = (shape.getY().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (scaleFactor - 1);
@@ -120,32 +150,6 @@ public class VisualNode extends Node {
 		t2.setScale(scaleFactor, scaleFactor);
 		shape.getTransform().getBaseVal().appendItem(t1);
 		shape.getTransform().getBaseVal().appendItem(t2);
-		event.stopPropagation();
-		event.preventDefault();
-	}
-
-	private void handleMouseDownEvent(MouseDownEvent event) {
-		dragging = true;
-		beforeMovePoint = getLocalCoordinates(event);
-		DOMHelper.setCaptureElement(shape, null);
-		event.stopPropagation();
-		event.preventDefault();
-
-	}
-
-	private void handleMouseMoveEvent(MouseMoveEvent event) {
-		if (!dragging) {
-			return;
-		}
-
-		move(event);
-		event.stopPropagation();
-		event.preventDefault();
-	}
-
-	private void handleMouseUpEvent(MouseUpEvent event) {
-		dragging = false;
-		DOMHelper.releaseCaptureElement();
 		event.stopPropagation();
 		event.preventDefault();
 	}
@@ -166,44 +170,44 @@ public class VisualNode extends Node {
 	}
 
 	@Override
-	public OMSVGElement getTextShape() {
-		return textShape;
-	}
-
-	@Override
 	public void move(MouseEvent<?> event) {
 
-		// move shape
-		OMSVGPoint afterMovePoint = getLocalCoordinates(event);
-		float dx = afterMovePoint.getX() - beforeMovePoint.getX();
-		float dy = afterMovePoint.getY() - beforeMovePoint.getY();
-		float x = shape.getX().getBaseVal().getValue();
-		GWT.log("shape base val:" + x + "," + y);
-		float y = shape.getY().getBaseVal().getValue();
-
-		shape.getX().getBaseVal().setValue(x + dx);
-		shape.getY().getBaseVal().setValue(y + dy);
-
-		moveText(x, y, event);
-
-		// adjust connected paths
-		for (NodeLink path : paths.values()) {
-			path.adjust();
-		}
-
-		beforeMovePoint = afterMovePoint;
-		MapPanel.INSTANCE.but1.setText("client coor:" + event.getClientX() + "," + event.getClientY());
-		MapPanel.INSTANCE.but2.setText("target coor" + event.getX() + "," + event.getY());
-		GWT.log("relavetove coor:" + event.getRelativeX(MapPanel.INSTANCE.getSvg().getElement()) + "," + event.getRelativeY(MapPanel.INSTANCE.getSvg().getElement()));
-
-		MapPanel.INSTANCE.but3.setText("screen coor" + event.getScreenX() + "," + event.getScreenY());
+		// // move shape
+		// OMSVGPoint afterMovePoint = getLocalCoordinates(event);
+		// float dx = afterMovePoint.getX() - beforeMovePoint.getX();
+		// float dy = afterMovePoint.getY() - beforeMovePoint.getY();
+		// float x = shape.getX().getBaseVal().getValue();
+		// GWT.log("shape base val:" + x + "," + y);
+		// float y = shape.getY().getBaseVal().getValue();
+		//
+		// shape.getX().getBaseVal().setValue(x + dx);
+		// shape.getY().getBaseVal().setValue(y + dy);
+		//
+		// moveText(x, y, event);
+		//
+		// // adjust connected paths
+		// for (NodeLink path : paths.values()) {
+		// path.adjust();
+		// }
+		//
+		// beforeMovePoint = afterMovePoint;
+		// MapPanel.INSTANCE.but1.setText("client coor:" + event.getClientX() +
+		// "," + event.getClientY());
+		// MapPanel.INSTANCE.but2.setText("target coor" + event.getX() + "," +
+		// event.getY());
+		// GWT.log("relavetove coor:" +
+		// event.getRelativeX(MapPanel.INSTANCE.getSvg().getElement()) + "," +
+		// event.getRelativeY(MapPanel.INSTANCE.getSvg().getElement()));
+		//
+		// MapPanel.INSTANCE.but3.setText("screen coor" + event.getScreenX() +
+		// "," + event.getScreenY());
 
 	}
 
-	private void moveText(float x, float y, MouseEvent<?> event) {
+	public void adjustText(float x, float y) {
 
 		// move text method 1
-		OMSVGSVGElement svg = textShape.getOwnerSVGElement();
+		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
 		OMSVGLength xCoord = svg.createSVGLength(OMSVGLength.SVG_LENGTHTYPE_PX, x - shape.getWidth().getBaseVal().getValue() / 4);
 		textShape.getX().getBaseVal().clear();
 		textShape.getX().getBaseVal().appendItem(xCoord);
@@ -233,14 +237,15 @@ public class VisualNode extends Node {
 		// s.setScale(1, 1);
 		// transforms.appendItem(s);
 	}
-	
+
 	@Override
-	public void setX(float x){
+	public void setX(float x) {
 		shape.getX().getBaseVal().setValue(x);
-		
+
 	}
-	public void setY(float y){
+
+	public void setY(float y) {
 		shape.getY().getBaseVal().setValue(y);
-		
+
 	}
 }
