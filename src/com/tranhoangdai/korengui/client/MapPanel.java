@@ -16,6 +16,7 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -27,17 +28,13 @@ import com.tranhoangdai.korengui.client.service.TopologyService;
 import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 
 @SuppressWarnings("unused")
-public class MapPanel extends FlowPanel {
+public class MapPanel extends AbsolutePanel {
 
 	public static MapPanel INSTANCE = GWT.create(MapPanel.class);
 
 	OMSVGSVGElement svg = null;		
 	Map<String, Node>nodesmap = new HashMap<String,Node>();
 	Map<Integer, NodeLink> links = new HashMap<Integer,NodeLink>();
-
-	public Button but1;
-	public Button but2;
-	public Button but3;
 
 	public MapPanel() {
 		super();
@@ -87,15 +84,8 @@ public class MapPanel extends FlowPanel {
 //		}
 		
 		RootPanel rootPanel = RootPanel.get();
-
-		but1 = new Button("panel: x,y");
-		but2 = new Button("object: x,y");
-		but3 = new Button("object: x,y");
-
-		rootPanel.add(but1);
-		rootPanel.add(but2);
-		rootPanel.add(but3);
-		rootPanel.getElement().appendChild(svg.getElement());
+		this.getElement().appendChild(svg.getElement());
+		//rootPanel.getElement().appendChild(svg.getElement());
 
 		getTopologySwitches();
 		
@@ -148,7 +138,7 @@ public class MapPanel extends FlowPanel {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				System.out.println("oh no");
+				System.out.println("failed to load nodes");
 
 			}
 		};
@@ -186,7 +176,7 @@ public class MapPanel extends FlowPanel {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				System.out.println("oh no");
+				System.out.println("failed to load links");
 
 			}
 		};

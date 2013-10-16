@@ -16,6 +16,10 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -43,12 +47,32 @@ public class Korengui implements EntryPoint {
 	
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
-		RootPanel rootPanel = RootPanel.get();		
-
+		RootPanel rootPanel = RootPanel.get();
+		
+		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.EM);
+		rootPanel.add(dockLayoutPanel, 0, 22);
+		dockLayoutPanel.setSize("686px", "471px");
+		
+		VerticalPanel verticalPanel = new VerticalPanel();
+		dockLayoutPanel.addWest(verticalPanel, 7.7);
+		
+		Button btnNewButton = new Button("New button");
+		btnNewButton.setText("Zoom out");
+		verticalPanel.add(btnNewButton);
+		
+//		SimplePanel simplePanel = new SimplePanel();
+//		simplePanel.setStyleName("center");
+//		dockLayoutPanel.add(simplePanel);
+		
+		
 		MapPanel mapPanel = new MapPanel();
-		rootPanel.add(mapPanel);
+		mapPanel.setStyleName("center");
+		dockLayoutPanel.add(mapPanel);
+		
+		Label lblStatusNormal = new Label("Status: normal");
+		rootPanel.add(lblStatusNormal, 101, 1);
+		lblStatusNormal.setSize("226px", "15px");
+
 		
 	}
-
-	
 }
