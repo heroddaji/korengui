@@ -208,8 +208,10 @@ public class VisualNode extends Node {
 	public void adjustText(float x, float y) {
 
 		// move text to middle of shape
+		int fontsize = 8;
+		textShape.setAttribute("font-size", new Integer(fontsize).toString());
 		float midShapeX = shape.getWidth().getBaseVal().getValue() / 2;
-		int halfTextLength = dpid.length() * 4;
+		int halfTextLength = dpid.length() * fontsize/4;
 
 		double moveLength = halfTextLength - midShapeX;
 
@@ -219,7 +221,7 @@ public class VisualNode extends Node {
 		textShape.getX().getBaseVal().clear();
 		textShape.getX().getBaseVal().appendItem(xCoord);
 		
-		OMSVGLength yCoord = svg.createSVGLength(OMSVGLength.SVG_LENGTHTYPE_PX, y);
+		OMSVGLength yCoord = svg.createSVGLength(OMSVGLength.SVG_LENGTHTYPE_PX, y+fontsize);
 		textShape.getY().getBaseVal().clear();
 		textShape.getY().getBaseVal().appendItem(yCoord);
 

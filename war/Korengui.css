@@ -5,6 +5,8 @@
 	color: #711111;
 	margin: 40px 0px 70px;
 	text-align: center;
+	border-style:solid;
+	border-width:5px;
 }
 
 /** Example rules used by the template application (remove for your app) */
@@ -40,5 +42,5 @@ h1 {
 }
 .center {
 	
-	background-color: yellow;
+	
 }

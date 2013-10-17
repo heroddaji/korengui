@@ -11,7 +11,9 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
@@ -20,6 +22,9 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.HorizontalSplitPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -49,29 +54,38 @@ public class Korengui implements EntryPoint {
 		// Use RootPanel.get() to get the entire body element
 		RootPanel rootPanel = RootPanel.get();
 		
-		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.EM);
-		rootPanel.add(dockLayoutPanel, 0, 22);
-		dockLayoutPanel.setSize("686px", "471px");
+		VerticalPanel verticalPanel_1 = new VerticalPanel();
+		rootPanel.add(verticalPanel_1);
 		
-		VerticalPanel verticalPanel = new VerticalPanel();
-		dockLayoutPanel.addWest(verticalPanel, 7.7);
+		MenuBar menuBar = new MenuBar(false);
+		verticalPanel_1.add(menuBar);
+		menuBar.setWidth("616px");
+		MenuBar submenu = new MenuBar();
+		submenu.addItem("New", new MenuBar());
+		MenuItem fileMenu = new MenuItem("File",submenu);
+		menuBar.addItem(fileMenu);
 		
-		Button btnNewButton = new Button("New button");
-		btnNewButton.setText("Zoom out");
-		verticalPanel.add(btnNewButton);
+		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		verticalPanel_1.add(horizontalPanel);
 		
-//		SimplePanel simplePanel = new SimplePanel();
-//		simplePanel.setStyleName("center");
-//		dockLayoutPanel.add(simplePanel);
+		Button btnNewButton_1 = new Button("New button");
+		btnNewButton_1.setText("Send");
+		horizontalPanel.add(btnNewButton_1);
 		
+		Button btnNewButton_2 = new Button("New button");
+		btnNewButton_2.setText("Receive");
+		horizontalPanel.add(btnNewButton_2);
+		
+		Button btnNewButton_3 = new Button("New button");
+		btnNewButton_3.setText("zoom out");
+		horizontalPanel.add(btnNewButton_3);
+		
+		SplitLayoutPanel splitLayoutPanel = new SplitLayoutPanel();
+		verticalPanel_1.add(splitLayoutPanel);
+		splitLayoutPanel.setSize("617px", "479px");
 		
 		MapPanel mapPanel = new MapPanel();
-		mapPanel.setStyleName("center");
-		dockLayoutPanel.add(mapPanel);
-		
-		Label lblStatusNormal = new Label("Status: normal");
-		rootPanel.add(lblStatusNormal, 101, 1);
-		lblStatusNormal.setSize("226px", "15px");
+		splitLayoutPanel.addWest(mapPanel, 500.0);
 
 		
 	}
