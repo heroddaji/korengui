@@ -37,17 +37,18 @@ import com.tranhoangdai.korengui.client.MapPanel;
 public class VisualNode extends Node {
 
 	String imageHref = GWT.getModuleBaseURL() + "images/router.svg";
-	OMSVGImageElement shape;	
+	OMSVGImageElement shape;
 	boolean dragging = false;
 	OMSVGPoint beforeMovePoint = null;
 	private boolean isScaleUp = false;
+
 	public VisualNode() {
 	}
 
 	public VisualNode(String ip, int x, int y) {
 		super(ip, x, y);
 		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
-		
+		textShape = new OMSVGTextElement(x, y, OMSVGLength.SVG_LENGTHTYPE_PX, ip);
 	}
 
 	protected void setupEventHandler() {
@@ -91,7 +92,7 @@ public class VisualNode extends Node {
 			}
 		});
 	}
-	
+
 	private void handleMouseDownEvent(MouseDownEvent event) {
 		dragging = true;
 		beforeMovePoint = getLocalCoordinates(event);
@@ -106,7 +107,7 @@ public class VisualNode extends Node {
 			return;
 		}
 		move(event);
-		
+
 		event.stopPropagation();
 		event.preventDefault();
 	}
@@ -114,11 +115,11 @@ public class VisualNode extends Node {
 	private void handleMouseUpEvent(MouseUpEvent event) {
 		dragging = false;
 		DOMHelper.releaseCaptureElement();
-		
-		if(isScaleUp){
+
+		if (isScaleUp) {
 			scaleDown(event);
 		}
-		
+
 		event.stopPropagation();
 		event.preventDefault();
 	}
@@ -206,36 +207,22 @@ public class VisualNode extends Node {
 
 	public void adjustText(float x, float y) {
 
+		// move text to middle of shape
+		float midShapeX = shape.getWidth().getBaseVal().getValue() / 2;
+		int halfTextLength = dpid.length() * 4;
+
+		double moveLength = halfTextLength - midShapeX;
+
 		// move text method 1
 		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
-		OMSVGLength xCoord = svg.createSVGLength(OMSVGLength.SVG_LENGTHTYPE_PX, x - shape.getWidth().getBaseVal().getValue() / 4);
+		OMSVGLength xCoord = svg.createSVGLength(OMSVGLength.SVG_LENGTHTYPE_PX, (float) (x - moveLength));
 		textShape.getX().getBaseVal().clear();
 		textShape.getX().getBaseVal().appendItem(xCoord);
+		
 		OMSVGLength yCoord = svg.createSVGLength(OMSVGLength.SVG_LENGTHTYPE_PX, y);
 		textShape.getY().getBaseVal().clear();
 		textShape.getY().getBaseVal().appendItem(yCoord);
-		// textShape.get
-		// textShape.getElement().setInnerText(ipAddress); text is too big
-		// OMText textValue = (OMText) textShape.getFirstChild();
-		// textValue.setData(ipAddress+"hjhj");
 
-		// method 2
-		// OMSVGPoint afterMovePoint = getLocalCoordinates(event);
-		// OMSVGSVGElement svg2 = textShape.getOwnerSVGElement();
-		// OMSVGTransformList transforms =
-		// textShape.getTransform().getBaseVal();
-		// OMSVGTransform t = svg2.createSVGTransform();
-		// t.setTranslate(event.getX(), event.getY());
-		// transforms.appendItem(t);
-
-		//
-		// OMSVGTransformList transforms = gElement.getTransform().getBaseVal();
-		// OMSVGTransform t = svg.createSVGTransform();
-		// t.setTranslate(50, 50);
-		// transforms.appendItem(t);
-		// OMSVGTransform s = svg.createSVGTransform();
-		// s.setScale(1, 1);
-		// transforms.appendItem(s);
 	}
 
 	@Override

@@ -33,9 +33,13 @@ public class NodeLink extends SvgElement implements Serializable {
 
 	public void findAndMatchNode(Map<String, Node> nodes) {
 		startNode = nodes.get(srcSwitch);
-		startNode.addLink(this);
+		if (startNode != null) {
+			startNode.addLink(this);
+		}
 		endNode = nodes.get(dstSwitch);
-		endNode.addLink(this);
+		if (endNode != null) {
+			endNode.addLink(this);
+		}
 	}
 
 	public void adjust() {

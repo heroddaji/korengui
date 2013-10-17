@@ -15,7 +15,7 @@ public class EndHost extends VisualNode {
 		super(ip, x, y);
 		imageHref = GWT.getModuleBaseURL() + "images/endhost.svg";
 		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
-		textShape = new OMSVGTextElement(x - shape.getWidth().getBaseVal().getValue() / 4, y, OMSVGLength.SVG_LENGTHTYPE_PX, ip);
+		//textShape = new OMSVGTextElement(x - shape.getWidth().getBaseVal().getValue() / 4, y, OMSVGLength.SVG_LENGTHTYPE_PX, ip);
 		//adjustText(x, y);
 		setupEventHandler();
 	}
