@@ -14,7 +14,7 @@ public class Gateway extends VisualNode {
 
 	public Gateway(String ip, int x, int y) {
 		super(ip, x, y);
-		imageHref = GWT.getModuleBaseURL() + "images/router.svg";
+		imageHref = "images/router.svg";
 		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
 		setHarole("Gateway");
 		setupEventHandler();

@@ -36,7 +36,7 @@ import com.tranhoangdai.korengui.client.MapPanel;
 @SuppressWarnings("unused")
 public class VisualNode extends Node {
 
-	String imageHref = GWT.getModuleBaseURL() + "images/router.svg";
+	String imageHref = "images/router.svg";
 	OMSVGImageElement shape;
 	boolean dragging = false;
 	OMSVGPoint beforeMovePoint = null;
@@ -46,7 +46,7 @@ public class VisualNode extends Node {
 	}
 
 	public VisualNode(String ip, int x, int y) {
-		super(ip, x, y);
+		super(ip, x, y);		
 		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
 		textShape = new OMSVGTextElement(x, y, OMSVGLength.SVG_LENGTHTYPE_PX, ip);
 		setupEventHandler();

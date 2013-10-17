@@ -13,7 +13,7 @@ public class EndHost extends VisualNode {
 
 	public EndHost(String ip, int x, int y) {
 		super(ip, x, y);
-		imageHref = GWT.getModuleBaseURL() + "images/endhost.svg";
+		imageHref = "images/endhost.svg";
 		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
 		setHarole("End-Host");
 		setupEventHandler();
