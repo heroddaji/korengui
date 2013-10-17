@@ -15,7 +15,7 @@ public class Switch extends VisualNode {
 		super(ip, x, y);
 		imageHref = GWT.getModuleBaseURL() + "images/switch.svg";
 		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
-		textShape = new OMSVGTextElement(x, y, OMSVGLength.SVG_LENGTHTYPE_PX, ip);		
+		setHarole("Switch");
 		setupEventHandler();
 		
 	}

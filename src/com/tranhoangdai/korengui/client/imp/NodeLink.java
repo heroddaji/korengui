@@ -18,6 +18,70 @@ public class NodeLink extends SvgElement implements Serializable {
 
 	String srcSwitch;
 	int srcPort;
+	public Node getStartNode() {
+		return startNode;
+	}
+
+	public void setStartNode(Node startNode) {
+		this.startNode = startNode;
+	}
+
+	public Node getEndNode() {
+		return endNode;
+	}
+
+	public void setEndNode(Node endNode) {
+		this.endNode = endNode;
+	}
+
+	public String getSrcSwitch() {
+		return srcSwitch;
+	}
+
+	public void setSrcSwitch(String srcSwitch) {
+		this.srcSwitch = srcSwitch;
+	}
+
+	public int getSrcPort() {
+		return srcPort;
+	}
+
+	public void setSrcPort(int srcPort) {
+		this.srcPort = srcPort;
+	}
+
+	public String getDstSwitch() {
+		return dstSwitch;
+	}
+
+	public void setDstSwitch(String dstSwitch) {
+		this.dstSwitch = dstSwitch;
+	}
+
+	public int getDstPort() {
+		return dstPort;
+	}
+
+	public void setDstPort(int dstPort) {
+		this.dstPort = dstPort;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getDirection() {
+		return direction;
+	}
+
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+
 	String dstSwitch;
 	int dstPort;
 	String type;

@@ -11,8 +11,8 @@ import com.google.gwt.event.dom.client.MouseEvent;
 
 public abstract class Node extends SvgElement {
 
-	int WIDTH = 40;
-	int HEIGHT = 40;
+	int WIDTH = 60;
+	int HEIGHT = 60;
 	
 	HashMap<Integer, NodeLink> localLinks = new HashMap<Integer, NodeLink>();
 	List<NodePort> ports = new ArrayList<NodePort>();

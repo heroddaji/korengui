@@ -1,37 +1,35 @@
 package com.tranhoangdai.korengui.client;
 
-import org.vectomatic.dom.svg.OMSVGCircleElement;
-import org.vectomatic.dom.svg.OMSVGDocument;
-import org.vectomatic.dom.svg.OMSVGLength;
-import org.vectomatic.dom.svg.OMSVGSVGElement;
-import org.vectomatic.dom.svg.utils.OMSVGParser;
-import org.vectomatic.dom.svg.utils.SVGConstants;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.MenuItem;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.SplitLayoutPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.dev.Link;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MenuBar;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.HorizontalSplitPanel;
+import com.google.gwt.user.client.ui.MenuItem;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SplitLayoutPanel;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.tranhoangdai.korengui.client.imp.Node;
+import com.tranhoangdai.korengui.client.imp.NodeEvent;
+import com.tranhoangdai.korengui.client.imp.NodeLink;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Korengui implements EntryPoint {
-
-	
+public class Korengui implements EntryPoint, NodeEvent {
 
 	/**
 	 * The message displayed to the user when the server cannot be reached or
@@ -39,54 +37,166 @@ public class Korengui implements EntryPoint {
 	 */
 	private static final String SERVER_ERROR = "An error occurred while " + "attempting to contact the server. Please check your network " + "connection and try again.";
 
-	/**
-	 * Create a remote service proxy to talk to the server-side Greeting
-	 * service.
-	 */
-	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
+	CellTable<Node> cellTableNode;
+	CellTable<NodeLink> cellTableLink;
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-	
+
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
 		RootPanel rootPanel = RootPanel.get();
-		
-		VerticalPanel verticalPanel_1 = new VerticalPanel();
-		rootPanel.add(verticalPanel_1);
-		
+
+		VerticalPanel verticalPanel = new VerticalPanel();
+		verticalPanel.setWidth("100%");
+		rootPanel.add(verticalPanel);
+
 		MenuBar menuBar = new MenuBar(false);
-		verticalPanel_1.add(menuBar);
-		menuBar.setWidth("616px");
+		verticalPanel.add(menuBar);
+		menuBar.setWidth("100%");
 		MenuBar submenu = new MenuBar();
 		submenu.addItem("New", new MenuBar());
-		MenuItem fileMenu = new MenuItem("File",submenu);
+		MenuItem fileMenu = new MenuItem("File", submenu);
 		menuBar.addItem(fileMenu);
-		
+
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		verticalPanel_1.add(horizontalPanel);
-		
-		Button btnNewButton_1 = new Button("New button");
-		btnNewButton_1.setText("Send");
-		horizontalPanel.add(btnNewButton_1);
-		
+		verticalPanel.add(horizontalPanel);
+
+		Button btnTopology = new Button("Get topoloy");
+		btnTopology.setText("Get topology");
+		horizontalPanel.add(btnTopology);
+
 		Button btnNewButton_2 = new Button("New button");
 		btnNewButton_2.setText("Receive");
 		horizontalPanel.add(btnNewButton_2);
-		
+
 		Button btnNewButton_3 = new Button("New button");
 		btnNewButton_3.setText("zoom out");
 		horizontalPanel.add(btnNewButton_3);
-		
-		SplitLayoutPanel splitLayoutPanel = new SplitLayoutPanel();
-		verticalPanel_1.add(splitLayoutPanel);
-		splitLayoutPanel.setSize("617px", "479px");
-		
-		MapPanel mapPanel = new MapPanel();
-		splitLayoutPanel.addWest(mapPanel, 500.0);
 
-		
+		SplitLayoutPanel splitLayoutPanel = new SplitLayoutPanel();
+		splitLayoutPanel.setHeight(new Integer(Window.getClientHeight() - 100).toString() + "px");
+		verticalPanel.add(splitLayoutPanel);
+
+		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
+		splitLayoutPanel.addSouth(horizontalPanel_1, 20);
+
+		Label lblStatus = new Label("Status:");
+		horizontalPanel_1.add(lblStatus);
+
+		final MapPanel mapPanel = new MapPanel();
+		splitLayoutPanel.addWest(mapPanel, verticalPanel.getOffsetWidth() / 2);
+
+		TabLayoutPanel tabLayoutPanel = new TabLayoutPanel(1.5, Unit.EM);
+
+		VerticalPanel verticalPanel_tab1 = new VerticalPanel();
+		tabLayoutPanel.add(verticalPanel_tab1, "Nodes/Links", false);
+		verticalPanel_tab1.setWidth("100%");
+		splitLayoutPanel.addEast(tabLayoutPanel, verticalPanel.getOffsetWidth() / 2);
+
+		// add node event to this class
+		mapPanel.setNodeEvent(this);
+
+		// button events
+		btnTopology.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				mapPanel.loadNodes();
+			}
+		});
+
+		setupCellTables(verticalPanel_tab1);
+
 	}
+
+	private void setupCellTables(Panel panel) {
+		// table for display nodes information
+		Label nodeLabel = new Label("Nodes information");
+		panel.add(nodeLabel);
+		
+		cellTableNode = new CellTable<Node>();
+		panel.add(cellTableNode);
+		TextColumn<Node> nodeIdColumn = new TextColumn<Node>() {
+
+			@Override
+			public String getValue(Node object) {
+				return object.getDpid();
+			}
+		};
+
+		TextColumn<Node> nodeTypeColumn = new TextColumn<Node>() {
+
+			@Override
+			public String getValue(Node object) {
+				return object.getHarole();
+			}
+		};
+
+		cellTableNode.addColumn(nodeIdColumn, "ID");
+		cellTableNode.addColumn(nodeTypeColumn, "Type");
+
+		//add empty lable for nice layout
+		Label emptyLabel= new Label("");
+		emptyLabel.setHeight("50px");
+		panel.add(emptyLabel);
+		
+		// table for display link
+		Label linkLabel = new Label("Links information");
+		panel.add(linkLabel);
+		cellTableLink = new CellTable<NodeLink>();
+		panel.add(cellTableLink);
+		TextColumn<NodeLink> linkSrcColumn = new TextColumn<NodeLink>() {
+
+			@Override
+			public String getValue(NodeLink object) {
+				return object.getSrcSwitch();
+			}
+		};
+		
+		TextColumn<NodeLink> linkSrcPortColumn = new TextColumn<NodeLink>() {
+
+			@Override
+			public String getValue(NodeLink object) {
+				return new Integer(object.getSrcPort()).toString();
+			}
+		};
+
+		TextColumn<NodeLink> linkDestColumn = new TextColumn<NodeLink>() {
+
+			@Override
+			public String getValue(NodeLink object) {
+				return object.getDstSwitch();
+			}
+		};
+		
+		TextColumn<NodeLink> linkDestPortColumn = new TextColumn<NodeLink>() {
+
+			@Override
+			public String getValue(NodeLink object) {
+				return new Integer(object.getDstPort()).toString();
+			}
+		};
+		
+		cellTableLink.addColumn(linkSrcColumn, "src-switch");
+		cellTableLink.addColumn(linkSrcPortColumn, "src-port");		
+		cellTableLink.addColumn(linkDestColumn, "dst-switch");
+		cellTableLink.addColumn(linkDestPortColumn, "dst-port");
+
+	}
+
+	@Override
+	public void gotTopology(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
+		cellTableNode.setRowCount(nodes.size());
+		List<Node> nodeList = new ArrayList<Node>();
+		nodeList.addAll(nodes.values());
+		cellTableNode.setRowData(0, nodeList);
+		
+		cellTableLink.setRowCount(links.size());
+		List<NodeLink> linkList = new ArrayList<NodeLink>();
+		linkList.addAll(links.values());
+		cellTableLink.setRowData(0, linkList);
+
+	}
+
 }

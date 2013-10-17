@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.tranhoangdai.korengui.client.imp.Node;
+import com.tranhoangdai.korengui.client.imp.NodeEvent;
 import com.tranhoangdai.korengui.client.imp.NodeLink;
 import com.tranhoangdai.korengui.client.imp.Switch;
 import com.tranhoangdai.korengui.client.imp.VisualNode;
@@ -31,45 +32,57 @@ import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 public class MapPanel extends AbsolutePanel {
 
 	public static MapPanel INSTANCE = GWT.create(MapPanel.class);
-
-	OMSVGSVGElement svg = null;		
-	Map<String, Node>nodesmap = new HashMap<String,Node>();
-	Map<Integer, NodeLink> links = new HashMap<Integer,NodeLink>();
+	
+	NodeEvent nodeEvent;
+	
+	OMSVGSVGElement svg = null;
+	Map<String, Node> nodesmap = new HashMap<String, Node>();
+	Map<Integer, NodeLink> links = new HashMap<Integer, NodeLink>();
 
 	public MapPanel() {
 		super();
-
+	}
+	
+	public void setNodeEvent(NodeEvent e){
+		this.nodeEvent = e;
+	}
+	
+	public void loadNodes(){
+		//avoid multiple reloads from button
+		if(svg != null){
+			return;
+		}
 		OMSVGDocument doc = OMSVGParser.currentDocument();
 		svg = doc.createSVGSVGElement();
 
-		svg.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, 600);
-		svg.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, 600);
-		
+		svg.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, this.getOffsetWidth());
+		svg.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, this.getOffsetHeight());
+
 		RootPanel rootPanel = RootPanel.get();
 		this.getElement().appendChild(svg.getElement());
-	//	getTopologyLinks();
+		// getTopologyLinks();
 		getTopologySwitches();
-		
 	}
-	
-	private void layoutNodes(){
-		
-		float radius = 100;
-		float center = 200;
+
+	private void layoutNodes() {
+
+		float radius = this.getOffsetWidth()/4;
+		float center = this.getOffsetWidth()/2;
 		float slice = (float) (2 * Math.PI / nodesmap.size());
-		
+
 		int counter = 1;
-		for(Node node: nodesmap.values()){
-			float x = (float) (radius * Math.cos(counter * slice) + center);  
+		for (Node node : nodesmap.values()) {
+			float x = (float) (radius * Math.cos(counter * slice) + center);
 			float y = (float) (radius * Math.sin(counter * slice) + center);
-			((VisualNode)node).setX(x);
-			((VisualNode)node).setY(y);
-			((VisualNode)node).adjustText(x, y); //must do this to reset the text location
-			++counter;			
-			svg.appendChild(node.getShape());			
+			((VisualNode) node).setX(x);
+			((VisualNode) node).setY(y);
+			((VisualNode) node).adjustText(x, y); // must do this to reset the
+													// text location
+			++counter;
+			svg.appendChild(node.getShape());
 			svg.appendChild(node.getTextShape());
 		}
-		
+
 		getTopologyLinks();
 	}
 
@@ -83,15 +96,15 @@ public class MapPanel extends AbsolutePanel {
 
 				JSONValue value = JSONParser.parseStrict(result);
 				JSONArray array = value.isArray();
-				
+
 				if (array != null) {
-					for(int i = 0 ; i < array.size(); i++){
-						JSONObject obj = array.get(i).isObject();						
-						Switch theSwitch = new Switch(obj.get("dpid").isString().stringValue(), 0, 0);						
+					for (int i = 0; i < array.size(); i++) {
+						JSONObject obj = array.get(i).isObject();
+						Switch theSwitch = new Switch(obj.get("dpid").isString().stringValue(), 0, 0);
 						nodesmap.put(theSwitch.getDpid(), theSwitch);
 					}
 				}
-				
+
 				layoutNodes();
 			}
 
@@ -109,25 +122,35 @@ public class MapPanel extends AbsolutePanel {
 		TopologyServiceAsync topo = GWT.create(TopologyService.class);
 
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
-			
+
 			@Override
 			public void onSuccess(String result) {
 
 				JSONValue value = JSONParser.parseStrict(result);
 				JSONArray array = value.isArray();
 				if (array != null) {
-					for(int i = 0 ; i < array.size(); i++){
-						JSONObject obj = array.get(i).isObject();
-						String srcIp = obj.get("src-switch").isString().stringValue();
-						int srcport = (int) obj.get("src-port").isNumber().doubleValue();
-						String dstIp = obj.get("dst-switch").isString().stringValue();
-						int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
-						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
-						link.findAndMatchNode(nodesmap);
-						link.adjust();
-						links.put(link.getId(), link);
-						
-						svg.getNode().insertFirst(link.getShape().getNode());
+					for (int i = 0; i < array.size(); i++) {
+						try {
+
+							JSONObject obj = array.get(i).isObject();
+							String srcIp = obj.get("src-switch").isString().stringValue();
+							int srcport = (int) obj.get("src-port").isNumber().doubleValue();
+							String dstIp = obj.get("dst-switch").isString().stringValue();
+							int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
+							NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
+							link.findAndMatchNode(nodesmap);
+							link.adjust();
+							links.put(link.getId(), link);
+							if (link.getShape() != null) {
+								svg.getNode().insertFirst(link.getShape().getNode());
+							}
+							
+							//after getting all nodes and linsk, notify the event for callback implementation
+							nodeEvent.gotTopology(nodesmap,links);
+							
+						} catch (Exception e) {
+							System.out.println(e);
+						}
 					}
 				}
 			}

@@ -1,13 +1,6 @@
 package com.tranhoangdai.korengui.server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.tranhoangdai.korengui.client.imp.Dummy;
 import com.tranhoangdai.korengui.client.service.TopologyService;
 
 public class TopologyServiceImpl extends RemoteServiceServlet implements TopologyService {
@@ -63,12 +56,6 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 //		          		 
 //		return inputLine2;
 		
-	}
-
-	public Dummy dummy() {
-		Dummy dum = new Dummy();
-		// dum.setEm("haha");
-		return dum;
 	}
 
 }
