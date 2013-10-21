@@ -18,8 +18,7 @@ public class Switch extends VisualNode {
 		setupTextShape();
 		setupGroupShape();
 		setupEventHandler();
-		setHarole("Switch");
-		
+		setHarole("Switch");		
 		
 	}
 }

@@ -6,14 +6,19 @@ import java.util.Map;
 import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGLineElement;
+import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
 public class NodeLink extends SvgElement implements Serializable {
 
 	private static int UNIQUEID = -1;
 	OMSVGLineElement line = null;
+	OMSVGTextElement textShapeSrcPort;
+	OMSVGTextElement textShapeDstPort;
+	
 	Node startNode = null;
 	Node endNode = null;
+	
 	int id;
 
 	String srcSwitch;
@@ -115,6 +120,7 @@ public class NodeLink extends SvgElement implements Serializable {
 		float y1 = startNode.getY();		
 		float width1 = ((OMSVGImageElement) startNode.getShape()).getWidth().getBaseVal().getValue();
 		float height1 = ((OMSVGImageElement) startNode.getShape()).getHeight().getBaseVal().getValue();
+		
 
 		float x2 = endNode.getX();
 		float y2 = endNode.getY();

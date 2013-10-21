@@ -48,10 +48,7 @@ public class VisualNode extends Node {
 
 	public VisualNode(String ip, int x, int y) {
 		super(ip, x, y);
-//		 setupShape();
-//		 setupTextShape();
-//		 setupGroupShape();
-//		 setupEventHandler();
+
 	}
 
 	protected void setupShape() {
@@ -161,15 +158,17 @@ public class VisualNode extends Node {
 
 	private void scaleDown(MouseEvent<?> event) {
 		isScaleUp = false;
+		
 		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
-		float x = ((shape.getX().getBaseVal().getValue() + shape.getWidth().getBaseVal().getValue() / 2) * (1 - scaleFactor)) / scaleFactor;
-		float y = ((shape.getY().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (1 - scaleFactor)) / scaleFactor;
-		OMSVGTransform t1 = svg.createSVGTransform();
+		float x = (shape.getX().getBaseVal().getValue()+ shape.getWidth().getBaseVal().getValue() / 2) * (1 -scaleFactor);
+		float y = (shape.getX().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (1 -scaleFactor);
+		OMSVGTransform t1 = svg.createSVGTransform();		
+		OMSVGTransform t2 = svg.createSVGTransform();		
+		OMSVGTransformList xforms = groupShape.getTransform().getBaseVal();
+		xforms.appendItem(t1);
+		xforms.appendItem(t2);
 		t1.setTranslate(-x, -y);
-		OMSVGTransform t2 = svg.createSVGTransform();
 		t2.setScale(1.0f / scaleFactor, 1.0f / scaleFactor);
-		shape.getTransform().getBaseVal().appendItem(t1);
-		shape.getTransform().getBaseVal().appendItem(t2);
 
 		event.stopPropagation();
 		event.preventDefault();
@@ -177,15 +176,18 @@ public class VisualNode extends Node {
 
 	private void scaleUp(MouseEvent<?> event) {
 		isScaleUp = true;
+		
 		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
-		float x = (shape.getX().getBaseVal().getValue() + shape.getWidth().getBaseVal().getValue() / 2) * (scaleFactor - 1);
-		float y = (shape.getY().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (scaleFactor - 1);
-		OMSVGTransform t1 = svg.createSVGTransform();
+		float x = (shape.getX().getBaseVal().getValue()+ shape.getWidth().getBaseVal().getValue() / 2) * (scaleFactor - 1);
+		float y = (shape.getX().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (scaleFactor - 1);
+		OMSVGTransform t1 = svg.createSVGTransform();		
+		OMSVGTransform t2 = svg.createSVGTransform();		
+		OMSVGTransformList xforms = groupShape.getTransform().getBaseVal();
+		xforms.appendItem(t1);
+		xforms.appendItem(t2);
 		t1.setTranslate(-x, -y);
-		OMSVGTransform t2 = svg.createSVGTransform();
-		t2.setScale(scaleFactor, scaleFactor);
-		shape.getTransform().getBaseVal().appendItem(t1);
-		shape.getTransform().getBaseVal().appendItem(t2);
+		t2.setScale(scaleFactor, scaleFactor);		
+		
 		event.stopPropagation();
 		event.preventDefault();
 	}

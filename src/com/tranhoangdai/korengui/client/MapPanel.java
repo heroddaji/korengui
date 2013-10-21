@@ -2,6 +2,7 @@ package com.tranhoangdai.korengui.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGDocument;
@@ -11,6 +12,7 @@ import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
@@ -19,7 +21,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.imp.Node;
 import com.tranhoangdai.korengui.client.imp.NodeEvent;
 import com.tranhoangdai.korengui.client.imp.NodeLink;
@@ -29,25 +33,52 @@ import com.tranhoangdai.korengui.client.service.TopologyService;
 import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 
 @SuppressWarnings("unused")
-public class MapPanel extends AbsolutePanel {
+public class MapPanel extends TabLayoutPanel {
+
+	
 
 	public static MapPanel INSTANCE = GWT.create(MapPanel.class);
 
 	NodeEvent nodeEvent;
-
 	OMSVGSVGElement svg = null;
 	Map<String, Node> nodesmap = new HashMap<String, Node>();
 	Map<Integer, NodeLink> links = new HashMap<Integer, NodeLink>();
-
-	public MapPanel() {
-		super();
-	}
+	Map<String,Panel> tabIndex = new HashMap<String,Panel>();
 
 	public void setNodeEvent(NodeEvent e) {
 		this.nodeEvent = e;
 	}
+	public MapPanel(double barHeight, Unit barUnit) {
+		super(barHeight, barUnit);
+		init();
+	}
 
-	public void loadNodes() {
+	public MapPanel() {
+		super(1.5, Unit.EM);
+		init();
+	}
+	
+	private void init(){
+		AbsolutePanel homeTab = new AbsolutePanel();
+		tabIndex.put("Global",homeTab);
+		int i = 0;
+		for(Panel panel: tabIndex.values()){
+			this.add(panel, (String)tabIndex.keySet().toArray()[i]);
+			i++;
+		}
+		
+		initFirstTab();
+	}
+	
+	private void initFirstTab(){
+		for(Panel panel: tabIndex.values()){
+			loadNodes(panel);
+			//return immediatly
+			return;
+		}
+	}
+
+	public void loadNodes(Panel firstTabPanel) {
 		// avoid multiple reloads from button
 		if (svg != null) {
 			return;
@@ -58,8 +89,7 @@ public class MapPanel extends AbsolutePanel {
 		svg.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, this.getOffsetWidth());
 		svg.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, this.getOffsetHeight());
 
-		RootPanel rootPanel = RootPanel.get();
-		this.getElement().appendChild(svg.getElement());
+		firstTabPanel.getElement().appendChild(svg.getElement());
 		// getTopologyLinks();
 		getTopologySwitches();
 	}
@@ -75,8 +105,8 @@ public class MapPanel extends AbsolutePanel {
 
 			for (Node node : nodesmap.values()) {
 				float x = (float) (radius * Math.cos(counter * slice) + center);
-				float y = (float) (radius * Math.sin(counter * slice) + center);				
-				((VisualNode) node).translateTo(x, y); 
+				float y = (float) (radius * Math.sin(counter * slice) + center);
+				((VisualNode) node).translateTo(x, y);
 				++counter;
 				svg.appendChild(node.getGroupShape());
 			}

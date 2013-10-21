@@ -86,7 +86,7 @@ public class Korengui implements EntryPoint, NodeEvent {
 		Label lblStatus = new Label("Status:");
 		horizontalPanel_1.add(lblStatus);
 
-		final MapPanel mapPanel = new MapPanel();
+		final MapPanel mapPanel = new MapPanel(1.5, Unit.EM);
 		splitLayoutPanel.addWest(mapPanel, verticalPanel.getOffsetWidth() / 2);
 
 		TabLayoutPanel tabLayoutPanel = new TabLayoutPanel(1.5, Unit.EM);
