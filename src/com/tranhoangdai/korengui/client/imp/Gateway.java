@@ -14,10 +14,13 @@ public class Gateway extends VisualNode {
 
 	public Gateway(String ip, int x, int y) {
 		super(ip, x, y);
-		imageHref = "images/router.svg";
-		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
-		setHarole("Gateway");
+		imageHref = "images/router.svg";	
+		setupShape();
+		setupTextShape();
+		setupGroupShape();
 		setupEventHandler();
+		setHarole("Gateway");
+		
 		
 	}
 

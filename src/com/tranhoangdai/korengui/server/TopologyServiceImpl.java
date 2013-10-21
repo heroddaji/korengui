@@ -34,7 +34,7 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 
 	public String getTopologySwitches(){
 		
-		String sample = "[{\"dpid\":\"00:00:00:00:00:00:00:02\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:03\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:04\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:05\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:06\",\"dst-port\":2}]";
+		String sample = "[{\"dpid\":\"00:00:00:00:00:00:00:01\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:02\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:03\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:04\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:05\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:06\",\"dst-port\":2}]";
 		
 		 return sample;
 		

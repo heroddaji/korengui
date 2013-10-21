@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.tools.ant.taskdefs.condition.Os;
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGElement;
+import org.vectomatic.dom.svg.OMSVGGElement;
 import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGMatrix;
@@ -46,10 +47,43 @@ public class VisualNode extends Node {
 	}
 
 	public VisualNode(String ip, int x, int y) {
-		super(ip, x, y);		
+		super(ip, x, y);
+//		 setupShape();
+//		 setupTextShape();
+//		 setupGroupShape();
+//		 setupEventHandler();
+	}
+
+	protected void setupShape() {
 		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
-		textShape = new OMSVGTextElement(x, y, OMSVGLength.SVG_LENGTHTYPE_PX, ip);
-		setupEventHandler();
+	}
+
+	protected void setupTextShape() {
+		textShape = new OMSVGTextElement(x, y, OMSVGLength.SVG_LENGTHTYPE_PX, dpid);
+		// move text to middle of shape
+		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
+		int fontsize = 9;
+		textShape.setAttribute("font-size", new Integer(fontsize).toString());
+		float midShapeX = shape.getWidth().getBaseVal().getValue() / 2;
+		int halfTextLength = dpid.length() * fontsize / 4;
+
+		double moveLength = halfTextLength - midShapeX;
+
+		// move text method 1
+		OMSVGLength xCoord = svg.createSVGLength(OMSVGLength.SVG_LENGTHTYPE_PX, (float) (x - moveLength));
+		textShape.getX().getBaseVal().clear();
+		textShape.getX().getBaseVal().appendItem(xCoord);
+
+		OMSVGLength yCoord = svg.createSVGLength(OMSVGLength.SVG_LENGTHTYPE_PX, y + fontsize/2);
+		textShape.getY().getBaseVal().clear();
+		textShape.getY().getBaseVal().appendItem(yCoord);
+
+	}
+
+	protected void setupGroupShape() {
+		groupShape = new OMSVGGElement();
+		groupShape.appendChild(shape);
+		groupShape.appendChild(textShape);		
 	}
 
 	protected void setupEventHandler() {
@@ -172,40 +206,35 @@ public class VisualNode extends Node {
 	}
 
 	@Override
-	public void move(MouseEvent<?> event) {
-	
+	public OMSVGElement getGroupShape() {
+		return groupShape;
 	}
 
-	public void adjustText(float x, float y) {
+	@Override
+	public void move(MouseEvent<?> event) {
 
-		// move text to middle of shape
-		int fontsize = 9;
-		textShape.setAttribute("font-size", new Integer(fontsize).toString());
-		float midShapeX = shape.getWidth().getBaseVal().getValue() / 2;
-		int halfTextLength = dpid.length() * fontsize/4;
+	}
 
-		double moveLength = halfTextLength - midShapeX;
-
-		// move text method 1
+	public void translateTo(float x, float y) {
+		setX(x);
+		setY(y);
 		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
-		OMSVGLength xCoord = svg.createSVGLength(OMSVGLength.SVG_LENGTHTYPE_PX, (float) (x - moveLength));
-		textShape.getX().getBaseVal().clear();
-		textShape.getX().getBaseVal().appendItem(xCoord);
-		
-		OMSVGLength yCoord = svg.createSVGLength(OMSVGLength.SVG_LENGTHTYPE_PX, y+fontsize);
-		textShape.getY().getBaseVal().clear();
-		textShape.getY().getBaseVal().appendItem(yCoord);
+		OMSVGTransform t;
+		t = svg.createSVGTransform();
+		OMSVGTransformList xforms = groupShape.getTransform().getBaseVal();
+		xforms.appendItem(t);
+		t.setTranslate(x, y);
 
 	}
 
 	@Override
 	public void setX(float x) {
-		shape.getX().getBaseVal().setValue(x);
+		this.x = x;
 
 	}
 
 	public void setY(float y) {
-		shape.getY().getBaseVal().setValue(y);
+		this.y = y;
 
 	}
 }

@@ -153,4 +153,6 @@ public abstract class Node extends SvgElement {
 
 	}
 
+	public abstract OMSVGElement getGroupShape();
+
 }

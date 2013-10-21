@@ -32,9 +32,9 @@ import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 public class MapPanel extends AbsolutePanel {
 
 	public static MapPanel INSTANCE = GWT.create(MapPanel.class);
-	
+
 	NodeEvent nodeEvent;
-	
+
 	OMSVGSVGElement svg = null;
 	Map<String, Node> nodesmap = new HashMap<String, Node>();
 	Map<Integer, NodeLink> links = new HashMap<Integer, NodeLink>();
@@ -42,14 +42,14 @@ public class MapPanel extends AbsolutePanel {
 	public MapPanel() {
 		super();
 	}
-	
-	public void setNodeEvent(NodeEvent e){
+
+	public void setNodeEvent(NodeEvent e) {
 		this.nodeEvent = e;
 	}
-	
-	public void loadNodes(){
-		//avoid multiple reloads from button
-		if(svg != null){
+
+	public void loadNodes() {
+		// avoid multiple reloads from button
+		if (svg != null) {
 			return;
 		}
 		OMSVGDocument doc = OMSVGParser.currentDocument();
@@ -66,24 +66,26 @@ public class MapPanel extends AbsolutePanel {
 
 	private void layoutNodes() {
 
-		float radius = this.getOffsetWidth()/4;
-		float center = this.getOffsetWidth()/2;
+		float radius = this.getOffsetWidth() / 4;
+		float center = this.getOffsetWidth() / 2;
 		float slice = (float) (2 * Math.PI / nodesmap.size());
 
 		int counter = 1;
-		for (Node node : nodesmap.values()) {
-			float x = (float) (radius * Math.cos(counter * slice) + center);
-			float y = (float) (radius * Math.sin(counter * slice) + center);
-			((VisualNode) node).setX(x);
-			((VisualNode) node).setY(y);
-			((VisualNode) node).adjustText(x, y); // must do this to reset the
-													// text location
-			++counter;
-			svg.appendChild(node.getShape());
-			svg.appendChild(node.getTextShape());
-		}
+		try {
 
-		getTopologyLinks();
+			for (Node node : nodesmap.values()) {
+				float x = (float) (radius * Math.cos(counter * slice) + center);
+				float y = (float) (radius * Math.sin(counter * slice) + center);				
+				((VisualNode) node).translateTo(x, y); 
+				++counter;
+				svg.appendChild(node.getGroupShape());
+			}
+
+			getTopologyLinks();
+		} catch (Exception e) {
+			System.err.println(e);
+			int a = 0;
+		}
 	}
 
 	private void getTopologySwitches() {
@@ -144,10 +146,11 @@ public class MapPanel extends AbsolutePanel {
 							if (link.getShape() != null) {
 								svg.getNode().insertFirst(link.getShape().getNode());
 							}
-							
-							//after getting all nodes and linsk, notify the event for callback implementation
-							nodeEvent.gotTopology(nodesmap,links);
-							
+
+							// after getting all nodes and linsk, notify the
+							// event for callback implementation
+							nodeEvent.gotTopology(nodesmap, links);
+
 						} catch (Exception e) {
 							System.out.println(e);
 						}

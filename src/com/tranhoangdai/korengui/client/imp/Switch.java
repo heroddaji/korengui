@@ -13,11 +13,13 @@ public class Switch extends VisualNode {
 
 	public Switch(String ip, int x, int y) {
 		super(ip, x, y);
-		//imageHref = GWT.getModuleBaseForStaticFiles() + "images/switch.svg";
-		imageHref = "images/switch.svg";
-		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
-		setHarole("Switch");
+		imageHref = "images/switch.svg";		
+		setupShape();
+		setupTextShape();
+		setupGroupShape();
 		setupEventHandler();
+		setHarole("Switch");
+		
 		
 	}
 }

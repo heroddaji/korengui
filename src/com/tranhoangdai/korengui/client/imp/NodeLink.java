@@ -111,13 +111,13 @@ public class NodeLink extends SvgElement implements Serializable {
 			return;
 		}
 
-		float x1 = ((OMSVGImageElement) startNode.getShape()).getX().getBaseVal().getValue();
-		float y1 = ((OMSVGImageElement) startNode.getShape()).getY().getBaseVal().getValue();
+		float x1 = startNode.getX();
+		float y1 = startNode.getY();		
 		float width1 = ((OMSVGImageElement) startNode.getShape()).getWidth().getBaseVal().getValue();
 		float height1 = ((OMSVGImageElement) startNode.getShape()).getHeight().getBaseVal().getValue();
 
-		float x2 = ((OMSVGImageElement) endNode.getShape()).getX().getBaseVal().getValue();
-		float y2 = ((OMSVGImageElement) endNode.getShape()).getY().getBaseVal().getValue();
+		float x2 = endNode.getX();
+		float y2 = endNode.getY();
 		float width2 = ((OMSVGImageElement) endNode.getShape()).getWidth().getBaseVal().getValue();
 		float height2 = ((OMSVGImageElement) endNode.getShape()).getHeight().getBaseVal().getValue();
 
