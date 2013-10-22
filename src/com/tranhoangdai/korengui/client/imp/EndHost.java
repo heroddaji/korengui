@@ -13,7 +13,7 @@ public class EndHost extends VisualNode {
 		setupTextShape();
 		setupGroupShape();
 		setupEventHandler();
-		setHarole("End-Host");
+		setHarole("endhost");
 	
 	}
 

@@ -23,13 +23,15 @@ import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tranhoangdai.korengui.client.imp.Node;
-import com.tranhoangdai.korengui.client.imp.NodeEvent;
 import com.tranhoangdai.korengui.client.imp.NodeLink;
+import com.tranhoangdai.korengui.client.imp.Utility;
+import com.tranhoangdai.korengui.client.imp.Utility.ActionState;
+import com.tranhoangdai.korengui.client.interf.TopologyAble;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Korengui implements EntryPoint, NodeEvent {
+public class Korengui implements EntryPoint, TopologyAble {
 
 	/**
 	 * The message displayed to the user when the server cannot be reached or
@@ -72,9 +74,9 @@ public class Korengui implements EntryPoint, NodeEvent {
 		btnNewButton_2.setText("Receive");
 		horizontalPanel.add(btnNewButton_2);
 
-		Button btnNewButton_3 = new Button("New button");
-		btnNewButton_3.setText("zoom out");
-		horizontalPanel.add(btnNewButton_3);
+		Button btnZoomIn = new Button("zoomin");
+		btnZoomIn.setText("zoom in");
+		horizontalPanel.add(btnZoomIn);		
 
 		SplitLayoutPanel splitLayoutPanel = new SplitLayoutPanel();
 		splitLayoutPanel.setHeight(new Integer(Window.getClientHeight() - 100).toString() + "px");
@@ -83,7 +85,7 @@ public class Korengui implements EntryPoint, NodeEvent {
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		splitLayoutPanel.addSouth(horizontalPanel_1, 20);
 
-		Label lblStatus = new Label("Status:");
+		final Label lblStatus = new Label("Status: normal");
 		horizontalPanel_1.add(lblStatus);
 
 		final MapPanel mapPanel = new MapPanel(1.5, Unit.EM);
@@ -99,12 +101,23 @@ public class Korengui implements EntryPoint, NodeEvent {
 		// add node event to this class
 		mapPanel.setNodeEvent(this);
 
-		// button events
+		// button events///////////
 		btnTopology.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				mapPanel.loadNodes();
+				lblStatus.setText("Action: Get topology information");
+				mapPanel.init();
 			}
 		});
+		
+		btnZoomIn.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {					
+				lblStatus.setText("Action: Click on cluster node to zoom in ");
+				Utility.state = ActionState.ZOOMIN;
+			}
+		});
+		////////end button events/////////////////
 
 		setupCellTables(verticalPanel_tab1);
 

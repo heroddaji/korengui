@@ -1,61 +1,84 @@
 package com.tranhoangdai.korengui.server;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.tranhoangdai.korengui.client.service.TopologyService;
 
 public class TopologyServiceImpl extends RemoteServiceServlet implements TopologyService {
 
 	@Override
-	public String getTopologyLinks() {
-		String sample = "[{\"src-switch\":\"00:00:00:00:00:00:00:02\",\"src-port\":3,\"dst-switch\":\"00:00:00:00:00:00:00:03\",\"dst-port\":2,\"type\":\"internal\",\"direction\":\"bidirectional\"},{\"src-switch\":\"00:00:00:00:00:00:00:02\",\"src-port\":4,\"dst-switch\":\"00:00:00:00:00:00:00:04\",\"dst-port\":2,\"type\":\"internal\",\"direction\":\"bidirectional\"},{\"src-switch\":\"00:00:00:00:00:00:00:04\",\"src-port\":1,\"dst-switch\":\"00:00:00:00:00:00:00:06\",\"dst-port\":1,\"type\":\"internal\",\"direction\":\"bidirectional\"},{\"src-switch\":\"00:00:00:00:00:00:00:01\",\"src-port\":1,\"dst-switch\":\"00:00:00:00:00:00:00:02\",\"dst-port\":1,\"type\":\"internal\",\"direction\":\"bidirectional\"},{\"src-switch\":\"00:00:00:00:00:00:00:01\",\"src-port\":3,\"dst-switch\":\"00:00:00:00:00:00:00:03\",\"dst-port\":1,\"type\":\"internal\",\"direction\":\"unidirectional\"}]";
-		return sample;
-		
-		
-//		String inputLine = "";
-//		String inputLine2 = "";
+	public String getTopologySwitches() {
+		String json="";
+	
 //		try {
-//			URL topologyUrl = new URL("http://163.180.140.95:8080/wm/topology/links/json");
-//
-//			BufferedReader reader = new BufferedReader(new InputStreamReader(topologyUrl.openStream()));
-//			while ((inputLine = reader.readLine()) != null) {
-//				inputLine2 += inputLine;
-//			}
-//			reader.close();
-//
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
+//			json = readUrl("http://163.180.140.95:8080/wm/core/controller/switches/json");
+//		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
-//
-//		
-//		 return inputLine2;		
+		
+		try {
+			json = readFile("sample-json/nodes.json");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
+		return json;
 	}
 
-	public String getTopologySwitches(){
+	@Override
+	public String getTopologyLinks() {
 		
-		String sample = "[{\"dpid\":\"00:00:00:00:00:00:00:01\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:02\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:03\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:04\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:05\",\"dst-port\":2},{\"dpid\":\"00:00:00:00:00:00:00:06\",\"dst-port\":2}]";
+		String json="";
 		
-		 return sample;
+		// try {
+		// json = readUrl("http://163.180.140.95:8080/wm/topology/links/json");
+		// } catch (IOException e) {
+		//
+		// }
 		
-//		String inputLine = "" ;
-//		String inputLine2 = "" ;
-//		try {
-//			URL topologyUrl = new URL("http://163.180.140.95:8080/wm/core/controller/switches/json");
-//			
-//			BufferedReader reader = new BufferedReader(new InputStreamReader(topologyUrl.openStream()));
-//			while((inputLine = reader.readLine()) != null){
-//				inputLine2 += inputLine;
-//			}
-//			reader.close();
-//			
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}		
-//		          		 
-//		return inputLine2;
-		
+		try {
+			json = readFile("sample-json/links.json");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		return json;
+	}
+
+	private String readUrl(String url) throws IOException {
+		String inputLine = "";
+		String inputLine2 = "";
+
+		URL topologyUrl = new URL(url);
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(topologyUrl.openStream()));
+		while ((inputLine = reader.readLine()) != null) {
+			inputLine2 += inputLine;
+		}
+		reader.close();
+
+		return inputLine2;
+	}
+
+	private String readFile(String filePath) throws IOException {
+		String inputLine = "";
+		String inputLine2 = "";
+
+		BufferedReader reader = new BufferedReader(new FileReader(filePath));
+		while ((inputLine = reader.readLine()) != null) {
+			inputLine2 += inputLine;
+		}
+		reader.close();
+
+		return inputLine2;
 	}
 
 }

@@ -17,95 +17,97 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
+import com.tranhoangdai.korengui.client.imp.Cluster;
+import com.tranhoangdai.korengui.client.imp.Gateway;
 import com.tranhoangdai.korengui.client.imp.Node;
-import com.tranhoangdai.korengui.client.imp.NodeEvent;
 import com.tranhoangdai.korengui.client.imp.NodeLink;
 import com.tranhoangdai.korengui.client.imp.Switch;
+import com.tranhoangdai.korengui.client.imp.Utility;
 import com.tranhoangdai.korengui.client.imp.VisualNode;
+import com.tranhoangdai.korengui.client.interf.TopologyAble;
+import com.tranhoangdai.korengui.client.interf.Zoomable;
 import com.tranhoangdai.korengui.client.service.TopologyService;
 import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 
 @SuppressWarnings("unused")
-public class MapPanel extends TabLayoutPanel {
-
-	
+public class MapPanel extends TabLayoutPanel implements Zoomable{
 
 	public static MapPanel INSTANCE = GWT.create(MapPanel.class);
 
-	NodeEvent nodeEvent;
+	TopologyAble nodeEvent;
 	OMSVGSVGElement svg = null;
-	Map<String, Node> nodesmap = new HashMap<String, Node>();
-	Map<Integer, NodeLink> links = new HashMap<Integer, NodeLink>();
-	Map<String,Panel> tabIndex = new HashMap<String,Panel>();
+	Map<String, Panel> tabIndex = new HashMap<String, Panel>();
 
-	public void setNodeEvent(NodeEvent e) {
+	public void setNodeEvent(TopologyAble e) {
 		this.nodeEvent = e;
 	}
+
 	public MapPanel(double barHeight, Unit barUnit) {
 		super(barHeight, barUnit);
-		init();
+
 	}
 
 	public MapPanel() {
 		super(1.5, Unit.EM);
-		init();
+
 	}
-	
-	private void init(){
-		AbsolutePanel homeTab = new AbsolutePanel();
-		tabIndex.put("Global",homeTab);
-		int i = 0;
-		for(Panel panel: tabIndex.values()){
-			this.add(panel, (String)tabIndex.keySet().toArray()[i]);
-			i++;
-		}
-		
-		initFirstTab();
+
+	public void init() {
+		ScrollPanel homeTab = new ScrollPanel();
+		tabIndex.put("Global", homeTab);
+		this.add(homeTab, "Global");		
+
+		initGlobalTab();
 	}
-	
-	private void initFirstTab(){
-		for(Panel panel: tabIndex.values()){
-			loadNodes(panel);
-			//return immediatly
+
+	private void initGlobalTab() {
+		for (Panel tab : tabIndex.values()) {
+			loadGlobalTab(tab);
+			// return immediately because only load first tab
 			return;
 		}
 	}
 
-	public void loadNodes(Panel firstTabPanel) {
-		// avoid multiple reloads from button
-		if (svg != null) {
-			return;
-		}
+	private void loadGlobalTab(Panel globalTab) {
+
+		globalTab.setWidth(new Integer(Window.getClientWidth()) + "px");
+
 		OMSVGDocument doc = OMSVGParser.currentDocument();
 		svg = doc.createSVGSVGElement();
 
-		svg.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, this.getOffsetWidth());
+		svg.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, Window.getClientWidth());
 		svg.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, this.getOffsetHeight());
 
-		firstTabPanel.getElement().appendChild(svg.getElement());
-		// getTopologyLinks();
+		globalTab.getElement().appendChild(svg.getElement());
 		getTopologySwitches();
 	}
 
 	private void layoutNodes() {
 
 		float radius = this.getOffsetWidth() / 4;
-		float center = this.getOffsetWidth() / 2;
-		float slice = (float) (2 * Math.PI / nodesmap.size());
+		float center = 0;
+		if (this.getOffsetHeight() < this.getOffsetWidth()) {
+			center = this.getOffsetHeight() / 2;
+		} else {
+			center = this.getOffsetWidth() / 2;
+		}
+		float slice = (float) (2 * Math.PI / Utility.activeNodes.size());
 
 		int counter = 1;
 		try {
 
-			for (Node node : nodesmap.values()) {
-				float x = (float) (radius * Math.cos(counter * slice) + center);
-				float y = (float) (radius * Math.sin(counter * slice) + center);
+			for (Node node : Utility.activeNodes.values()) {
+				int x = (int) (radius * Math.cos(counter * slice) + center);
+				int y = (int) (radius * Math.sin(counter * slice) + center);
 				((VisualNode) node).translateTo(x, y);
 				++counter;
 				svg.appendChild(node.getGroupShape());
@@ -131,9 +133,8 @@ public class MapPanel extends TabLayoutPanel {
 
 				if (array != null) {
 					for (int i = 0; i < array.size(); i++) {
-						JSONObject obj = array.get(i).isObject();
-						Switch theSwitch = new Switch(obj.get("dpid").isString().stringValue(), 0, 0);
-						nodesmap.put(theSwitch.getDpid(), theSwitch);
+						JSONObject jobj = array.get(i).isObject();
+						Utility.createNode(jobj);
 					}
 				}
 
@@ -164,22 +165,22 @@ public class MapPanel extends TabLayoutPanel {
 					for (int i = 0; i < array.size(); i++) {
 						try {
 
+							//TODO: move this link creation to Utility class
 							JSONObject obj = array.get(i).isObject();
 							String srcIp = obj.get("src-switch").isString().stringValue();
 							int srcport = (int) obj.get("src-port").isNumber().doubleValue();
 							String dstIp = obj.get("dst-switch").isString().stringValue();
 							int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
 							NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
-							link.findAndMatchNode(nodesmap);
+							link.findAndMatchNode(Utility.activeNodes);
 							link.adjust();
-							links.put(link.getId(), link);
+							Utility.activeLinks.put(link.getId(), link);
 							if (link.getShape() != null) {
 								svg.getNode().insertFirst(link.getShape().getNode());
 							}
-
 							// after getting all nodes and linsk, notify the
 							// event for callback implementation
-							nodeEvent.gotTopology(nodesmap, links);
+							nodeEvent.gotTopology(Utility.activeNodes, Utility.activeLinks);
 
 						} catch (Exception e) {
 							System.out.println(e);
@@ -200,5 +201,18 @@ public class MapPanel extends TabLayoutPanel {
 
 	public OMSVGSVGElement getSvg() {
 		return svg;
+	}
+
+	@Override
+	public void zoomIn(Map<String, Node> nodes, Map<Integer, NodeLink> links) {		
+		ScrollPanel zoomTab = new ScrollPanel();
+		tabIndex.put("Zoom", zoomTab);
+		this.add(zoomTab, (String) tabIndex.keySet().toArray()[tabIndex.size()-1]);		
+	}
+
+	@Override
+	public void zoomOut() {
+		
+		
 	}
 }

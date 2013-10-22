@@ -41,7 +41,7 @@ public class VisualNode extends Node {
 	OMSVGImageElement shape;
 	boolean dragging = false;
 	OMSVGPoint beforeMovePoint = null;
-	private boolean isScaleUp = false;
+	protected boolean isScaleUp = false;
 
 	public VisualNode() {
 	}
@@ -71,7 +71,7 @@ public class VisualNode extends Node {
 		textShape.getX().getBaseVal().clear();
 		textShape.getX().getBaseVal().appendItem(xCoord);
 
-		OMSVGLength yCoord = svg.createSVGLength(OMSVGLength.SVG_LENGTHTYPE_PX, y + fontsize/2);
+		OMSVGLength yCoord = svg.createSVGLength(OMSVGLength.SVG_LENGTHTYPE_PX, y + fontsize / 2);
 		textShape.getY().getBaseVal().clear();
 		textShape.getY().getBaseVal().appendItem(yCoord);
 
@@ -80,7 +80,7 @@ public class VisualNode extends Node {
 	protected void setupGroupShape() {
 		groupShape = new OMSVGGElement();
 		groupShape.appendChild(shape);
-		groupShape.appendChild(textShape);		
+		groupShape.appendChild(textShape);
 	}
 
 	protected void setupEventHandler() {
@@ -125,74 +125,89 @@ public class VisualNode extends Node {
 		});
 	}
 
-	private void handleMouseDownEvent(MouseDownEvent event) {
-		dragging = true;
-		beforeMovePoint = getLocalCoordinates(event);
-		DOMHelper.setCaptureElement(shape, null);
-		event.stopPropagation();
-		event.preventDefault();
+	protected void handleMouseDownEvent(MouseDownEvent event) {
+		// dragging = true;
+		// beforeMovePoint = getLocalCoordinates(event);
+		// //DOMHelper.setCaptureElement(shape, null);
+		// // event.stopPropagation();
+		// // event.preventDefault();
 
 	}
 
-	private void handleMouseMoveEvent(MouseMoveEvent event) {
-		if (!dragging) {
-			return;
-		}
-		move(event);
-
-		event.stopPropagation();
-		event.preventDefault();
+	protected void handleMouseMoveEvent(MouseMoveEvent event) {
+		// if (!dragging) {
+		// return;
+		// }
+		// move(event);
+		//
+		// event.stopPropagation();
+		// event.preventDefault();
 	}
 
-	private void handleMouseUpEvent(MouseUpEvent event) {
-		dragging = false;
-		DOMHelper.releaseCaptureElement();
+	protected void handleMouseUpEvent(MouseUpEvent event) {
+		// dragging = false;
+		// DOMHelper.releaseCaptureElement();
 
-		if (isScaleUp) {
-			scaleDown(event);
-		}
-
-		event.stopPropagation();
-		event.preventDefault();
+		// if (isScaleUp) {
+		// scaleDown(event);
+		// }
+		//
+		// event.stopPropagation();
+		// event.preventDefault();
 	}
 
-	private void scaleDown(MouseEvent<?> event) {
+	 boolean fisrtTimeScaleUp = true, fisrtTimeScaleDown = true;
+	 float scaleUpX = 0, scaleUpY = 0, scaleDownX = 0, scaleDownY = 0;
+	 float scaleDownFactor;
+
+	protected void scaleDown(MouseEvent<?> event) {
 		isScaleUp = false;
-		
+		OMSVGTransform t1 = null;
+		OMSVGTransform t2 = null;
 		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
-		float x = (shape.getX().getBaseVal().getValue()+ shape.getWidth().getBaseVal().getValue() / 2) * (1 -scaleFactor);
-		float y = (shape.getX().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (1 -scaleFactor);
-		OMSVGTransform t1 = svg.createSVGTransform();		
-		OMSVGTransform t2 = svg.createSVGTransform();		
+		if (fisrtTimeScaleDown) {
+			scaleDownX =  ((shape.getX().getBaseVal().getValue() + shape.getWidth().getBaseVal().getValue() / 2) * (1 - scaleFactor));
+			scaleDownY =  ((shape.getY().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (1 - scaleFactor));
+			scaleDownFactor = 1.0f / scaleFactor;
+			fisrtTimeScaleDown = false;
+		}
+		t1 = svg.createSVGTransform();
+		t2 = svg.createSVGTransform();
 		OMSVGTransformList xforms = groupShape.getTransform().getBaseVal();
-		xforms.appendItem(t1);
 		xforms.appendItem(t2);
-		t1.setTranslate(-x, -y);
-		t2.setScale(1.0f / scaleFactor, 1.0f / scaleFactor);
+		xforms.appendItem(t1);
+		t2.setScale(scaleDownFactor, scaleDownFactor);
+		t1.setTranslate(-scaleDownX, -scaleDownY);
 
 		event.stopPropagation();
 		event.preventDefault();
 	}
 
-	private void scaleUp(MouseEvent<?> event) {
+	protected void scaleUp(MouseEvent<?> event) {
 		isScaleUp = true;
-		
+		OMSVGTransform t1 = null;
+		OMSVGTransform t2 = null;
 		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
-		float x = (shape.getX().getBaseVal().getValue()+ shape.getWidth().getBaseVal().getValue() / 2) * (scaleFactor - 1);
-		float y = (shape.getX().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (scaleFactor - 1);
-		OMSVGTransform t1 = svg.createSVGTransform();		
-		OMSVGTransform t2 = svg.createSVGTransform();		
+		if (fisrtTimeScaleUp) {
+			scaleUpX = ((shape.getX().getBaseVal().getValue() + shape.getWidth().getBaseVal().getValue() / 2) * (scaleFactor - 1));
+			scaleUpY = ((shape.getX().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (scaleFactor - 1));			
+			fisrtTimeScaleUp = false;
+		}
+		t1 = svg.createSVGTransform();
+		t2 = svg.createSVGTransform();
 		OMSVGTransformList xforms = groupShape.getTransform().getBaseVal();
 		xforms.appendItem(t1);
 		xforms.appendItem(t2);
-		t1.setTranslate(-x, -y);
-		t2.setScale(scaleFactor, scaleFactor);		
+		t1.setTranslate(-scaleUpX, -scaleUpY);
+		t2.setScale(scaleFactor, scaleFactor);
 		
+		
+
 		event.stopPropagation();
 		event.preventDefault();
 	}
 
-	private OMSVGPoint getLocalCoordinates(MouseEvent<?> event) {
+	protected OMSVGPoint getLocalCoordinates(MouseEvent<?> event) {
 		OMSVGPoint p = MapPanel.INSTANCE.getSvg().createSVGPoint(event.getClientX(), event.getClientY());
 		GWT.log("client point:" + p.getDescription());
 		OMSVGMatrix matrix = shape.getScreenCTM().inverse();
@@ -217,7 +232,7 @@ public class VisualNode extends Node {
 
 	}
 
-	public void translateTo(float x, float y) {
+	public void translateTo(int x, int y) {
 		setX(x);
 		setY(y);
 		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
@@ -229,14 +244,4 @@ public class VisualNode extends Node {
 
 	}
 
-	@Override
-	public void setX(float x) {
-		this.x = x;
-
-	}
-
-	public void setY(float y) {
-		this.y = y;
-
-	}
 }

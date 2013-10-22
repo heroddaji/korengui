@@ -19,10 +19,10 @@ public abstract class Node extends SvgElement {
 	NodeAttributes attributes;
 	NodeDescription description;
 	OMSVGTextElement textShape;
-	float x;	
-	float y;
+	int x;	
+	int y;
 	
-	float scaleFactor = 1.3f;	
+	int scaleFactor = 2;	
 	
 	int action;
 	int buffers;
@@ -108,7 +108,7 @@ public abstract class Node extends SvgElement {
 	public Node() {
 	}
 
-	public Node(String ipAddress, float x, float y) {
+	public Node(String ipAddress, int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.dpid = ipAddress;
@@ -126,19 +126,19 @@ public abstract class Node extends SvgElement {
 		ports.add(port);
 	}
 	
-	public float getX() {
+	public int getX() {
 		return x;
 	}
 
-	public void setX(float x) {
+	public void setX(int x) {
 		this.x = x;
 	}
 
-	public float getY() {
+	public int getY() {
 		return y;
 	}
 
-	public void setY(float y) {
+	public void setY(int y) {
 		this.y = y;
 	}
 
