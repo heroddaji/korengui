@@ -114,7 +114,7 @@ public class Korengui implements EntryPoint, TopologyAble {
 			@Override
 			public void onClick(ClickEvent event) {					
 				lblStatus.setText("Action: Click on cluster node to zoom in ");
-				Utility.state = ActionState.ZOOMIN;
+				Utility.setState( ActionState.ZOOMIN);
 			}
 		});
 		////////end button events/////////////////

@@ -39,13 +39,12 @@ import com.tranhoangdai.korengui.client.service.TopologyService;
 import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 
 @SuppressWarnings("unused")
-public class MapPanel extends TabLayoutPanel implements Zoomable{
+public class MapPanel extends TabLayoutPanel implements Zoomable {
 
 	public static MapPanel INSTANCE = GWT.create(MapPanel.class);
 
 	TopologyAble nodeEvent;
 	OMSVGSVGElement svg = null;
-	Map<String, Panel> tabIndex = new HashMap<String, Panel>();
 
 	public void setNodeEvent(TopologyAble e) {
 		this.nodeEvent = e;
@@ -63,61 +62,29 @@ public class MapPanel extends TabLayoutPanel implements Zoomable{
 
 	public void init() {
 		ScrollPanel homeTab = new ScrollPanel();
-		tabIndex.put("Global", homeTab);
-		this.add(homeTab, "Global");		
-
+		this.add(homeTab, "Global");
+		Utility.setMapPanel(this);
 		initGlobalTab();
 	}
 
 	private void initGlobalTab() {
-		for (Panel tab : tabIndex.values()) {
-			loadGlobalTab(tab);
-			// return immediately because only load first tab
-			return;
-		}
+
+		Panel tab = (Panel) this.getWidget(0);
+		prepareSvgForTab(tab);
+
+		// load global topology
+		getTopologySwitches();
+
 	}
 
-	private void loadGlobalTab(Panel globalTab) {
+	private void prepareSvgForTab(Panel tab) {
 
-		globalTab.setWidth(new Integer(Window.getClientWidth()) + "px");
-
+		tab.setWidth(new Integer(Window.getClientWidth()) + "px");
 		OMSVGDocument doc = OMSVGParser.currentDocument();
 		svg = doc.createSVGSVGElement();
-
 		svg.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, Window.getClientWidth());
 		svg.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, this.getOffsetHeight());
-
-		globalTab.getElement().appendChild(svg.getElement());
-		getTopologySwitches();
-	}
-
-	private void layoutNodes() {
-
-		float radius = this.getOffsetWidth() / 4;
-		float center = 0;
-		if (this.getOffsetHeight() < this.getOffsetWidth()) {
-			center = this.getOffsetHeight() / 2;
-		} else {
-			center = this.getOffsetWidth() / 2;
-		}
-		float slice = (float) (2 * Math.PI / Utility.activeNodes.size());
-
-		int counter = 1;
-		try {
-
-			for (Node node : Utility.activeNodes.values()) {
-				int x = (int) (radius * Math.cos(counter * slice) + center);
-				int y = (int) (radius * Math.sin(counter * slice) + center);
-				((VisualNode) node).translateTo(x, y);
-				++counter;
-				svg.appendChild(node.getGroupShape());
-			}
-
-			getTopologyLinks();
-		} catch (Exception e) {
-			System.err.println(e);
-			int a = 0;
-		}
+		tab.getElement().appendChild(svg.getElement());
 	}
 
 	private void getTopologySwitches() {
@@ -138,7 +105,7 @@ public class MapPanel extends TabLayoutPanel implements Zoomable{
 					}
 				}
 
-				layoutNodes();
+				layoutNodes(Utility.getActiveNodes());
 			}
 
 			@Override
@@ -149,6 +116,34 @@ public class MapPanel extends TabLayoutPanel implements Zoomable{
 		};
 
 		topo.getTopologySwitches(callback);
+	}
+
+	private void layoutNodes(Map<String, Node> nodes) {
+
+		float radius = this.getOffsetWidth() / 4;
+		float center = 0;
+		if (this.getOffsetHeight() < this.getOffsetWidth()) {
+			center = this.getOffsetHeight() / 2;
+		} else {
+			center = this.getOffsetWidth() / 2;
+		}
+		float slice = (float) (2 * Math.PI / nodes.size());
+
+		int counter = 1;
+		try {
+
+			for (Node node : nodes.values()) {
+				int x = (int) (radius * Math.cos(counter * slice) + center);
+				int y = (int) (radius * Math.sin(counter * slice) + center);
+				((VisualNode) node).translateTo(x, y);
+				++counter;
+				svg.appendChild(node.getGroupShape());
+			}
+
+			getTopologyLinks();
+		} catch (Exception e) {
+			System.err.println(e);
+		}
 	}
 
 	private void getTopologyLinks() {
@@ -165,27 +160,22 @@ public class MapPanel extends TabLayoutPanel implements Zoomable{
 					for (int i = 0; i < array.size(); i++) {
 						try {
 
-							//TODO: move this link creation to Utility class
+							// TODO: move this link creation to Utility class
 							JSONObject obj = array.get(i).isObject();
 							String srcIp = obj.get("src-switch").isString().stringValue();
 							int srcport = (int) obj.get("src-port").isNumber().doubleValue();
 							String dstIp = obj.get("dst-switch").isString().stringValue();
 							int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
 							NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
-							link.findAndMatchNode(Utility.activeNodes);
+							link.findAndMatchNode(Utility.getActiveNodes());
 							link.adjust();
-							Utility.activeLinks.put(link.getId(), link);
-							if (link.getShape() != null) {
-								svg.getNode().insertFirst(link.getShape().getNode());
-							}
-							// after getting all nodes and linsk, notify the
-							// event for callback implementation
-							nodeEvent.gotTopology(Utility.activeNodes, Utility.activeLinks);
+							Utility.getActiveLinks().put(link.getId(), link);
 
 						} catch (Exception e) {
 							System.out.println(e);
 						}
 					}
+					layoutLinks(Utility.getActiveLinks());
 				}
 			}
 
@@ -199,20 +189,36 @@ public class MapPanel extends TabLayoutPanel implements Zoomable{
 		topo.getTopologyLinks(callback);
 	}
 
+	private void layoutLinks(Map<Integer, NodeLink> links) {
+		for (NodeLink link : links.values()) {
+			if (link.getShape() != null) {
+				svg.getNode().insertFirst(link.getShape().getNode());
+			}
+		}
+
+		notifyNodeEventInterface();
+	}
+
+	private void notifyNodeEventInterface() {
+		// after getting all nodes and linsk, notify the
+		// event for callback implementation
+		nodeEvent.gotTopology(Utility.getActiveNodes(), Utility.getActiveLinks());
+	}
+
 	public OMSVGSVGElement getSvg() {
 		return svg;
 	}
 
 	@Override
-	public void zoomIn(Map<String, Node> nodes, Map<Integer, NodeLink> links) {		
+	public void zoomIn(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
 		ScrollPanel zoomTab = new ScrollPanel();
-		tabIndex.put("Zoom", zoomTab);
-		this.add(zoomTab, (String) tabIndex.keySet().toArray()[tabIndex.size()-1]);		
+		this.add(zoomTab, "Zoom");
+		layoutNodes(nodes);
+		layoutLinks(links);
 	}
 
 	@Override
 	public void zoomOut() {
-		
-		
+
 	}
 }

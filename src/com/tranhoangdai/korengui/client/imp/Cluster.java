@@ -22,17 +22,10 @@ public class Cluster extends VisualNode  {
 		setHarole("cluster");
 	}
 	
-	public void addChildNode(Node childNode){
-		childNodes.put(childNode.getDpid(), childNode);
-	}
-	public void addChildLink(NodeLink childLink){
-		childLinks.put(childLink.getId(), childLink);
-	}
 	
-
 	
 	protected boolean zoom() {
-		Utility.zoomStack.add(this);
+		Utility.getZoomStack().add(this);
 		zoomAblePanel.zoomIn(childNodes,childLinks);
 		return false;
 	}
@@ -42,11 +35,28 @@ public class Cluster extends VisualNode  {
 	protected void handleMouseDownEvent(MouseDownEvent event) {
 		
 		
-		if(Utility.state == ActionState.ZOOMIN){
+		if(Utility.getState() == ActionState.ZOOMIN){
 			zoom();
-			Utility.state = ActionState.NOTHING;
+			Utility.setState(ActionState.NOTHING);
 		}
 		
 		super.handleMouseDownEvent(event);
 	}
+
+	public Zoomable getZoomAblePanel() {
+		return zoomAblePanel;
+	}
+
+	public void setZoomAblePanel(Zoomable zoomAblePanel) {
+		this.zoomAblePanel = zoomAblePanel;
+	}
+	
+	public void addChildNode(Node childNode){
+		childNodes.put(childNode.getDpid(), childNode);
+	}
+	public void addChildLink(NodeLink childLink){
+		childLinks.put(childLink.getId(), childLink);
+	}
+	
+
 }

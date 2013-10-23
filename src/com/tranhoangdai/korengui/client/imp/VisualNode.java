@@ -199,8 +199,7 @@ public class VisualNode extends Node {
 		xforms.appendItem(t1);
 		xforms.appendItem(t2);
 		t1.setTranslate(-scaleUpX, -scaleUpY);
-		t2.setScale(scaleFactor, scaleFactor);
-		
+		t2.setScale(scaleFactor, scaleFactor);		
 		
 
 		event.stopPropagation();

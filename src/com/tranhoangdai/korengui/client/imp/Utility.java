@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.json.client.JSONObject;
+import com.tranhoangdai.korengui.client.MapPanel;
 
 public class Utility {
 	
@@ -13,10 +14,13 @@ public class Utility {
 		NOTHING,ZOOMOUT,ZOOMIN
 	}
 
-	public static ActionState state = ActionState.NOTHING;
-	public static List<Node> zoomStack = new ArrayList<Node>();
-	public static Map<String, Node> activeNodes = new HashMap<String, Node>();
-	public static Map<Integer, NodeLink> activeLinks = new HashMap<Integer, NodeLink>();
+	private static MapPanel mapPanel= null;
+	
+
+	private static ActionState state = ActionState.NOTHING;
+	private static List<Node> zoomStack = new ArrayList<Node>();
+	private static Map<String, Node> activeNodes = new HashMap<String, Node>();
+	private static Map<Integer, NodeLink> activeLinks = new HashMap<Integer, NodeLink>();
 
 	public static void createNode(JSONObject jobj) {
 		Node activeNode = null;
@@ -44,6 +48,7 @@ public class Utility {
 
 			if (type.equals("cluster")) {
 				tempNode = new Cluster(tempNode.getDpid(), tempNode.getX(), tempNode.getY());
+				((Cluster)tempNode).setZoomAblePanel(mapPanel);
 			} else if (type.equals("gateway")) {
 				tempNode = new Gateway(tempNode.getDpid(), tempNode.getX(), tempNode.getY());
 			} else if (type.equals("switch")) {
@@ -72,6 +77,46 @@ public class Utility {
 			}
 		}
 		return result;
+	}
+	
+	public static MapPanel getMapPanel() {
+		return mapPanel;
+	}
+
+	public static void setMapPanel(MapPanel mapPanel) {
+		Utility.mapPanel = mapPanel;
+	}
+
+	public static ActionState getState() {
+		return state;
+	}
+
+	public static void setState(ActionState state) {
+		Utility.state = state;
+	}
+
+	public static List<Node> getZoomStack() {
+		return zoomStack;
+	}
+
+	public static void setZoomStack(List<Node> zoomStack) {
+		Utility.zoomStack = zoomStack;
+	}
+
+	public static Map<String, Node> getActiveNodes() {
+		return activeNodes;
+	}
+
+	public static void setActiveNodes(Map<String, Node> activeNodes) {
+		Utility.activeNodes = activeNodes;
+	}
+
+	public static Map<Integer, NodeLink> getActiveLinks() {
+		return activeLinks;
+	}
+
+	public static void setActiveLinks(Map<Integer, NodeLink> activeLinks) {
+		Utility.activeLinks = activeLinks;
 	}
 
 }
