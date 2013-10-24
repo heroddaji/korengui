@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.imp;
+package com.tranhoangdai.korengui.client.imp.node;
 
 public class NodeAttributes {
 

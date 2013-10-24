@@ -1,24 +1,27 @@
-package com.tranhoangdai.korengui.client.imp;
+package com.tranhoangdai.korengui.client.imp.node;
 
 import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGTextElement;
+import org.vectomatic.dom.svg.OMText;
 
 import com.google.gwt.core.client.GWT;
 
-public class Switch extends VisualNode {
+public class Gateway extends VisualNode {
 
-	public Switch() {
+	public Gateway() {
 	}
 
-	public Switch(String ip, int x, int y) {
+	public Gateway(String ip, int x, int y) {
 		super(ip, x, y);
-		imageHref = "images/switch.svg";		
+		imageHref = "images/router.svg";	
 		setupShape();
 		setupTextShape();
 		setupGroupShape();
 		setupEventHandler();
-		setHarole("switch");		
+		setHarole("gateway");
+		
 		
 	}
+
 }

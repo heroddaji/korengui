@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.imp;
+package com.tranhoangdai.korengui.client.imp.link;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -8,6 +8,9 @@ import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGLineElement;
 import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.utils.SVGConstants;
+
+import com.tranhoangdai.korengui.client.imp.SvgElement;
+import com.tranhoangdai.korengui.client.imp.node.Node;
 
 public class NodeLink extends SvgElement implements Serializable {
 

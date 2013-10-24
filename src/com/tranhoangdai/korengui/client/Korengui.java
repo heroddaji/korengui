@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.dev.Link;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -22,17 +22,17 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.tranhoangdai.korengui.client.imp.Node;
-import com.tranhoangdai.korengui.client.imp.NodeLink;
 import com.tranhoangdai.korengui.client.imp.Utility;
 import com.tranhoangdai.korengui.client.imp.Utility.ActionState;
-import com.tranhoangdai.korengui.client.interf.TopologyAble;
+import com.tranhoangdai.korengui.client.imp.link.NodeLink;
+import com.tranhoangdai.korengui.client.imp.node.Node;
+import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Korengui implements EntryPoint, TopologyAble {
-
+public class Korengui implements EntryPoint, TopologyNotifier {
+	public static Korengui INSTANCE = GWT.create(Korengui.class);
 	/**
 	 * The message displayed to the user when the server cannot be reached or
 	 * returns an error.
@@ -41,14 +41,15 @@ public class Korengui implements EntryPoint, TopologyAble {
 
 	CellTable<Node> cellTableNode;
 	CellTable<NodeLink> cellTableLink;
+	
+	Label lblStatus = null;
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
 
-		// Add the nameField and sendButton to the RootPanel
-		// Use RootPanel.get() to get the entire body element
+		///////////////////////gui components//////////////////////////
 		RootPanel rootPanel = RootPanel.get();
 
 		VerticalPanel verticalPanel = new VerticalPanel();
@@ -85,11 +86,12 @@ public class Korengui implements EntryPoint, TopologyAble {
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		splitLayoutPanel.addSouth(horizontalPanel_1, 20);
 
-		final Label lblStatus = new Label("Status: normal");
+		lblStatus = new Label("Status: normal");
+		lblStatus.setPixelSize(30, 30);
 		horizontalPanel_1.add(lblStatus);
 
-		final MapPanel mapPanel = new MapPanel(1.5, Unit.EM);
-		splitLayoutPanel.addWest(mapPanel, verticalPanel.getOffsetWidth() / 2);
+		final SvgPanel svgPanel = new SvgPanel();
+		splitLayoutPanel.addWest(svgPanel, verticalPanel.getOffsetWidth() / 2);
 
 		TabLayoutPanel tabLayoutPanel = new TabLayoutPanel(1.5, Unit.EM);
 
@@ -97,15 +99,14 @@ public class Korengui implements EntryPoint, TopologyAble {
 		tabLayoutPanel.add(verticalPanel_tab1, "Nodes/Links", false);
 		verticalPanel_tab1.setWidth("100%");
 		splitLayoutPanel.addEast(tabLayoutPanel, verticalPanel.getOffsetWidth() / 2);
-
-		// add node event to this class
-		mapPanel.setNodeEvent(this);
-
-		// button events///////////
+		//////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		//////////////////// button events///////////
 		btnTopology.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				lblStatus.setText("Action: Get topology information");
-				mapPanel.init();
+				svgPanel.setupGlobalTopology();
 			}
 		});
 		
@@ -114,12 +115,21 @@ public class Korengui implements EntryPoint, TopologyAble {
 			@Override
 			public void onClick(ClickEvent event) {					
 				lblStatus.setText("Action: Click on cluster node to zoom in ");
-				Utility.setState( ActionState.ZOOMIN);
+				Utility.INSTANCE.setState( ActionState.ZOOMIN);				
+				
 			}
 		});
-		////////end button events/////////////////
-
+		///////////////////////////////////////////////////////////////
+		
+		///////////////////////////SETUP EVENT INTERFACE CONNECTION/////////////////////////
+		Utility.INSTANCE.addTopologyAble(this);
+		//////////////////////////////////////////////////////////////
+		
+		//////////////CELL TABLE FOR TOPOLOGY INFO EVENT CALLBACK///////////////////////////////
 		setupCellTables(verticalPanel_tab1);
+		/////////////////////////////////////////////////////////////////////////
+		
+		
 
 	}
 
@@ -199,7 +209,7 @@ public class Korengui implements EntryPoint, TopologyAble {
 	}
 
 	@Override
-	public void gotTopology(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
+	public void finishDownload(Map<String, Node> nodes, Map<Integer, NodeLink> links){
 		cellTableNode.setRowCount(nodes.size());
 		List<Node> nodeList = new ArrayList<Node>();
 		nodeList.addAll(nodes.values());
@@ -209,7 +219,10 @@ public class Korengui implements EntryPoint, TopologyAble {
 		List<NodeLink> linkList = new ArrayList<NodeLink>();
 		linkList.addAll(links.values());
 		cellTableLink.setRowData(0, linkList);
-
+	}
+	
+	public void changeStatus(String newStatus){
+		lblStatus.setText(newStatus);
 	}
 
 }

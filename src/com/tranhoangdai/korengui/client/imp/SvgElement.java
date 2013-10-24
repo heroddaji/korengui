@@ -7,7 +7,7 @@ import org.vectomatic.dom.svg.OMSVGGElement;
 
 public abstract class SvgElement implements Serializable{
 	
-	OMSVGGElement groupShape;
+	protected OMSVGGElement groupShape;
 	
 	public SvgElement(){
 		

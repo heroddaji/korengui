@@ -1,9 +1,5 @@
-package com.tranhoangdai.korengui.client.imp;
+package com.tranhoangdai.korengui.client.imp.node;
 
-import java.util.Map;
-
-import org.apache.tools.ant.taskdefs.condition.Os;
-import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.OMSVGGElement;
 import org.vectomatic.dom.svg.OMSVGImageElement;
@@ -14,13 +10,9 @@ import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.OMSVGTransform;
 import org.vectomatic.dom.svg.OMSVGTransformList;
-import org.vectomatic.dom.svg.OMText;
-import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.DragEnterEvent;
-import com.google.gwt.event.dom.client.DragEnterHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseEvent;
@@ -32,12 +24,11 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.tranhoangdai.korengui.client.MapPanel;
 
 @SuppressWarnings("unused")
 public class VisualNode extends Node {
 
-	String imageHref = "images/router.svg";
+	protected String imageHref = "images/router.svg";
 	OMSVGImageElement shape;
 	boolean dragging = false;
 	OMSVGPoint beforeMovePoint = null;
@@ -207,7 +198,8 @@ public class VisualNode extends Node {
 	}
 
 	protected OMSVGPoint getLocalCoordinates(MouseEvent<?> event) {
-		OMSVGPoint p = MapPanel.INSTANCE.getSvg().createSVGPoint(event.getClientX(), event.getClientY());
+		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
+		OMSVGPoint p = svg.createSVGPoint(event.getClientX(), event.getClientY());
 		GWT.log("client point:" + p.getDescription());
 		OMSVGMatrix matrix = shape.getScreenCTM().inverse();
 
