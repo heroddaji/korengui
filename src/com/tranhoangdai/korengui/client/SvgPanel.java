@@ -33,58 +33,53 @@ import com.tranhoangdai.korengui.client.service.TopologyService;
 import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 
 @SuppressWarnings("unused")
-public class SvgPanel extends TabLayoutPanel implements TopologyNotifier{
+public class SvgPanel extends TabLayoutPanel implements TopologyNotifier {
 
 	public static SvgPanel INSTANCE = GWT.create(SvgPanel.class);
 	private SvgPanelTab tempTab = null;
-	
+
 	public SvgPanel() {
 		super(1.5, Unit.EM);
 		setupEventHandlers();
 
 	}
 
-	private void setupEventHandlers() {		
-		//handler event when use changes tab, do nothing for now
+	private void setupEventHandlers() {
+
+		// register to Utility event notifier
+		Utility.INSTANCE.addTopologyAble(this);
+
+		// handler event when use changes tab, do nothing for now
 		this.addSelectionHandler(new SelectionHandler<Integer>() {
 
 			@Override
 			public void onSelection(SelectionEvent<Integer> event) {
-				
+
 			}
 		});
 	}
-
-	private SvgPanelTab createSvgTab() {
-		SvgPanelTab tab = new SvgPanelTab();
-		return tab;
-	}
 	
-	public void setupZoomTab(ZoomableNode zoomNode){
-		SvgPanelTab tab = createSvgTab();
+
+	public void setupZoomTab(ZoomableNode zoomNode) {
+		SvgPanelTab tab = new SvgPanelTab();
+		this.add(tab, "Zoom Node:" + zoomNode.getDpid());
+		this.selectTab(tab);
 		tab.setNodesAndLinks(zoomNode.getChildNodes(), zoomNode.getChildLinks());		
-		this.add(tab, "Zoom Node:" + zoomNode.getDpid());		
 		tab.draw();
+		
 	}
 
 	public void setupGlobalTopology() {
-		SvgPanelTab tab = createSvgTab();
-		
-		//register to Utility event notifier
-		Utility.INSTANCE.addTopologyAble(this);
-		
+		SvgPanelTab tab = new SvgPanelTab();
 		this.add(tab, "Global Topology");
 		tempTab = tab;
-		
-		//call global services on the server
-		Utility.INSTANCE.downloadGlobalTopology();
-		
+		// call global services on the server
+		Utility.INSTANCE.downloadGlobalTopology();		
+		this.selectTab(tab);
 	}
-	
 
-	@Override
 	public void finishDownload(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
-		tempTab.setNodesAndLinks(nodes, links);
-		tempTab.draw();		
+		this.tempTab.setNodesAndLinks(nodes, links);
+		this.tempTab.draw();
 	}
 }

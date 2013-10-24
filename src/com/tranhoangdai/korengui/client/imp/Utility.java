@@ -182,7 +182,7 @@ public class Utility {
 
 	public void notifyGuiWantToZoomToNode(ZoomableNode zoomNode) {
 		if (getState() == ActionState.ZOOMIN) {
-			zoomStack.add(zoomNode);
+			zoomStack.add(zoomNode);			
 			SvgPanel.INSTANCE.setupZoomTab(zoomNode);
 			setState(ActionState.NOTHING);
 		}

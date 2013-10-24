@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -90,8 +91,15 @@ public class Korengui implements EntryPoint, TopologyNotifier {
 		lblStatus.setPixelSize(30, 30);
 		horizontalPanel_1.add(lblStatus);
 
-		final SvgPanel svgPanel = new SvgPanel();
-		splitLayoutPanel.addWest(svgPanel, verticalPanel.getOffsetWidth() / 2);
+		final SvgPanel svgPanel = SvgPanel.INSTANCE;
+		ScrollPanel scrollPanel = new ScrollPanel();		
+		splitLayoutPanel.addWest(scrollPanel, verticalPanel.getOffsetWidth() / 2);
+		scrollPanel.setWidth("100%");
+		scrollPanel.setVerticalScrollPosition(99);
+		scrollPanel.setHeight(new Integer(Window.getClientHeight() - 100).toString() + "px");
+		scrollPanel.add(svgPanel);
+		svgPanel.setWidth("100%");
+		svgPanel.setHeight(new Integer(Window.getClientHeight() - 100).toString() + "px");
 
 		TabLayoutPanel tabLayoutPanel = new TabLayoutPanel(1.5, Unit.EM);
 

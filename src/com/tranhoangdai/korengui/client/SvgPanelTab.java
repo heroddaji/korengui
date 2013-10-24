@@ -24,12 +24,12 @@ public class SvgPanelTab extends ScrollPanel implements ZoomNotifier {
 
 	public SvgPanelTab() {
 		super();
-
+		this.setWidth("100%");
+		this.setHeight(new Integer(Window.getClientHeight()) + "px");
+		
 		svgElement = OMSVGParser.currentDocument().createSVGSVGElement();
 		svgElement.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, Window.getClientWidth());
 		svgElement.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, Window.getClientHeight());
-
-		this.setWidth(new Integer(Window.getClientWidth()) + "px");
 		this.getElement().appendChild(svgElement.getElement());
 	}
 
