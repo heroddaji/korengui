@@ -44,13 +44,14 @@ public class SvgPanelTab extends ScrollPanel implements ZoomNotifier {
 	}
 
 	private void drawNodes(Map<String, Node> nodes) {
-		float radius = this.getOffsetWidth() / 4;
+		float radius = SvgPanel.INSTANCE.getOffsetWidth() / 4;
 		float center = 0;
-		if (this.getOffsetHeight() < this.getOffsetWidth()) {
-			center = this.getOffsetHeight() / 2;
+		if (SvgPanel.INSTANCE.getOffsetHeight() < SvgPanel.INSTANCE.getOffsetWidth()) {
+			center = SvgPanel.INSTANCE.getOffsetHeight() / 2;
 		} else {
-			center = this.getOffsetWidth() / 2;
+			center = SvgPanel.INSTANCE.getOffsetWidth() / 2;
 		}
+		
 		float slice = (float) (2 * Math.PI / nodes.size());
 
 		int counter = 1;

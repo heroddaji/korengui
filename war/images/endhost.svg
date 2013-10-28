@@ -1,75 +1,28 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="30" height="30" id="svg2" sodipodi:version="0.32" inkscape:version="0.46" version="1.0" sodipodi:docbase="D:\gfx" sodipodi:docname="icon_host.svg" inkscape:output_extension="org.inkscape.output.svg.inkscape" inkscape:export-filename="D:\proj\icons\icon_host.png" inkscape:export-xdpi="45" inkscape:export-ydpi="45" sodipodi:modified="TRUE">
-  <defs id="defs4">
-    <inkscape:perspective sodipodi:type="inkscape:persp3d" inkscape:vp_x="0 : 15 : 1" inkscape:vp_y="0 : 1000 : 0" inkscape:vp_z="30 : 15 : 1" inkscape:persp3d-origin="15 : 10 : 1" id="perspective23"/>
-    <linearGradient id="linearGradient3155">
-      <stop style="stop-color:#ffffff;stop-opacity:1;" offset="0" id="stop3157"/>
-      <stop style="stop-color:#1daa3f;stop-opacity:1;" offset="1" id="stop3159"/>
-    </linearGradient>
-    <linearGradient inkscape:collect="always" xlink:href="#linearGradient3155" id="linearGradient2881" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1,0,0,0.8333334,-1,0.8333334)" x1="6.9417987" y1="3.7248678" x2="23.449736" y2="16.507936"/>
-  </defs>
-  <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="15.4" inkscape:cx="15" inkscape:cy="15" inkscape:document-units="px" inkscape:current-layer="layer1" width="30px" height="30px" showgrid="true" gridtolerance="10000" inkscape:grid-points="true" inkscape:window-width="834" inkscape:window-height="675" inkscape:window-x="416" inkscape:window-y="149"/>
-  <g inkscape:label="Calque 1" inkscape:groupmode="layer" id="layer1">
-    <g id="g2888">
-      <path style="fill:#342c49;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 2.6243389,19 L 27.375661,19 C 28.829545,19 30,20.170455 30,21.624339 L 30,27.375661 C 30,28.829545 28.829545,30 27.375661,30 L 2.6243389,30 C 1.1704551,30 0,28.829545 0,27.375661 L 0,21.624339 C 0,20.170455 1.1704551,19 2.6243389,19 z" id="rect2170"/>
-      <path style="fill:#d4d4df;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 2.6507937,20 L 27.349206,20 C 28.263746,20 29,20.736254 29,21.650794 L 29,27.349206 C 29,28.263746 28.263746,29 27.349206,29 L 2.6507937,29 C 1.736254,29 1,28.263746 1,27.349206 L 1,21.650794 C 1,20.736254 1.736254,20 2.6507937,20 z" id="rect3145"/>
-      <path style="fill:#342c49;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 5.0317459,0 L 24.968254,0 C 26.093841,0 27,0.9061587 27,2.0317459 L 27,17.968254 C 27,19.093841 26.093841,20 24.968254,20 L 5.0317459,20 C 3.9061587,20 3,19.093841 3,17.968254 L 3,2.0317459 C 3,0.9061587 3.9061587,0 5.0317459,0 z" id="rect3149"/>
-      <path style="fill:#d4d4df;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 5.0158731,1 L 24.984127,1 C 25.546921,1 26,1.4530794 26,2.0158731 L 26,17.984127 C 26,18.546921 25.546921,19 24.984127,19 L 5.0158731,19 C 4.4530794,19 4,18.546921 4,17.984127 L 4,2.0158731 C 4,1.4530794 4.4530794,1 5.0158731,1 z" id="rect3147"/>
-      <path style="fill:#342c49;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 6,4 L 24,4 L 24,16 L 6,16 L 6,4 z" id="rect3151"/>
-      <path style="fill:url(#linearGradient2881);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 7,5 L 23,5 L 23,15 L 7,15 L 7,5 z" id="rect3153"/>
-      <path style="fill:#9386b6;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 14.846561,22 L 26.153439,22 C 26.622434,22 27,22.377566 27,22.846561 L 27,24.153439 C 27,24.622434 26.622434,25 26.153439,25 L 14.846561,25 C 14.377566,25 14,24.622434 14,24.153439 L 14,22.846561 C 14,22.377566 14.377566,22 14.846561,22 z" id="rect3163"/>
-      <path style="fill:#9386b6;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 14.5,26 L 26.5,26 C 26.777,26 27,26.223 27,26.5 C 27,26.777 26.777,27 26.5,27 L 14.5,27 C 14.223,27 14,26.777 14,26.5 C 14,26.223 14.223,26 14.5,26 z" id="rect3165"/>
-      <path style="fill:#13c000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 3.5,22 C 3.777,22 4,22.223 4,22.5 L 4,23.5 C 4,23.777 3.777,24 3.5,24 C 3.223,24 3,23.777 3,23.5 L 3,22.5 C 3,22.223 3.223,22 3.5,22 z" id="rect3167"/>
-      <path style="fill:#c50000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 5.5,22 C 5.777,22 6,22.223 6,22.5 L 6,23.5 C 6,23.777 5.777,24 5.5,24 C 5.223,24 5,23.777 5,23.5 L 5,22.5 C 5,22.223 5.223,22 5.5,22 z" id="rect3169"/>
-      <path style="fill:#9386b6;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 3.7619048,25 L 5.2380952,25 C 5.6601905,25 6,25.33981 6,25.761905 L 6,26.238095 C 6,26.66019 5.6601905,27 5.2380952,27 L 3.7619048,27 C 3.3398095,27 3,26.66019 3,26.238095 L 3,25.761905 C 3,25.33981 3.3398095,25 3.7619048,25 z" id="rect3171"/>
-    </g>
+<svg width="30" height="40" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient3155">
+   <stop stop-color="#ffffff" id="stop3157" offset="0"/>
+   <stop stop-color="#1daa3f" id="stop3159" offset="1"/>
+  </linearGradient>
+  <linearGradient y2="0.958995" x2="0.965609" y1="-0.106261" x1="-0.066138" id="linearGradient2881" xlink:href="#linearGradient3155"/>
+ </defs>
+ <metadata>image/svg+xmlOpen Clip Art Libraryicon_host2008-05-26T15:30:16http://openclipart.org/detail/17065/icon_host-by-jean_victor_balinjean_victor_balinclip artclipartcomputercomputerhosthosticoniconimagemediapngpublic domainsvgsystemsystem</metadata>
+ <g>
+  <title>Layer 1</title>
+  <g id="layer1">
+   <g id="g2888">
+    <path fill="#342c49" fill-rule="evenodd" stroke-width="1px" id="rect2170" d="m2.62434,26l24.75132,0c1.45388,0 2.62434,1.17046 2.62434,2.62434l0,5.75132c0,1.45388 -1.17046,2.62434 -2.62434,2.62434l-24.75132,0c-1.45388,0 -2.62434,-1.17046 -2.62434,-2.62434l0,-5.75132c0,-1.45388 1.17046,-2.62434 2.62434,-2.62434z"/>
+    <path fill="#d4d4df" fill-rule="evenodd" stroke-width="1px" id="rect3145" d="m2.65079,27l24.698421,0c0.914539,0 1.650789,0.73625 1.650789,1.650789l0,5.698423c0,0.914539 -0.73625,1.650787 -1.650789,1.650787l-24.698421,0c-0.91454,0 -1.65079,-0.736248 -1.65079,-1.650787l0,-5.698423c0,-0.914539 0.73625,-1.650789 1.65079,-1.650789z"/>
+    <path fill="#342c49" fill-rule="evenodd" stroke-width="1px" id="rect3149" d="m5.03175,7l19.9365,0c1.125589,0 2.03175,0.90616 2.03175,2.03175l0,15.936501c0,1.125589 -0.90616,2.03175 -2.03175,2.03175l-19.9365,0c-1.12559,0 -2.03175,-0.90616 -2.03175,-2.03175l0,-15.936501c0,-1.125589 0.90616,-2.03175 2.03175,-2.03175z"/>
+    <path fill="#d4d4df" fill-rule="evenodd" stroke-width="1px" id="rect3147" d="m5.01587,8l19.968261,0c0.56279,0 1.015869,0.45308 1.015869,1.01587l0,15.968261c0,0.56279 -0.453079,1.015869 -1.015869,1.015869l-19.968261,0c-0.56279,0 -1.01587,-0.453079 -1.01587,-1.015869l0,-15.968261c0,-0.56279 0.45308,-1.01587 1.01587,-1.01587z"/>
+    <path fill="#342c49" fill-rule="evenodd" stroke-width="1px" id="rect3151" d="m6,11l18,0l0,12l-18,0l0,-12z"/>
+    <path fill="url(#linearGradient2881)" fill-rule="evenodd" stroke-width="1px" id="rect3153" d="m7,12l16,0l0,10l-16,0l0,-10z"/>
+    <path fill="#9386b6" fill-rule="evenodd" stroke-width="1px" id="rect3163" d="m14.84656,29l11.30688,0c0.46899,0 0.84656,0.377569 0.84656,0.84656l0,1.306883c0,0.46899 -0.377569,0.846558 -0.84656,0.846558l-11.30688,0c-0.46899,0 -0.84656,-0.377567 -0.84656,-0.846558l0,-1.306883c0,-0.46899 0.37757,-0.84656 0.84656,-0.84656z"/>
+    <path fill="#9386b6" fill-rule="evenodd" stroke-width="1px" id="rect3165" d="m14.5,33l12,0c0.277,0 0.5,0.223 0.5,0.5c0,0.277 -0.223,0.5 -0.5,0.5l-12,0c-0.277,0 -0.5,-0.223 -0.5,-0.5c0,-0.277 0.223,-0.5 0.5,-0.5z"/>
+    <path fill="#13c000" fill-rule="evenodd" stroke-width="1px" id="rect3167" d="m3.5,29c0.277,0 0.5,0.223 0.5,0.5l0,1c0,0.277 -0.223,0.5 -0.5,0.5c-0.277,0 -0.5,-0.223 -0.5,-0.5l0,-1c0,-0.277 0.223,-0.5 0.5,-0.5z"/>
+    <path fill="#c50000" fill-rule="evenodd" stroke-width="1px" id="rect3169" d="m5.5,29c0.277,0 0.5,0.223 0.5,0.5l0,1c0,0.277 -0.223,0.5 -0.5,0.5c-0.277,0 -0.5,-0.223 -0.5,-0.5l0,-1c0,-0.277 0.223,-0.5 0.5,-0.5z"/>
+    <path fill="#9386b6" fill-rule="evenodd" stroke-width="1px" id="rect3171" d="m3.7619,32l1.4762,0c0.42209,0 0.7619,0.339809 0.7619,0.761909l0,0.476181c0,0.4221 -0.33981,0.761909 -0.7619,0.761909l-1.4762,0c-0.42209,0 -0.7619,-0.339809 -0.7619,-0.761909l0,-0.476181c0,-0.4221 0.33981,-0.761909 0.7619,-0.761909z"/>
+   </g>
   </g>
-  <metadata>
-    <rdf:RDF>
-      <cc:Work>
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
-        <dc:publisher>
-          <cc:Agent rdf:about="http://openclipart.org/">
-            <dc:title>Open Clip Art Library</dc:title>
-          </cc:Agent>
-        </dc:publisher>
-        <dc:title>icon_host</dc:title>
-        <dc:date>2008-05-26T15:30:16</dc:date>
-        <dc:description/>
-        <dc:source>http://openclipart.org/detail/17065/icon_host-by-jean_victor_balin</dc:source>
-        <dc:creator>
-          <cc:Agent>
-            <dc:title>jean_victor_balin</dc:title>
-          </cc:Agent>
-        </dc:creator>
-        <dc:subject>
-          <rdf:Bag>
-            <rdf:li>clip art</rdf:li>
-            <rdf:li>clipart</rdf:li>
-            <rdf:li>computer</rdf:li>
-            <rdf:li>computer</rdf:li>
-            <rdf:li>host</rdf:li>
-            <rdf:li>host</rdf:li>
-            <rdf:li>icon</rdf:li>
-            <rdf:li>icon</rdf:li>
-            <rdf:li>image</rdf:li>
-            <rdf:li>media</rdf:li>
-            <rdf:li>png</rdf:li>
-            <rdf:li>public domain</rdf:li>
-            <rdf:li>svg</rdf:li>
-            <rdf:li>system</rdf:li>
-            <rdf:li>system</rdf:li>
-          </rdf:Bag>
-        </dc:subject>
-      </cc:Work>
-      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
-        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
-        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
-        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
-      </cc:License>
-    </rdf:RDF>
-  </metadata>
+ </g>
 </svg>

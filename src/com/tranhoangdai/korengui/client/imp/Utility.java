@@ -101,7 +101,11 @@ public class Utility {
 						int srcport = (int) obj.get("src-port").isNumber().doubleValue();
 						String dstIp = obj.get("dst-switch").isString().stringValue();
 						int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
-						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
+						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);						
+						
+						//find child links
+						setChildLink(link);
+						
 						link.findAndMatchNode(globalNodes);
 						globalLinks.put(link.getId(), link);
 					}
@@ -119,6 +123,10 @@ public class Utility {
 		};
 
 		topo.getTopologyLinks(callback);
+	}
+	
+	private void setChildLink(NodeLink link){
+		
 	}
 
 	private void createNode(JSONObject jobj) {

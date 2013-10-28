@@ -61,8 +61,10 @@ public class SvgPanel extends TabLayoutPanel implements TopologyNotifier {
 	
 
 	public void setupZoomTab(ZoomableNode zoomNode) {
-		SvgPanelTab tab = new SvgPanelTab();
+		SvgPanelTab tab = new SvgPanelTab();	
 		this.add(tab, "Zoom Node:" + zoomNode.getDpid());
+		tab.setHeight(String.valueOf(Window.getClientHeight()) + "px");
+		tab.setWidth("100%");
 		this.selectTab(tab);
 		tab.setNodesAndLinks(zoomNode.getChildNodes(), zoomNode.getChildLinks());		
 		tab.draw();

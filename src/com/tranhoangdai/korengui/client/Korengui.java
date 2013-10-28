@@ -82,7 +82,7 @@ public class Korengui implements EntryPoint, TopologyNotifier {
 
 		SplitLayoutPanel splitLayoutPanel = new SplitLayoutPanel();
 		splitLayoutPanel.setHeight(new Integer(Window.getClientHeight() - 100).toString() + "px");
-		verticalPanel.add(splitLayoutPanel);
+		verticalPanel.add(splitLayoutPanel);		
 
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		splitLayoutPanel.addSouth(horizontalPanel_1, 20);
