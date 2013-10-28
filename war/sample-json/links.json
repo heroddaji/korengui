@@ -40,6 +40,14 @@
         "direction": "unidirectional"
     },
     {
+        "src-switch": "00:00:00:00:00:00:00:05",
+        "src-port": 3,
+        "dst-switch": "00:00:00:00:00:00:00:06",
+        "dst-port": 1,
+        "type": "internal",
+        "direction": "unidirectional"
+    },
+    {
         "src-switch": "00:00:00:00:00:00:00:01",
         "src-port": 3,
         "dst-switch": "00:00:00:00:00:00:00:07",

@@ -31,7 +31,7 @@ import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 public class Utility {
 
 	public enum ActionState {
-		NOTHING, ZOOMOUT, ZOOMIN
+		NOTHING, ZOOMOUT, ZOOMIN, FLOW
 	}
 
 	public static Utility INSTANCE = GWT.create(Utility.class);
@@ -103,12 +103,11 @@ public class Utility {
 						int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
 						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);						
 						
-						//find child links
-						setChildLink(link);
-						
 						link.findAndMatchNode(globalNodes);
 						globalLinks.put(link.getId(), link);
 					}
+					
+					fakeChildLink();
 
 					// finish download links, notify finish download event
 					notifyFinishDownloadGlobalTopology();
@@ -125,8 +124,12 @@ public class Utility {
 		topo.getTopologyLinks(callback);
 	}
 	
-	private void setChildLink(NodeLink link){
-		
+	private void fakeChildLink(){
+		for (Node node: globalNodes.values()){
+			if(node.getClass().equals(Cluster.class)){
+				((Cluster)node).fakeLinks();
+			}
+		}
 	}
 
 	private void createNode(JSONObject jobj) {

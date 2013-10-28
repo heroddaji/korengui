@@ -42,7 +42,7 @@ public class Korengui implements EntryPoint, TopologyNotifier {
 
 	CellTable<Node> cellTableNode;
 	CellTable<NodeLink> cellTableLink;
-	
+
 	Label lblStatus = null;
 
 	/**
@@ -50,7 +50,7 @@ public class Korengui implements EntryPoint, TopologyNotifier {
 	 */
 	public void onModuleLoad() {
 
-		///////////////////////gui components//////////////////////////
+		// /////////////////////gui components//////////////////////////
 		RootPanel rootPanel = RootPanel.get();
 
 		VerticalPanel verticalPanel = new VerticalPanel();
@@ -72,17 +72,17 @@ public class Korengui implements EntryPoint, TopologyNotifier {
 		btnTopology.setText("Get topology");
 		horizontalPanel.add(btnTopology);
 
-		Button btnNewButton_2 = new Button("New button");
-		btnNewButton_2.setText("Receive");
-		horizontalPanel.add(btnNewButton_2);
+		Button btnMakePath = new Button("path");
+		btnMakePath.setText("Make Path");
+		horizontalPanel.add(btnMakePath);
 
 		Button btnZoomIn = new Button("zoomin");
 		btnZoomIn.setText("zoom in");
-		horizontalPanel.add(btnZoomIn);		
+		horizontalPanel.add(btnZoomIn);
 
 		SplitLayoutPanel splitLayoutPanel = new SplitLayoutPanel();
 		splitLayoutPanel.setHeight(new Integer(Window.getClientHeight() - 100).toString() + "px");
-		verticalPanel.add(splitLayoutPanel);		
+		verticalPanel.add(splitLayoutPanel);
 
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		splitLayoutPanel.addSouth(horizontalPanel_1, 20);
@@ -92,7 +92,7 @@ public class Korengui implements EntryPoint, TopologyNotifier {
 		horizontalPanel_1.add(lblStatus);
 
 		final SvgPanel svgPanel = SvgPanel.INSTANCE;
-		ScrollPanel scrollPanel = new ScrollPanel();		
+		ScrollPanel scrollPanel = new ScrollPanel();
 		splitLayoutPanel.addWest(scrollPanel, verticalPanel.getOffsetWidth() / 2);
 		scrollPanel.setWidth("100%");
 		scrollPanel.setVerticalScrollPosition(99);
@@ -107,37 +107,48 @@ public class Korengui implements EntryPoint, TopologyNotifier {
 		tabLayoutPanel.add(verticalPanel_tab1, "Nodes/Links", false);
 		verticalPanel_tab1.setWidth("100%");
 		splitLayoutPanel.addEast(tabLayoutPanel, verticalPanel.getOffsetWidth() / 2);
-		//////////////////////////////////////////////////////////////////////////////////////
-		
-		
-		//////////////////// button events///////////
+		// ////////////////////////////////////////////////////////////////////////////////////
+
+		// ////////////////// button events///////////
 		btnTopology.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				lblStatus.setText("Action: Get topology information");
 				svgPanel.setupGlobalTopology();
 			}
 		});
-		
+
 		btnZoomIn.addClickHandler(new ClickHandler() {
-			
+
 			@Override
-			public void onClick(ClickEvent event) {					
+			public void onClick(ClickEvent event) {
 				lblStatus.setText("Action: Click on cluster node to zoom in ");
-				Utility.INSTANCE.setState( ActionState.ZOOMIN);				
-				
+				Utility.INSTANCE.setState(ActionState.ZOOMIN);
+
 			}
 		});
-		///////////////////////////////////////////////////////////////
+
+		btnMakePath.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				lblStatus.setText("Action: Click on 2 nodes to get path flow");
+				Utility.INSTANCE.setState(ActionState.FLOW);
+
+			}
+		});
 		
-		///////////////////////////SETUP EVENT INTERFACE CONNECTION/////////////////////////
+		
+		// /////////////////////////////////////////////////////////////
+
+		// /////////////////////////SETUP EVENT INTERFACE
+		// CONNECTION/////////////////////////
 		Utility.INSTANCE.addTopologyAble(this);
-		//////////////////////////////////////////////////////////////
-		
-		//////////////CELL TABLE FOR TOPOLOGY INFO EVENT CALLBACK///////////////////////////////
+		// ////////////////////////////////////////////////////////////
+
+		// ////////////CELL TABLE FOR TOPOLOGY INFO EVENT
+		// CALLBACK///////////////////////////////
 		setupCellTables(verticalPanel_tab1);
-		/////////////////////////////////////////////////////////////////////////
-		
-		
+		// ///////////////////////////////////////////////////////////////////////
 
 	}
 
@@ -145,7 +156,7 @@ public class Korengui implements EntryPoint, TopologyNotifier {
 		// table for display nodes information
 		Label nodeLabel = new Label("Nodes information");
 		panel.add(nodeLabel);
-		
+
 		cellTableNode = new CellTable<Node>();
 		panel.add(cellTableNode);
 		TextColumn<Node> nodeIdColumn = new TextColumn<Node>() {
@@ -167,11 +178,11 @@ public class Korengui implements EntryPoint, TopologyNotifier {
 		cellTableNode.addColumn(nodeIdColumn, "ID");
 		cellTableNode.addColumn(nodeTypeColumn, "Type");
 
-		//add empty lable for nice layout
-		Label emptyLabel= new Label("");
+		// add empty lable for nice layout
+		Label emptyLabel = new Label("");
 		emptyLabel.setHeight("50px");
 		panel.add(emptyLabel);
-		
+
 		// table for display link
 		Label linkLabel = new Label("Links information");
 		panel.add(linkLabel);
@@ -184,7 +195,7 @@ public class Korengui implements EntryPoint, TopologyNotifier {
 				return object.getSrcSwitch();
 			}
 		};
-		
+
 		TextColumn<NodeLink> linkSrcPortColumn = new TextColumn<NodeLink>() {
 
 			@Override
@@ -200,7 +211,7 @@ public class Korengui implements EntryPoint, TopologyNotifier {
 				return object.getDstSwitch();
 			}
 		};
-		
+
 		TextColumn<NodeLink> linkDestPortColumn = new TextColumn<NodeLink>() {
 
 			@Override
@@ -208,28 +219,28 @@ public class Korengui implements EntryPoint, TopologyNotifier {
 				return new Integer(object.getDstPort()).toString();
 			}
 		};
-		
+
 		cellTableLink.addColumn(linkSrcColumn, "src-switch");
-		cellTableLink.addColumn(linkSrcPortColumn, "src-port");		
+		cellTableLink.addColumn(linkSrcPortColumn, "src-port");
 		cellTableLink.addColumn(linkDestColumn, "dst-switch");
 		cellTableLink.addColumn(linkDestPortColumn, "dst-port");
 
 	}
 
 	@Override
-	public void finishDownload(Map<String, Node> nodes, Map<Integer, NodeLink> links){
+	public void finishDownload(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
 		cellTableNode.setRowCount(nodes.size());
 		List<Node> nodeList = new ArrayList<Node>();
 		nodeList.addAll(nodes.values());
 		cellTableNode.setRowData(0, nodeList);
-		
+
 		cellTableLink.setRowCount(links.size());
 		List<NodeLink> linkList = new ArrayList<NodeLink>();
 		linkList.addAll(links.values());
 		cellTableLink.setRowData(0, linkList);
 	}
-	
-	public void changeStatus(String newStatus){
+
+	public void changeStatus(String newStatus) {
 		lblStatus.setText(newStatus);
 	}
 
