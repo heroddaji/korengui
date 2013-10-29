@@ -58,26 +58,32 @@ public class SvgPanel extends TabLayoutPanel implements TopologyNotifier {
 			}
 		});
 	}
-	
 
 	public void setupZoomTab(ZoomableNode zoomNode) {
-		SvgPanelTab tab = new SvgPanelTab();	
+		SvgPanelTab tab = new SvgPanelTab();
 		this.add(tab, "Zoom Node:" + zoomNode.getDpid());
 		tab.setHeight(String.valueOf(Window.getClientHeight()) + "px");
 		tab.setWidth("100%");
 		this.selectTab(tab);
-		tab.setNodesAndLinks(zoomNode.getChildNodes(), zoomNode.getChildLinks());		
+		tab.setNodesAndLinks(zoomNode.getChildNodes(), zoomNode.getChildLinks());
 		tab.draw();
-		
-	}
 
+	}
+	
+	boolean isSetGlobalTab = false;
 	public void setupGlobalTopology() {
-		SvgPanelTab tab = new SvgPanelTab();
-		this.add(tab, "Global Topology");
-		tempTab = tab;
-		// call global services on the server
-		Utility.INSTANCE.downloadGlobalTopology();		
-		this.selectTab(tab);
+		if ( !isSetGlobalTab) {
+			SvgPanelTab tab = new SvgPanelTab();
+			this.add(tab, "Global Topology");
+			tempTab = tab;
+			// call global services on the server
+			Utility.INSTANCE.downloadGlobalTopology();
+			isSetGlobalTab = true;
+			this.selectTab(tab);
+		}
+		else{
+			selectTab(0);
+		}
 	}
 
 	public void finishDownload(Map<String, Node> nodes, Map<Integer, NodeLink> links) {

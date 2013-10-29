@@ -54,21 +54,5 @@
         "dst-port": 1,
         "type": "internal",
         "direction": "unidirectional"
-    },
-    {
-        "src-switch": "00:00:00:00:00:00:00:09",
-        "src-port": 3,
-        "dst-switch": "00:00:00:00:00:00:00:07",
-        "dst-port": 1,
-        "type": "internal",
-        "direction": "unidirectional"
-    },
-    {
-        "src-switch": "00:00:00:00:00:00:00:08",
-        "src-port": 3,
-        "dst-switch": "00:00:00:00:00:00:00:07",
-        "dst-port": 1,
-        "type": "internal",
-        "direction": "unidirectional"
     }
 ]

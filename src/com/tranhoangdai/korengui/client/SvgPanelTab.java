@@ -72,6 +72,7 @@ public class SvgPanelTab extends ScrollPanel implements ZoomNotifier {
 
 	private void drawLinks(Map<Integer, NodeLink> links) {
 		for (NodeLink link : links.values()) {
+			
 			link.adjust();
 			svgElement.getNode().insertFirst(link.getShape().getNode());
 		}

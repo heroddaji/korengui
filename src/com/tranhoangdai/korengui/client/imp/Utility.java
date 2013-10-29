@@ -42,8 +42,13 @@ public class Utility {
 
 	private List<TopologyNotifier> topologyNotifiers = new ArrayList<TopologyNotifier>();
 	private ZoomNotifier zoomNotifier;
+	
+	
+	public List<NodeLink> getPathFlowConnection(Node startNode, Node endNode){
+		return null;
+	}
 
-	public void notifyFinishDownloadGlobalTopology() {
+	private void notifyFinishDownloadGlobalTopology() {
 		for (TopologyNotifier tn : topologyNotifiers) {
 			tn.finishDownload(globalNodes, globalLinks);
 		}
