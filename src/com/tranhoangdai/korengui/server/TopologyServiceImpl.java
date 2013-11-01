@@ -53,7 +53,7 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 		return json;
 	}
 
-	private String readUrl(String url) throws IOException {
+	public String readUrl(String url) throws IOException {
 		String inputLine = "";
 		String inputLine2 = "";
 
@@ -68,7 +68,7 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 		return inputLine2;
 	}
 
-	private String readFile(String filePath) throws IOException {
+	public String readFile(String filePath) throws IOException {
 		String inputLine = "";
 		String inputLine2 = "";
 

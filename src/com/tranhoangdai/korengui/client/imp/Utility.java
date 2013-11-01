@@ -203,6 +203,8 @@ public class Utility {
 			setState(ActionState.NOTHING);
 		}
 	}
+	
+	
 
 	public ActionState getState() {
 		return state;
