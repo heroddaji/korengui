@@ -18,13 +18,13 @@ public class InformationPanel extends TabLayoutPanel {
 	}
 	
 	private void setupNodeLinkInfoTab(){
-		NodeLinkInfoTab nodeLinkTab = new NodeLinkInfoTab();
+		NodeLinkInfoTab nodeLinkTab = new NodeLinkInfoTab(this);		
 		add(nodeLinkTab,"Nodes/Links Information");
 		
 	}
 	
 	private void setupPathFlowTab(){
-		PathFlowTab pathFlowTab = new PathFlowTab();
+		PathFlowTab pathFlowTab = new PathFlowTab(this);		
 		add(pathFlowTab,"Path Flow");
 	}
 	

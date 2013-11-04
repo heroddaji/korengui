@@ -60,7 +60,7 @@ public class SvgPanel extends TabLayoutPanel implements TopologyNotifier {
 	}
 
 	public void setupZoomTab(ZoomableNode zoomNode) {
-		SvgPanelTab tab = new SvgPanelTab();
+		SvgPanelTab tab = new SvgPanelTab(this);
 		this.add(tab, "Zoom Node:" + zoomNode.getDpid());
 		tab.setHeight(String.valueOf(Window.getClientHeight()) + "px");
 		tab.setWidth("100%");
@@ -73,7 +73,7 @@ public class SvgPanel extends TabLayoutPanel implements TopologyNotifier {
 	boolean isSetGlobalTab = false;
 	public void setupGlobalTopology() {
 		if ( !isSetGlobalTab) {
-			SvgPanelTab tab = new SvgPanelTab();
+			SvgPanelTab tab = new SvgPanelTab(this);
 			this.add(tab, "Global Topology");
 			tempTab = tab;
 			// call global services on the server

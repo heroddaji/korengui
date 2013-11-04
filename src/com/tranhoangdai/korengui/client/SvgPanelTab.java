@@ -9,6 +9,7 @@ import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.imp.Utility;
 import com.tranhoangdai.korengui.client.imp.link.NodeLink;
 import com.tranhoangdai.korengui.client.imp.node.Node;
@@ -21,9 +22,11 @@ public class SvgPanelTab extends ScrollPanel implements ZoomNotifier {
 	OMSVGSVGElement svgElement = null;
 	private Map<String, Node> currentNodes = new HashMap<String, Node>();
 	private Map<Integer, NodeLink> currentLinks = new HashMap<Integer, NodeLink>();
-
-	public SvgPanelTab() {
+	TabLayoutPanel parent = null;
+	
+	public SvgPanelTab(TabLayoutPanel parent) {
 		super();
+		this.parent = parent;
 		this.setWidth("100%");
 		this.setHeight(new Integer(Window.getClientHeight()) + "px");
 		
@@ -90,4 +93,5 @@ public class SvgPanelTab extends ScrollPanel implements ZoomNotifier {
 
 	}
 
+	
 }

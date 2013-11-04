@@ -16,14 +16,15 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 
 	@Override
 	public String getTopologySwitches() {
-		String json="";
-	
-//		try {
-//			json = readUrl("http://163.180.140.95:8080/wm/core/controller/switches/json");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		
+		String json = "";
+
+		// try {
+		// json =
+		// readUrl("http://163.180.140.95:8080/wm/core/controller/switches/json");
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+
 		try {
 			json = readFile("sample-json/nodes.json");
 		} catch (IOException e1) {
@@ -33,19 +34,34 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 		return json;
 	}
 
+
 	@Override
 	public String getTopologyLinks() {
-		
-		String json="";
-		
+
+		String json = "";
+
 		// try {
 		// json = readUrl("http://163.180.140.95:8080/wm/topology/links/json");
 		// } catch (IOException e) {
 		//
 		// }
-		
+
 		try {
 			json = readFile("sample-json/links.json");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		return json;
+	}
+	
+	@Override
+	public String getPathFlow(String nodeId1, String nodeId2) {
+		
+		String json = "";
+	
+		try {
+			json = readFile("sample-json/paths.json");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

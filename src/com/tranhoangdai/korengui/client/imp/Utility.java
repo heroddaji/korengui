@@ -20,6 +20,7 @@ import com.tranhoangdai.korengui.client.imp.node.Switch;
 import com.tranhoangdai.korengui.client.imp.node.VisualNode;
 import com.tranhoangdai.korengui.client.imp.node.zoom.Cluster;
 import com.tranhoangdai.korengui.client.imp.node.zoom.ZoomableNode;
+import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
 import com.tranhoangdai.korengui.client.service.TopologyService;
@@ -41,16 +42,22 @@ public class Utility {
 	private Map<Integer, NodeLink> globalLinks = new HashMap<Integer, NodeLink>();
 
 	private List<TopologyNotifier> topologyNotifiers = new ArrayList<TopologyNotifier>();
-	private ZoomNotifier zoomNotifier;
+	private List<PathFlowNotifier> pathFlowNotifiers = new ArrayList<PathFlowNotifier>();
 	
-	
-	public List<NodeLink> getPathFlowConnection(Node startNode, Node endNode){
+	private ZoomNotifier zoomNotifier; //TODO: make use of this notifier
+
+	public List<NodeLink> getPathFlowConnection(Node startNode, Node endNode) {
 		return null;
 	}
 
 	private void notifyFinishDownloadGlobalTopology() {
 		for (TopologyNotifier tn : topologyNotifiers) {
 			tn.finishDownload(globalNodes, globalLinks);
+		}
+	}
+	private void notifyFinishDownloadPathFlow(List<NodeLink> paths) {
+		for (PathFlowNotifier pn : pathFlowNotifiers) {
+			pn.pathIsSetup(paths);
 		}
 	}
 
@@ -106,12 +113,12 @@ public class Utility {
 						int srcport = (int) obj.get("src-port").isNumber().doubleValue();
 						String dstIp = obj.get("dst-switch").isString().stringValue();
 						int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
-						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);						
-						
+						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
+
 						link.findAndMatchNode(globalNodes);
 						globalLinks.put(link.getId(), link);
 					}
-					
+
 					fakeChildLink();
 
 					// finish download links, notify finish download event
@@ -128,15 +135,50 @@ public class Utility {
 
 		topo.getTopologyLinks(callback);
 	}
-	
-	private void fakeChildLink(){
-		for (Node node: globalNodes.values()){
-			if(node.getClass().equals(Cluster.class)){
-				((Cluster)node).fakeLinks();
+
+	public void downloafPathFlow(String nodeId1, String nodeId2) {
+		TopologyServiceAsync topo = GWT.create(TopologyService.class);
+
+		AsyncCallback<String> callback = new AsyncCallback<String>() {
+
+			@Override
+			public void onSuccess(String result) {
+				JSONValue value = JSONParser.parseStrict(result);
+				JSONArray array = value.isArray();
+				List<NodeLink> paths = new ArrayList<NodeLink>();
+				if (array != null) {
+					for (int i = 0; i < array.size(); i++) {
+						JSONObject obj = array.get(i).isObject();
+						String srcIp = obj.get("src-switch").isString().stringValue();
+						int srcport = (int) obj.get("src-port").isNumber().doubleValue();
+						String dstIp = obj.get("dst-switch").isString().stringValue();
+						int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
+						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
+						paths.add(link);
+					}
+					
+					notifyFinishDownloadPathFlow(paths);
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				System.out.println("failed to load links");
+
+			}
+		};
+
+		topo.getPathFlow(nodeId1, nodeId2, callback);
+	}
+
+	private void fakeChildLink() {
+		for (Node node : globalNodes.values()) {
+			if (node.getClass().equals(Cluster.class)) {
+				((Cluster) node).fakeLinks();
 			}
 		}
 	}
-
+	
 	private void createNode(JSONObject jobj) {
 		Node activeNode = null;
 		Node tempNode = null;
@@ -198,13 +240,11 @@ public class Utility {
 
 	public void notifyGuiWantToZoomToNode(ZoomableNode zoomNode) {
 		if (getState() == ActionState.ZOOMIN) {
-			zoomStack.add(zoomNode);			
+			zoomStack.add(zoomNode);
 			SvgPanel.INSTANCE.setupZoomTab(zoomNode);
 			setState(ActionState.NOTHING);
 		}
 	}
-	
-	
 
 	public ActionState getState() {
 		return state;
@@ -237,10 +277,13 @@ public class Utility {
 	public void setGlobalinks(Map<Integer, NodeLink> activeLinks) {
 		globalLinks = activeLinks;
 	}
-	
 
 	public void addTopologyAble(TopologyNotifier topologyAble) {
 		topologyNotifiers.add(topologyAble);
+	}
+	
+	public void addPathFlowAble(PathFlowNotifier pathFlowAble) {
+		pathFlowNotifiers.add(pathFlowAble);
 	}
 
 	public ZoomNotifier getZoomable() {

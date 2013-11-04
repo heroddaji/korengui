@@ -8,4 +8,6 @@ public interface TopologyServiceAsync {
 
 	void getTopologyLinks(AsyncCallback<String> callback);
 
+	void getPathFlow(String nodeId1, String nodeId2, AsyncCallback<String> callback);
+
 }

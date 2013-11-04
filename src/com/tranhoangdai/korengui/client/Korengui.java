@@ -19,7 +19,6 @@ import com.tranhoangdai.korengui.client.imp.Utility;
 import com.tranhoangdai.korengui.client.imp.Utility.ActionState;
 import com.tranhoangdai.korengui.client.imp.link.NodeLink;
 import com.tranhoangdai.korengui.client.imp.node.Node;
-import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -122,6 +121,8 @@ public class Korengui implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				lblStatus.setText("Action: Click on 2 nodes to get path flow");
 				Utility.INSTANCE.setState(ActionState.FLOW);
+				Utility.INSTANCE.downloafPathFlow("1", "2");
+				Utility.INSTANCE.setState(ActionState.NOTHING);
 
 			}
 		});

@@ -7,6 +7,7 @@ import java.util.Map;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tranhoangdai.korengui.client.imp.Utility;
 import com.tranhoangdai.korengui.client.imp.link.NodeLink;
@@ -17,8 +18,11 @@ public class NodeLinkInfoTab extends VerticalPanel implements TopologyNotifier {
 
 	CellTable<Node> cellTableNode = null;
 	CellTable<NodeLink> cellTableLink = null;
-
-	public NodeLinkInfoTab(){
+	TabLayoutPanel parent = null;
+	
+	public NodeLinkInfoTab(TabLayoutPanel parent){
+		super();
+		this.parent = parent;
 		setupEventHandlers();
 	}
 	
