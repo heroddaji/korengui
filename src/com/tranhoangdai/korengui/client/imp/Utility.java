@@ -10,6 +10,7 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.tranhoangdai.korengui.client.SvgPanel;
 import com.tranhoangdai.korengui.client.imp.link.NodeLink;
@@ -43,11 +44,39 @@ public class Utility {
 
 	private List<TopologyNotifier> topologyNotifiers = new ArrayList<TopologyNotifier>();
 	private List<PathFlowNotifier> pathFlowNotifiers = new ArrayList<PathFlowNotifier>();
-	
-	private ZoomNotifier zoomNotifier; //TODO: make use of this notifier
 
-	public List<NodeLink> getPathFlowConnection(Node startNode, Node endNode) {
-		return null;
+	private ZoomNotifier zoomNotifier; // TODO: make use of this notifier
+
+	private Node pathFlowNode1 = null;
+	private Node pathFlowNode2 = null;
+
+	public void getPathFlowConnection(Node node) {
+		
+
+		if(pathFlowNode1 != null && pathFlowNode2 != null){
+			return;
+		}
+
+		if (pathFlowNode1 == null) {
+			pathFlowNode1 = node;
+			notifyAddPathFlowStartNode();
+		} else {
+			pathFlowNode2 = node;
+			notifyAddPathFlowEndNode();
+		}
+
+		if (pathFlowNode1.equals(pathFlowNode2)) {
+			Window.alert("Error: please choose different nodes!");
+			clearPathFlow();
+		}		
+		
+	}
+
+	public void clearPathFlow() {		
+			state = ActionState.NOTHING;
+			pathFlowNode1 = null;
+			pathFlowNode2 = null;
+			notifyClearFlow();		
 	}
 
 	private void notifyFinishDownloadGlobalTopology() {
@@ -55,10 +84,32 @@ public class Utility {
 			tn.finishDownload(globalNodes, globalLinks);
 		}
 	}
+
+	private void notifyAddPathFlowStartNode() {
+		for (PathFlowNotifier pn : pathFlowNotifiers) {
+			pn.addStartNode(pathFlowNode1);
+		}
+	}
+
+	private void notifyAddPathFlowEndNode() {
+		for (PathFlowNotifier pn : pathFlowNotifiers) {
+			pn.addEndNode(pathFlowNode2);
+		}
+	}
+	private void notifyClearFlow() {
+		for (PathFlowNotifier pn : pathFlowNotifiers) {
+			pn.emptyNodes();
+		}
+	}
+
 	private void notifyFinishDownloadPathFlow(List<NodeLink> paths) {
 		for (PathFlowNotifier pn : pathFlowNotifiers) {
 			pn.pathIsSetup(paths);
 		}
+		
+		pathFlowNode1 = null;
+		pathFlowNode2 = null;
+		state = ActionState.NOTHING;
 	}
 
 	public void downloadGlobalTopology() {
@@ -156,7 +207,7 @@ public class Utility {
 						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
 						paths.add(link);
 					}
-					
+
 					notifyFinishDownloadPathFlow(paths);
 				}
 			}
@@ -178,7 +229,7 @@ public class Utility {
 			}
 		}
 	}
-	
+
 	private void createNode(JSONObject jobj) {
 		Node activeNode = null;
 		Node tempNode = null;
@@ -281,7 +332,7 @@ public class Utility {
 	public void addTopologyAble(TopologyNotifier topologyAble) {
 		topologyNotifiers.add(topologyAble);
 	}
-	
+
 	public void addPathFlowAble(PathFlowNotifier pathFlowAble) {
 		pathFlowNotifiers.add(pathFlowAble);
 	}

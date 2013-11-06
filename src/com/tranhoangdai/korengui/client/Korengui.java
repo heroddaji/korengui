@@ -120,9 +120,7 @@ public class Korengui implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				lblStatus.setText("Action: Click on 2 nodes to get path flow");
-				Utility.INSTANCE.setState(ActionState.FLOW);
-				Utility.INSTANCE.downloafPathFlow("1", "2");
-				Utility.INSTANCE.setState(ActionState.NOTHING);
+				Utility.INSTANCE.setState(ActionState.FLOW);				
 
 			}
 		});
