@@ -7,7 +7,7 @@ import com.tranhoangdai.korengui.client.imp.node.Node;
 
 public interface ZoomNotifier {
 	
-	void zoomIn(Map<String, Node> nodes, Map<Integer, NodeLink> links);
-	void zoomOut();
+	void zoomIn(Node zoomNode);
+	
 	
 }

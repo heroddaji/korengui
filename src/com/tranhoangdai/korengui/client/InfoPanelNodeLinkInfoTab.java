@@ -14,22 +14,17 @@ import com.tranhoangdai.korengui.client.imp.link.NodeLink;
 import com.tranhoangdai.korengui.client.imp.node.Node;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 
-public class NodeLinkInfoTab extends VerticalPanel implements TopologyNotifier {
+public class InfoPanelNodeLinkInfoTab extends VerticalPanel implements TopologyNotifier {
 
 	CellTable<Node> cellTableNode = null;
 	CellTable<NodeLink> cellTableLink = null;
 	TabLayoutPanel parent = null;
 	
-	public NodeLinkInfoTab(TabLayoutPanel parent){
+	public InfoPanelNodeLinkInfoTab(TabLayoutPanel parent){
 		super();
 		this.parent = parent;
-		setupEventHandlers();
-	}
-	
-	private void setupEventHandlers() {
-
 		Utility.INSTANCE.addTopologyAble(this);
-	}
+	}	
 
 	private void setupCellTables() {
 		// table for display nodes information

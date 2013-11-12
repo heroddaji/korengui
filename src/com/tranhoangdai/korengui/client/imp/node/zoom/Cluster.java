@@ -45,9 +45,8 @@ public class Cluster extends ZoomableNode {
 	}
 
 	@Override
-	protected void handleMouseDownEvent(MouseDownEvent event) {
-		Utility.INSTANCE.notifyGuiWantToZoomToNode(this);
-		if (Utility.INSTANCE.getState() == ActionState.ZOOMIN) {
+	protected void handleMouseDownEvent(MouseDownEvent event) {		
+		if (Utility.INSTANCE.getState() == ActionState.ZOOM) {
 			Utility.INSTANCE.notifyGuiWantToZoomToNode(this);
 		}
 		super.handleMouseDownEvent(event);

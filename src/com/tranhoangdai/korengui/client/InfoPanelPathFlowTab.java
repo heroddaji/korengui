@@ -16,23 +16,20 @@ import com.tranhoangdai.korengui.client.imp.link.NodeLink;
 import com.tranhoangdai.korengui.client.imp.node.Node;
 import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 
-public class PathFlowTab extends VerticalPanel implements PathFlowNotifier {
+public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotifier {
 
 	CellTable<NodeLink> cellTablePath = null;
 	CellTable<Node> cellTableNode = null;
 	TabLayoutPanel parent = null;
 	List<Node> nodes = new ArrayList<Node>();
 
-	public PathFlowTab(TabLayoutPanel parent) {
+	public InfoPanelPathFlowTab(TabLayoutPanel parent) {
 		super();
 		this.parent = parent;
-		setupEventHandlers();
-	}
-
-	private void setupEventHandlers() {
 		Utility.INSTANCE.addPathFlowAble(this);
+		
 	}
-
+	
 	private void setupCellTablesFlowInit() {
 
 		// UI portion for add nodes to find patflow
@@ -125,7 +122,6 @@ public class PathFlowTab extends VerticalPanel implements PathFlowNotifier {
 		cellTablePath.setRowCount(paths.size());
 		cellTablePath.setRowData(0, paths);
 
-		// select this tab
 		parent.selectTab(this);
 	}
 
@@ -160,7 +156,7 @@ public class PathFlowTab extends VerticalPanel implements PathFlowNotifier {
 			cellTablePath.setRowCount(0);
 				
 		}
-		
+		Utility.INSTANCE.clearPathFlow();
 
 	}
 

@@ -93,7 +93,7 @@ public class Korengui implements EntryPoint {
 		svgPanel.setHeight(new Integer(Window.getClientHeight() - 100).toString() + "px");
 
 		// information panel //
-		final InformationPanel infoPanel = InformationPanel.INSTANCE;
+		final InfoPanel infoPanel = InfoPanel.INSTANCE;
 		splitLayoutPanel.addEast(infoPanel, verticalPanel.getOffsetWidth() / 2);
 
 
@@ -101,7 +101,7 @@ public class Korengui implements EntryPoint {
 		btnTopology.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				lblStatus.setText("Action: Get topology information");
-				svgPanel.setupGlobalTopology();
+				Utility.INSTANCE.downloadGlobalTopology();
 			}
 		});
 
@@ -110,7 +110,7 @@ public class Korengui implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				lblStatus.setText("Action: Click on cluster node to zoom in ");
-				Utility.INSTANCE.setState(ActionState.ZOOMIN);
+				Utility.INSTANCE.setState(ActionState.ZOOM);
 
 			}
 		});

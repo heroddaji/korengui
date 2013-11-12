@@ -27,27 +27,27 @@ import com.tranhoangdai.korengui.client.imp.link.NodeLink;
 import com.tranhoangdai.korengui.client.imp.node.Node;
 import com.tranhoangdai.korengui.client.imp.node.VisualNode;
 import com.tranhoangdai.korengui.client.imp.node.zoom.ZoomableNode;
+import com.tranhoangdai.korengui.client.interf.GuiEventNotifier;
+import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
 import com.tranhoangdai.korengui.client.service.TopologyService;
 import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 
 @SuppressWarnings("unused")
-public class SvgPanel extends TabLayoutPanel implements TopologyNotifier {
+public class SvgPanel extends TabLayoutPanel implements GuiEventNotifier {
 
 	public static SvgPanel INSTANCE = GWT.create(SvgPanel.class);
-	private SvgPanelTab tempTab = null;
-
+	
 	public SvgPanel() {
 		super(1.5, Unit.EM);
 		setupEventHandlers();
-
 	}
 
 	private void setupEventHandlers() {
 
 		// register to Utility event notifier
-		Utility.INSTANCE.addTopologyAble(this);
+		Utility.INSTANCE.addGuiEventAble(this);
 
 		// handler event when use changes tab, do nothing for now
 		this.addSelectionHandler(new SelectionHandler<Integer>() {
@@ -58,36 +58,27 @@ public class SvgPanel extends TabLayoutPanel implements TopologyNotifier {
 			}
 		});
 	}
-
-	public void setupZoomTab(ZoomableNode zoomNode) {
-		SvgPanelTab tab = new SvgPanelTab(this);
-		this.add(tab, "Zoom Node:" + zoomNode.getDpid());
-		tab.setHeight(String.valueOf(Window.getClientHeight()) + "px");
-		tab.setWidth("100%");
-		this.selectTab(tab);
-		tab.setNodesAndLinks(zoomNode.getChildNodes(), zoomNode.getChildLinks());
-		tab.draw();
-
-	}
 	
-	boolean isSetGlobalTab = false;
-	public void setupGlobalTopology() {
-		if ( !isSetGlobalTab) {
-			SvgPanelTab tab = new SvgPanelTab(this);
-			this.add(tab, "Global Topology");
-			tempTab = tab;
-			// call global services on the server
-			Utility.INSTANCE.downloadGlobalTopology();
-			isSetGlobalTab = true;
-			this.selectTab(tab);
-		}
-		else{
-			selectTab(0);
-		}
+
+	@Override
+	public void eventGlobalTopology() {
+		SvgPanelGeneralDrawTab tab = new SvgPanelGeneralDrawTab(this);
+		this.add(tab, "Global");
+		this.selectTab(tab);
 	}
 
-	public void finishDownload(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
-		this.tempTab.setNodesAndLinks(nodes, links);
-		this.tempTab.draw();
+	@Override
+	public void eventZoomToNode(ZoomableNode zoomNode) {
+		SvgPanelZoomTab tab = new SvgPanelZoomTab(this);
+		String dpid = zoomNode.getDpid();
+		this.add(tab, "Cluster \"" + dpid.substring(dpid.length() - 4, dpid.length()) + "\"");
+		this.selectTab(tab);
+
+	}
+
+	@Override
+	public void eventGetPathFlow() {
+		// TODO Auto-generated method stub
+
 	}
 }

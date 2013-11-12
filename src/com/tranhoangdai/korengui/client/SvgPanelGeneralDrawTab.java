@@ -15,21 +15,25 @@ import com.tranhoangdai.korengui.client.imp.link.NodeLink;
 import com.tranhoangdai.korengui.client.imp.node.Node;
 import com.tranhoangdai.korengui.client.imp.node.VisualNode;
 import com.tranhoangdai.korengui.client.imp.node.zoom.ZoomableNode;
-import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
+import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 
-public class SvgPanelTab extends ScrollPanel implements ZoomNotifier {
+public class SvgPanelGeneralDrawTab extends ScrollPanel implements TopologyNotifier {
 
-	OMSVGSVGElement svgElement = null;
-	private Map<String, Node> currentNodes = new HashMap<String, Node>();
-	private Map<Integer, NodeLink> currentLinks = new HashMap<Integer, NodeLink>();
-	TabLayoutPanel parent = null;
-	
-	public SvgPanelTab(TabLayoutPanel parent) {
+	protected OMSVGSVGElement svgElement = null;
+
+	protected Map<String, Node> currentNodes = new HashMap<String, Node>();
+	protected Map<Integer, NodeLink> currentLinks = new HashMap<Integer, NodeLink>();
+	protected TabLayoutPanel parent = null;
+	protected float center = 0;
+
+	public SvgPanelGeneralDrawTab(TabLayoutPanel parent) {
 		super();
 		this.parent = parent;
+		Utility.INSTANCE.addTopologyAble(this);
+
 		this.setWidth("100%");
 		this.setHeight(new Integer(Window.getClientHeight()) + "px");
-		
+
 		svgElement = OMSVGParser.currentDocument().createSVGSVGElement();
 		svgElement.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, Window.getClientWidth());
 		svgElement.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, Window.getClientHeight());
@@ -46,15 +50,10 @@ public class SvgPanelTab extends ScrollPanel implements ZoomNotifier {
 		drawLinks(currentLinks);
 	}
 
-	private void drawNodes(Map<String, Node> nodes) {
+	protected void drawNodes(Map<String, Node> nodes) {
 		float radius = SvgPanel.INSTANCE.getOffsetWidth() / 4;
-		float center = 0;
-		if (SvgPanel.INSTANCE.getOffsetHeight() < SvgPanel.INSTANCE.getOffsetWidth()) {
-			center = SvgPanel.INSTANCE.getOffsetHeight() / 2;
-		} else {
-			center = SvgPanel.INSTANCE.getOffsetWidth() / 2;
-		}
-		
+		calCenter();
+
 		float slice = (float) (2 * Math.PI / nodes.size());
 
 		int counter = 1;
@@ -73,25 +72,26 @@ public class SvgPanelTab extends ScrollPanel implements ZoomNotifier {
 		}
 	}
 
-	private void drawLinks(Map<Integer, NodeLink> links) {
+	protected void drawLinks(Map<Integer, NodeLink> links) {
 		for (NodeLink link : links.values()) {
-			
+
 			link.adjust();
 			svgElement.getNode().insertFirst(link.getShape().getNode());
 		}
 	}
 
-	@Override
-	public void zoomIn(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
-		// TODO Auto-generated method stub
-
+	protected void calCenter() {
+		if (SvgPanel.INSTANCE.getOffsetHeight() < SvgPanel.INSTANCE.getOffsetWidth()) {
+			center = SvgPanel.INSTANCE.getOffsetHeight() / 2;
+		} else {
+			center = SvgPanel.INSTANCE.getOffsetWidth() / 2;
+		}
 	}
 
 	@Override
-	public void zoomOut() {
-		// TODO Auto-generated method stub
+	public void finishDownload(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
+		setNodesAndLinks(nodes, links);
+		draw();
 
 	}
-
-	
 }

@@ -12,7 +12,6 @@ import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.tranhoangdai.korengui.client.SvgPanel;
 import com.tranhoangdai.korengui.client.imp.link.NodeLink;
 import com.tranhoangdai.korengui.client.imp.node.EndHost;
 import com.tranhoangdai.korengui.client.imp.node.Gateway;
@@ -21,6 +20,7 @@ import com.tranhoangdai.korengui.client.imp.node.Switch;
 import com.tranhoangdai.korengui.client.imp.node.VisualNode;
 import com.tranhoangdai.korengui.client.imp.node.zoom.Cluster;
 import com.tranhoangdai.korengui.client.imp.node.zoom.ZoomableNode;
+import com.tranhoangdai.korengui.client.interf.GuiEventNotifier;
 import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
@@ -33,7 +33,7 @@ import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 public class Utility {
 
 	public enum ActionState {
-		NOTHING, ZOOMOUT, ZOOMIN, FLOW
+		NOTHING, GLOBAL, ZOOM, FLOW
 	}
 
 	public static Utility INSTANCE = GWT.create(Utility.class);
@@ -44,16 +44,17 @@ public class Utility {
 
 	private List<TopologyNotifier> topologyNotifiers = new ArrayList<TopologyNotifier>();
 	private List<PathFlowNotifier> pathFlowNotifiers = new ArrayList<PathFlowNotifier>();
+	private List<GuiEventNotifier> guiEventNotifiers = new ArrayList<GuiEventNotifier>();
+	private List<ZoomNotifier> zoomNotifiers = new ArrayList<ZoomNotifier>();
 
-	private ZoomNotifier zoomNotifier; // TODO: make use of this notifier
+	
 
 	private Node pathFlowNode1 = null;
 	private Node pathFlowNode2 = null;
 
 	public void getPathFlowConnection(Node node) {
-		
 
-		if(pathFlowNode1 != null && pathFlowNode2 != null){
+		if (pathFlowNode1 != null && pathFlowNode2 != null) {
 			return;
 		}
 
@@ -68,18 +69,33 @@ public class Utility {
 		if (pathFlowNode1.equals(pathFlowNode2)) {
 			Window.alert("Error: please choose different nodes!");
 			clearPathFlow();
-		}		
-		
+		}
+
 	}
 
-	public void clearPathFlow() {		
-			state = ActionState.NOTHING;
-			pathFlowNode1 = null;
-			pathFlowNode2 = null;
-			notifyClearFlow();		
+	public void clearPathFlow() {
+		state = ActionState.NOTHING;
+		pathFlowNode1 = null;
+		pathFlowNode2 = null;
+		notifyClearFlow();
+	}
+	private void notifyGuiEvent(ActionState state, Object data) {
+		if(state == ActionState.GLOBAL){
+			for (GuiEventNotifier tn : guiEventNotifiers) {
+				tn.eventGlobalTopology();
+			}	
+		}
+		
+		if(state == ActionState.ZOOM){
+			for (GuiEventNotifier tn : guiEventNotifiers) {
+				tn.eventZoomToNode((ZoomableNode)data);;
+			}	
+		}
 	}
 
 	private void notifyFinishDownloadGlobalTopology() {
+		notifyGuiEvent(ActionState.GLOBAL, null);
+		
 		for (TopologyNotifier tn : topologyNotifiers) {
 			tn.finishDownload(globalNodes, globalLinks);
 		}
@@ -96,9 +112,16 @@ public class Utility {
 			pn.addEndNode(pathFlowNode2);
 		}
 	}
+
 	private void notifyClearFlow() {
 		for (PathFlowNotifier pn : pathFlowNotifiers) {
 			pn.emptyNodes();
+		}
+	}
+	
+	private void notifyZoomEvent(ZoomableNode zoomNode){
+		for (ZoomNotifier zn : zoomNotifiers) {
+			zn.zoomIn(zoomNode);
 		}
 	}
 
@@ -106,7 +129,7 @@ public class Utility {
 		for (PathFlowNotifier pn : pathFlowNotifiers) {
 			pn.pathIsSetup(paths);
 		}
-		
+
 		pathFlowNode1 = null;
 		pathFlowNode2 = null;
 		state = ActionState.NOTHING;
@@ -290,9 +313,12 @@ public class Utility {
 	}
 
 	public void notifyGuiWantToZoomToNode(ZoomableNode zoomNode) {
-		if (getState() == ActionState.ZOOMIN) {
+		if (getState() == ActionState.ZOOM) {
 			zoomStack.add(zoomNode);
-			SvgPanel.INSTANCE.setupZoomTab(zoomNode);
+			
+			notifyGuiEvent(ActionState.ZOOM, zoomNode);
+			notifyZoomEvent(zoomNode);			
+			
 			setState(ActionState.NOTHING);
 		}
 	}
@@ -336,13 +362,13 @@ public class Utility {
 	public void addPathFlowAble(PathFlowNotifier pathFlowAble) {
 		pathFlowNotifiers.add(pathFlowAble);
 	}
-
-	public ZoomNotifier getZoomable() {
-		return zoomNotifier;
+	
+	public void addZoomAble(ZoomNotifier zoomAble) {
+		zoomNotifiers.add(zoomAble);
 	}
 
-	public void setZoomable(ZoomNotifier zoomable) {
-		this.zoomNotifier = zoomable;
+	public void addGuiEventAble(GuiEventNotifier guiEventAble) {
+		guiEventNotifiers.add(guiEventAble);		
 	}
-
+	
 }
