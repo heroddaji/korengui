@@ -26,15 +26,16 @@ public class InfoPanel extends TabLayoutPanel implements GuiEventNotifier {
 		add(nodeLinkTab,"Nodes/Links Information");
 		
 	}
-	@Override
-	public void eventZoomToNode(ZoomableNode zoomNode) {
-		//create zoom tab	
-		
-	}
+
 	@Override
 	public void eventGetPathFlow() {
 		InfoPanelPathFlowTab pathFlowTab = new InfoPanelPathFlowTab(this);		
 		add(pathFlowTab,"Path Flow");
+		
+	}
+	@Override
+	public void eventCreateNewZoomNode(ZoomableNode zoomNode) {
+		// TODO Auto-generated method stub
 		
 	}
 	

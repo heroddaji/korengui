@@ -12,11 +12,12 @@ import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
 
 public class SvgPanelZoomTab extends SvgPanelGeneralDrawTab implements ZoomNotifier {
 
-	ZoomableNode zoomNode = null;	
+	ZoomableNode zoomNode = null;
+
 	public SvgPanelZoomTab(TabLayoutPanel parent) {
 		super(parent);
 		Utility.INSTANCE.addZoomAble(this);
-		
+
 		this.setHeight(String.valueOf(Window.getClientHeight()) + "px");
 		this.setWidth("100%");
 
@@ -44,15 +45,25 @@ public class SvgPanelZoomTab extends SvgPanelGeneralDrawTab implements ZoomNotif
 	}
 
 	@Override
-	public void zoomIn(Node zoomNode) {
-		setZoomNode((ZoomableNode) zoomNode);
-		draw();
+	public void zoomIn(Node _zoomNode) {
+		if (zoomNode != null) {
+			if (zoomNode.equals(_zoomNode)) {
+				parent.selectTab(this);
+			}
+		} else {
+			setUpZoomNode((ZoomableNode) _zoomNode);
+			draw();
+		}
 	}
 
-	public void setZoomNode(ZoomableNode _zoomNode) {
+	public void setUpZoomNode(ZoomableNode _zoomNode) {
 		zoomNode = _zoomNode;
 		currentNodes = zoomNode.getChildNodes();
 		currentLinks = zoomNode.getChildLinks();
+	}
+
+	public Node getZoomNode() {
+		return zoomNode;
 	}
 
 }

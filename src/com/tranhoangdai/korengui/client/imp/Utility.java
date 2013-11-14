@@ -16,6 +16,7 @@ import com.tranhoangdai.korengui.client.imp.link.NodeLink;
 import com.tranhoangdai.korengui.client.imp.node.EndHost;
 import com.tranhoangdai.korengui.client.imp.node.Gateway;
 import com.tranhoangdai.korengui.client.imp.node.Node;
+import com.tranhoangdai.korengui.client.imp.node.SvgUtility;
 import com.tranhoangdai.korengui.client.imp.node.Switch;
 import com.tranhoangdai.korengui.client.imp.node.VisualNode;
 import com.tranhoangdai.korengui.client.imp.node.zoom.Cluster;
@@ -88,7 +89,10 @@ public class Utility {
 		
 		if(state == ActionState.ZOOM){
 			for (GuiEventNotifier tn : guiEventNotifiers) {
-				tn.eventZoomToNode((ZoomableNode)data);;
+				ZoomableNode node = (ZoomableNode) data;
+				if(!SvgUtility.checkIfZoomNodeExist(node)){
+					tn.eventCreateNewZoomNode(node);	
+				}				
 			}	
 		}
 	}
@@ -120,7 +124,7 @@ public class Utility {
 	}
 	
 	private void notifyZoomEvent(ZoomableNode zoomNode){
-		for (ZoomNotifier zn : zoomNotifiers) {
+		for (ZoomNotifier zn : zoomNotifiers) {			
 			zn.zoomIn(zoomNode);
 		}
 	}
@@ -312,7 +316,9 @@ public class Utility {
 		return result;
 	}
 
-	public void notifyGuiWantToZoomToNode(ZoomableNode zoomNode) {
+	public void notifyGuiWantToZoomToNode(ZoomableNode zoomNode) {		
+		
+		
 		if (getState() == ActionState.ZOOM) {
 			zoomStack.add(zoomNode);
 			

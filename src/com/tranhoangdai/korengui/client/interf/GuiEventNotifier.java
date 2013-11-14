@@ -5,7 +5,7 @@ import com.tranhoangdai.korengui.client.imp.node.zoom.ZoomableNode;
 public interface GuiEventNotifier {
 	
 	void eventGlobalTopology();
-	void eventZoomToNode(ZoomableNode zoomNode);
+	void eventCreateNewZoomNode(ZoomableNode zoomNode);
 	void eventGetPathFlow();
 	
 	

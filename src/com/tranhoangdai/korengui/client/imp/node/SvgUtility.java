@@ -6,6 +6,10 @@ import org.vectomatic.dom.svg.OMSVGTransform;
 import org.vectomatic.dom.svg.OMSVGTransformList;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
+import com.tranhoangdai.korengui.client.SvgPanel;
+import com.tranhoangdai.korengui.client.SvgPanelZoomTab;
+import com.tranhoangdai.korengui.client.imp.node.zoom.ZoomableNode;
+
 public class SvgUtility {
 	public static OMSVGImageElement scaleUp(OMSVGImageElement shape, float centerLocation, float scaleFactor) {
 
@@ -27,5 +31,18 @@ public class SvgUtility {
 		t2.setScale(scaleFactor, scaleFactor);
 		
 		return shape;
+	}
+	
+	public static boolean checkIfZoomNodeExist(ZoomableNode node){
+		boolean result = false;
+		
+		for(SvgPanelZoomTab zt: SvgPanel.INSTANCE.getZoomTabs()){
+			if(zt.getZoomNode() != null && zt.getZoomNode().equals(node)){
+				result = true;
+				break;
+			}
+		}
+		
+		return result;
 	}
 }

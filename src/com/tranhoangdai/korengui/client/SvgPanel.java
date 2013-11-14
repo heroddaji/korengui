@@ -39,6 +39,7 @@ public class SvgPanel extends TabLayoutPanel implements GuiEventNotifier {
 
 	public static SvgPanel INSTANCE = GWT.create(SvgPanel.class);
 	
+	private List<SvgPanelZoomTab> zoomTabs = new ArrayList<SvgPanelZoomTab>();
 	public SvgPanel() {
 		super(1.5, Unit.EM);
 		setupEventHandlers();
@@ -68,8 +69,10 @@ public class SvgPanel extends TabLayoutPanel implements GuiEventNotifier {
 	}
 
 	@Override
-	public void eventZoomToNode(ZoomableNode zoomNode) {
+	public void eventCreateNewZoomNode(ZoomableNode zoomNode) {		
+		
 		SvgPanelZoomTab tab = new SvgPanelZoomTab(this);
+		zoomTabs.add(tab);
 		String dpid = zoomNode.getDpid();
 		this.add(tab, "Cluster \"" + dpid.substring(dpid.length() - 4, dpid.length()) + "\"");
 		this.selectTab(tab);
@@ -81,4 +84,9 @@ public class SvgPanel extends TabLayoutPanel implements GuiEventNotifier {
 		// TODO Auto-generated method stub
 
 	}
+
+	public List<SvgPanelZoomTab> getZoomTabs() {
+		return zoomTabs;
+	}
+	
 }
