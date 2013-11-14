@@ -22,21 +22,21 @@ public class InfoPanel extends TabLayoutPanel implements GuiEventNotifier {
 	
 	@Override
 	public void eventGlobalTopology() {
-		InfoPanelNodeLinkInfoTab nodeLinkTab = new InfoPanelNodeLinkInfoTab(this);		
-		add(nodeLinkTab,"Nodes/Links Information");
+		InfoPanelGeneralInfoTab nodeLinkTab = new InfoPanelGeneralInfoTab(this);		
+		add(nodeLinkTab,"Global");
 		
 	}
 
 	@Override
 	public void eventGetPathFlow() {
 		InfoPanelPathFlowTab pathFlowTab = new InfoPanelPathFlowTab(this);		
-		add(pathFlowTab,"Path Flow");
+		add(pathFlowTab,"Flow");
 		
 	}
 	@Override
 	public void eventCreateNewZoomNode(ZoomableNode zoomNode) {
-		// TODO Auto-generated method stub
-		
+		InfoPanelZoomTab zoomTab = new InfoPanelZoomTab(this);		
+		add(zoomTab,"Zoom");		
 	}
 	
 
