@@ -35,8 +35,10 @@ public class InfoPanel extends TabLayoutPanel implements GuiEventNotifier {
 	}
 	@Override
 	public void eventCreateNewZoomNode(ZoomableNode zoomNode) {
-		InfoPanelZoomTab zoomTab = new InfoPanelZoomTab(this);		
-		add(zoomTab,"Zoom");		
+		InfoPanelZoomTab zoomTab = new InfoPanelZoomTab(this);
+		String dpid = zoomNode.getDpid();
+		add(zoomTab, "Cluster \"" + dpid.substring(dpid.length() - 4, dpid.length()) + "\"");
+				
 	}
 	
 
