@@ -38,22 +38,22 @@ public class Utility {
 	}
 
 	public static Utility INSTANCE = GWT.create(Utility.class);
-	private ActionState state = ActionState.NOTHING;
-	private List<Node> zoomStack = new ArrayList<Node>();
-	private Map<String, Node> globalNodes = new HashMap<String, Node>();
-	private Map<Integer, NodeLink> globalLinks = new HashMap<Integer, NodeLink>();
+	public ActionState state = ActionState.NOTHING;
+	public List<Node> zoomStack = new ArrayList<Node>();
+	public Map<String, Node> globalNodes = new HashMap<String, Node>();
+	public Map<Integer, NodeLink> globalLinks = new HashMap<Integer, NodeLink>();
 
-	private List<TopologyNotifier> topologyNotifiers = new ArrayList<TopologyNotifier>();
-	private List<PathFlowNotifier> pathFlowNotifiers = new ArrayList<PathFlowNotifier>();
-	private List<GuiEventNotifier> guiEventNotifiers = new ArrayList<GuiEventNotifier>();
-	private List<ZoomNotifier> zoomNotifiers = new ArrayList<ZoomNotifier>();
+	public List<TopologyNotifier> topologyNotifiers = new ArrayList<TopologyNotifier>();
+	public List<PathFlowNotifier> pathFlowNotifiers = new ArrayList<PathFlowNotifier>();
+	public List<GuiEventNotifier> guiEventNotifiers = new ArrayList<GuiEventNotifier>();
+	public List<ZoomNotifier> zoomNotifiers = new ArrayList<ZoomNotifier>();
 
 	
 
-	private Node pathFlowNode1 = null;
-	private Node pathFlowNode2 = null;
+	public Node pathFlowNode1 = null;
+	public Node pathFlowNode2 = null;
 
-	public void getPathFlowConnection(Node node) {
+	public void setPathFlowConnection(Node node) {
 
 		if (pathFlowNode1 != null && pathFlowNode2 != null) {
 			return;
@@ -61,16 +61,19 @@ public class Utility {
 
 		if (pathFlowNode1 == null) {
 			pathFlowNode1 = node;
+			notifyGuiEvent(ActionState.FLOW, node);
 			notifyAddPathFlowStartNode();
 		} else {
-			pathFlowNode2 = node;
-			notifyAddPathFlowEndNode();
+			pathFlowNode2 = node;			
 		}
 
 		if (pathFlowNode1.equals(pathFlowNode2)) {
 			Window.alert("Error: please choose different nodes!");
 			clearPathFlow();
 		}
+		
+		//after 2 nodes are set, make the path		
+		notifyAddPathFlowEndNode();
 
 	}
 
@@ -80,10 +83,16 @@ public class Utility {
 		pathFlowNode2 = null;
 		notifyClearFlow();
 	}
-	private void notifyGuiEvent(ActionState state, Object data) {
+	public void notifyGuiEvent(ActionState state, Object data) {
 		if(state == ActionState.GLOBAL){
 			for (GuiEventNotifier tn : guiEventNotifiers) {
 				tn.eventGlobalTopology();
+			}	
+		}
+		
+		if(state == ActionState.FLOW){
+			for (GuiEventNotifier tn : guiEventNotifiers) {
+				tn.eventGetPathFlow((Node) data);
 			}	
 		}
 		
@@ -97,7 +106,7 @@ public class Utility {
 		}
 	}
 
-	private void notifyFinishDownloadGlobalTopology() {
+	public void notifyFinishDownloadGlobalTopology() {
 		notifyGuiEvent(ActionState.GLOBAL, null);
 		
 		for (TopologyNotifier tn : topologyNotifiers) {
@@ -105,31 +114,31 @@ public class Utility {
 		}
 	}
 
-	private void notifyAddPathFlowStartNode() {
+	public void notifyAddPathFlowStartNode() {
 		for (PathFlowNotifier pn : pathFlowNotifiers) {
 			pn.addStartNode(pathFlowNode1);
 		}
 	}
 
-	private void notifyAddPathFlowEndNode() {
+	public void notifyAddPathFlowEndNode() {
 		for (PathFlowNotifier pn : pathFlowNotifiers) {
 			pn.addEndNode(pathFlowNode2);
 		}
 	}
 
-	private void notifyClearFlow() {
+	public void notifyClearFlow() {
 		for (PathFlowNotifier pn : pathFlowNotifiers) {
 			pn.emptyNodes();
 		}
 	}
 	
-	private void notifyZoomEvent(ZoomableNode zoomNode){
+	public void notifyZoomEvent(ZoomableNode zoomNode){
 		for (ZoomNotifier zn : zoomNotifiers) {			
 			zn.zoomIn(zoomNode);
 		}
 	}
 
-	private void notifyFinishDownloadPathFlow(List<NodeLink> paths) {
+	public void notifyFinishDownloadPathFlow(List<NodeLink> paths) {
 		for (PathFlowNotifier pn : pathFlowNotifiers) {
 			pn.pathIsSetup(paths);
 		}
@@ -143,7 +152,7 @@ public class Utility {
 		downloadTopologySwitches();
 	}
 
-	private void downloadTopologySwitches() {
+	public void downloadTopologySwitches() {
 		TopologyServiceAsync topo = GWT.create(TopologyService.class);
 
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
@@ -174,7 +183,7 @@ public class Utility {
 		topo.getTopologySwitches(callback);
 	}
 
-	private void downloadTopologyLinks() {
+	public void downloadTopologyLinks() {
 		TopologyServiceAsync topo = GWT.create(TopologyService.class);
 
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
@@ -249,7 +258,7 @@ public class Utility {
 		topo.getPathFlow(nodeId1, nodeId2, callback);
 	}
 
-	private void fakeChildLink() {
+	public void fakeChildLink() {
 		for (Node node : globalNodes.values()) {
 			if (node.getClass().equals(Cluster.class)) {
 				((Cluster) node).fakeLinks();
@@ -257,7 +266,7 @@ public class Utility {
 		}
 	}
 
-	private void createNode(JSONObject jobj) {
+	public void createNode(JSONObject jobj) {
 		Node activeNode = null;
 		Node tempNode = null;
 
@@ -276,7 +285,7 @@ public class Utility {
 		}
 	}
 
-	private Node setNodeProperties(Node tempNode, JSONObject jobj) {
+	public Node setNodeProperties(Node tempNode, JSONObject jobj) {
 
 		if (jobj.get("type") != null) {
 			String type = jobj.get("type").isString().stringValue();
@@ -295,7 +304,7 @@ public class Utility {
 		return tempNode;
 	}
 
-	private boolean setChildNode(Node tempNode, JSONObject jobj) {
+	public boolean setChildNode(Node tempNode, JSONObject jobj) {
 
 		boolean result = false;
 

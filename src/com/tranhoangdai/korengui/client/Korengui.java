@@ -109,9 +109,9 @@ public class Korengui implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				//event will propagate to visual node in mousedown event handler
 				lblStatus.setText("Action: Click on cluster node to zoom in ");
 				Utility.INSTANCE.setState(ActionState.ZOOM);
-
 			}
 		});
 
@@ -119,9 +119,9 @@ public class Korengui implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				lblStatus.setText("Action: Click on 2 nodes to get path flow");
-				Utility.INSTANCE.setState(ActionState.FLOW);				
-
+				//event will propagate to visual node in mousedown event handler
+				lblStatus.setText("Action: Click on 2 nodes to get path flow");				
+				Utility.INSTANCE.setState(ActionState.FLOW);
 			}
 		});
 

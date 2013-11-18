@@ -121,7 +121,7 @@ public class VisualNode extends Node {
 	protected void handleMouseDownEvent(MouseDownEvent event) {
 		
 		if(Utility.INSTANCE.getState() == ActionState.FLOW){
-			Utility.INSTANCE.getPathFlowConnection(this);
+			Utility.INSTANCE.setPathFlowConnection(this);
 		}
 
 		event.stopPropagation();

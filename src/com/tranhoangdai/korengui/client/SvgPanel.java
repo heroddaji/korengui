@@ -80,7 +80,7 @@ public class SvgPanel extends TabLayoutPanel implements GuiEventNotifier {
 	}
 
 	@Override
-	public void eventGetPathFlow() {
+	public void eventGetPathFlow(Node node) {
 		// TODO Auto-generated method stub
 
 	}

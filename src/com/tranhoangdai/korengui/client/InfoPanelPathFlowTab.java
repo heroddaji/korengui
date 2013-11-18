@@ -26,8 +26,7 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 	public InfoPanelPathFlowTab(TabLayoutPanel parent) {
 		super();
 		this.parent = parent;
-		Utility.INSTANCE.addPathFlowAble(this);
-		
+		Utility.INSTANCE.addPathFlowAble(this);		
 	}
 	
 	private void setupCellTablesFlowInit() {
