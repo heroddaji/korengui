@@ -26,7 +26,7 @@ public class NodeLink extends SvgElement implements Cloneable {
 	String srcSwitch;
 	int srcPort;
 	public Node getStartNode() {
-		return startNode;
+		return startNode; 
 	}
 
 	public void setStartNode(Node startNode) {
