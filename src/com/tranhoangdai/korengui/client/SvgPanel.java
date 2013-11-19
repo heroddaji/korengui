@@ -78,10 +78,14 @@ public class SvgPanel extends TabLayoutPanel implements GuiEventNotifier {
 		this.selectTab(tab);
 
 	}
-
+	
+	SvgPanelPathFlowTab pfTab = null;
 	@Override
 	public void eventGetPathFlow(Node node) {
-		// TODO Auto-generated method stub
+		if(pfTab == null){
+			pfTab = new SvgPanelPathFlowTab(this);
+			add(pfTab, "Flow");
+		}
 
 	}
 

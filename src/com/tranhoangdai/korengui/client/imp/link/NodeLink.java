@@ -1,6 +1,5 @@
 package com.tranhoangdai.korengui.client.imp.link;
 
-import java.io.Serializable;
 import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGElement;
@@ -12,7 +11,7 @@ import org.vectomatic.dom.svg.utils.SVGConstants;
 import com.tranhoangdai.korengui.client.imp.SvgElement;
 import com.tranhoangdai.korengui.client.imp.node.Node;
 
-public class NodeLink extends SvgElement implements Serializable {
+public class NodeLink extends SvgElement implements Cloneable {
 
 	private static int UNIQUEID = -1;
 	OMSVGLineElement line = null;
@@ -153,6 +152,10 @@ public class NodeLink extends SvgElement implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();
 	}
 
 }

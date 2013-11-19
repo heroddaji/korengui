@@ -11,7 +11,7 @@ import com.google.gwt.event.dom.client.MouseEvent;
 import com.tranhoangdai.korengui.client.imp.SvgElement;
 import com.tranhoangdai.korengui.client.imp.link.NodeLink;
 
-public abstract class Node extends SvgElement {
+public abstract class Node extends SvgElement implements Cloneable {
 
 	int WIDTH = 60;
 	int HEIGHT = 60;
@@ -156,5 +156,8 @@ public abstract class Node extends SvgElement {
 	}
 
 	public abstract OMSVGElement getGroupShape();
+	
+	
+	 
 
 }

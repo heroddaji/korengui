@@ -20,7 +20,6 @@ public class SvgPanelZoomTab extends SvgPanelGeneralDrawTab implements ZoomNotif
 
 		this.setHeight(String.valueOf(Window.getClientHeight()) + "px");
 		this.setWidth("100%");
-
 	}
 
 	public void draw() {

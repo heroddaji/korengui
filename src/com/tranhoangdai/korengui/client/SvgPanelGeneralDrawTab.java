@@ -41,8 +41,24 @@ public class SvgPanelGeneralDrawTab extends ScrollPanel implements TopologyNotif
 	}
 
 	public void setNodesAndLinks(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
-		currentNodes = nodes;
-		currentLinks = links;
+		for (Node node : nodes.values()) {
+			try {
+				Node newNode = (Node) node.clone();
+				currentNodes.put(newNode.getDpid(), newNode);
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		for (NodeLink link : links.values()) {
+			try {
+				NodeLink newLink = (NodeLink) link.clone();
+				currentLinks.put(newLink.getId(), newLink);
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	public void draw() {

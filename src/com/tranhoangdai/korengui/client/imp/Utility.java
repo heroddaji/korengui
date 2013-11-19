@@ -1,5 +1,6 @@
 package com.tranhoangdai.korengui.client.imp;
 
+import java.awt.Desktop.Action;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,14 +49,12 @@ public class Utility {
 	public List<GuiEventNotifier> guiEventNotifiers = new ArrayList<GuiEventNotifier>();
 	public List<ZoomNotifier> zoomNotifiers = new ArrayList<ZoomNotifier>();
 
-	
-
 	public Node pathFlowNode1 = null;
 	public Node pathFlowNode2 = null;
 
 	public void setPathFlowConnection(Node node) {
 
-		if (pathFlowNode1 != null && pathFlowNode2 != null) {
+		if (state != ActionState.FLOW) {
 			return;
 		}
 
@@ -64,51 +63,55 @@ public class Utility {
 			notifyGuiEvent(ActionState.FLOW, node);
 			notifyAddPathFlowStartNode();
 		} else {
-			pathFlowNode2 = node;			
+			pathFlowNode2 = node;
 		}
 
 		if (pathFlowNode1.equals(pathFlowNode2)) {
 			Window.alert("Error: please choose different nodes!");
 			clearPathFlow();
 		}
-		
-		//after 2 nodes are set, make the path		
-		notifyAddPathFlowEndNode();
+
+		// add endnode if everything is checked
+		if (pathFlowNode1 != null && pathFlowNode2 != null) {
+			notifyAddPathFlowEndNode();
+			pathFlowNode1 = null;
+			pathFlowNode2 = null;
+		}
 
 	}
 
 	public void clearPathFlow() {
 		state = ActionState.NOTHING;
 		pathFlowNode1 = null;
-		pathFlowNode2 = null;
-		notifyClearFlow();
+		pathFlowNode2 = null;		
 	}
+
 	public void notifyGuiEvent(ActionState state, Object data) {
-		if(state == ActionState.GLOBAL){
+		if (state == ActionState.GLOBAL) {
 			for (GuiEventNotifier tn : guiEventNotifiers) {
 				tn.eventGlobalTopology();
-			}	
+			}
 		}
-		
-		if(state == ActionState.FLOW){
+
+		if (state == ActionState.FLOW) {
 			for (GuiEventNotifier tn : guiEventNotifiers) {
 				tn.eventGetPathFlow((Node) data);
-			}	
+			}
 		}
-		
-		if(state == ActionState.ZOOM){
+
+		if (state == ActionState.ZOOM) {
 			for (GuiEventNotifier tn : guiEventNotifiers) {
 				ZoomableNode node = (ZoomableNode) data;
-				if(!SvgUtility.checkIfZoomNodeExist(node)){
-					tn.eventCreateNewZoomNode(node);	
-				}				
-			}	
+				if (!SvgUtility.checkIfZoomNodeExist(node)) {
+					tn.eventCreateNewZoomNode(node);
+				}
+			}
 		}
 	}
 
 	public void notifyFinishDownloadGlobalTopology() {
 		notifyGuiEvent(ActionState.GLOBAL, null);
-		
+
 		for (TopologyNotifier tn : topologyNotifiers) {
 			tn.finishDownload(globalNodes, globalLinks);
 		}
@@ -131,14 +134,14 @@ public class Utility {
 			pn.emptyNodes();
 		}
 	}
-	
-	public void notifyZoomEvent(ZoomableNode zoomNode){
-		for (ZoomNotifier zn : zoomNotifiers) {			
+
+	public void notifyZoomEvent(ZoomableNode zoomNode) {
+		for (ZoomNotifier zn : zoomNotifiers) {
 			zn.zoomIn(zoomNode);
 		}
 	}
 
-	public void notifyFinishDownloadPathFlow(List<NodeLink> paths) {
+	public void notifyFinishDownloadPathFlow(Map<Integer,NodeLink> paths) {
 		for (PathFlowNotifier pn : pathFlowNotifiers) {
 			pn.pathIsSetup(paths);
 		}
@@ -223,7 +226,7 @@ public class Utility {
 		topo.getTopologyLinks(callback);
 	}
 
-	public void downloafPathFlow(String nodeId1, String nodeId2) {
+	public void downloadPathFlow(String nodeId1, String nodeId2) {
 		TopologyServiceAsync topo = GWT.create(TopologyService.class);
 
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
@@ -232,7 +235,7 @@ public class Utility {
 			public void onSuccess(String result) {
 				JSONValue value = JSONParser.parseStrict(result);
 				JSONArray array = value.isArray();
-				List<NodeLink> paths = new ArrayList<NodeLink>();
+				Map<Integer,NodeLink> paths = new HashMap<Integer,NodeLink>();
 				if (array != null) {
 					for (int i = 0; i < array.size(); i++) {
 						JSONObject obj = array.get(i).isObject();
@@ -241,7 +244,7 @@ public class Utility {
 						String dstIp = obj.get("dst-switch").isString().stringValue();
 						int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
 						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
-						paths.add(link);
+						paths.put(link.getId(),link);
 					}
 
 					notifyFinishDownloadPathFlow(paths);
@@ -325,15 +328,14 @@ public class Utility {
 		return result;
 	}
 
-	public void notifyGuiWantToZoomToNode(ZoomableNode zoomNode) {		
-		
-		
+	public void notifyGuiWantToZoomToNode(ZoomableNode zoomNode) {
+
 		if (getState() == ActionState.ZOOM) {
 			zoomStack.add(zoomNode);
-			
+
 			notifyGuiEvent(ActionState.ZOOM, zoomNode);
-			notifyZoomEvent(zoomNode);			
-			
+			notifyZoomEvent(zoomNode);
+
 			setState(ActionState.NOTHING);
 		}
 	}
@@ -377,13 +379,13 @@ public class Utility {
 	public void addPathFlowAble(PathFlowNotifier pathFlowAble) {
 		pathFlowNotifiers.add(pathFlowAble);
 	}
-	
+
 	public void addZoomAble(ZoomNotifier zoomAble) {
 		zoomNotifiers.add(zoomAble);
 	}
 
 	public void addGuiEventAble(GuiEventNotifier guiEventAble) {
-		guiEventNotifiers.add(guiEventAble);		
+		guiEventNotifiers.add(guiEventAble);
 	}
-	
+
 }

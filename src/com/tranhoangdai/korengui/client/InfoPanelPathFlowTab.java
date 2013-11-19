@@ -1,7 +1,10 @@
 package com.tranhoangdai.korengui.client;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -11,6 +14,8 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.tranhoangdai.korengui.client.extendgui.LinkCellTable;
+import com.tranhoangdai.korengui.client.extendgui.NodeCellTable;
 import com.tranhoangdai.korengui.client.imp.Utility;
 import com.tranhoangdai.korengui.client.imp.link.NodeLink;
 import com.tranhoangdai.korengui.client.imp.node.Node;
@@ -18,35 +23,27 @@ import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 
 public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotifier {
 
-	CellTable<NodeLink> cellTablePath = null;
-	CellTable<Node> cellTableNode = null;
+	LinkCellTable cellTablePath = null;
+	NodeCellTable cellTableNode = null;
 	TabLayoutPanel parent = null;
 	List<Node> nodes = new ArrayList<Node>();
 
 	public InfoPanelPathFlowTab(TabLayoutPanel parent) {
 		super();
 		this.parent = parent;
-		Utility.INSTANCE.addPathFlowAble(this);		
+		Utility.INSTANCE.addPathFlowAble(this);
 	}
-	
+
 	private void setupCellTablesFlowInit() {
 
 		// UI portion for add nodes to find patflow
 		Label lblPathLabel = new Label("Add nodes to get PathFlow");
 		add(lblPathLabel);
 
-		cellTableNode = new CellTable<Node>();
+		cellTableNode = new NodeCellTable();
 		add(cellTableNode);
 
-		TextColumn<Node> nodeColumn = new TextColumn<Node>() {
-
-			@Override
-			public String getValue(Node object) {
-				return object.getDpid();
-			}
-		};
-
-		cellTableNode.addColumn(nodeColumn);
+		
 
 		Label lblEmpty1 = new Label("");
 		lblEmpty1.setHeight("20px");
@@ -59,10 +56,11 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (nodes.size() == 2) {
+				if (nodes.size() == 2) {				
+					
 					Node node1 = nodes.get(0);
 					Node node2 = nodes.get(1);
-					Utility.INSTANCE.downloafPathFlow(node1.getDpid(), node2.getDpid());
+					Utility.INSTANCE.downloadPathFlow(node1.getDpid(), node2.getDpid());
 				}
 			}
 		});
@@ -89,38 +87,17 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 		Label resultLabel = new Label("PathFlow result");
 		add(resultLabel);
 
-		cellTablePath = new CellTable<NodeLink>();
+		cellTablePath = new LinkCellTable();
 		add(cellTablePath);
-
-		TextColumn<NodeLink> linkSrcColumn = new TextColumn<NodeLink>() {
-
-			@Override
-			public String getValue(NodeLink object) {
-				return object.getSrcSwitch();
-			}
-		};
-
-		TextColumn<NodeLink> linkDstColumn = new TextColumn<NodeLink>() {
-
-			@Override
-			public String getValue(NodeLink object) {
-				return object.getDstSwitch();
-			}
-		};
-
-		cellTablePath.addColumn(linkSrcColumn, "From");
-		cellTablePath.addColumn(linkDstColumn, "To");
+	
 	}
 
 	@Override
-	public void pathIsSetup(List<NodeLink> paths) {
+	public void pathIsSetup(Map<Integer,NodeLink> paths) {
 		if (cellTablePath == null) {
-			setupCellTablesFlowResult();
-		}
+			setupCellTablesFlowResult();		}
 
-		cellTablePath.setRowCount(paths.size());
-		cellTablePath.setRowData(0, paths);
-
+		cellTablePath.addLinkMap(paths);
 		parent.selectTab(this);
 	}
 
@@ -137,23 +114,24 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 	private void addPathFlowNode(Node node) {
 		if (cellTableNode == null) {
 			setupCellTablesFlowInit();
+		}		
+		if (nodes.size() < 2) {
+			parent.selectTab(this);
+			nodes.add(node);
+			cellTableNode.addNodeList(nodes);
 		}
-		parent.selectTab(this);
-		nodes.add(node);
-		cellTableNode.setRowCount(nodes.size());
-		cellTableNode.setRowData(0, nodes);
 	}
 
 	@Override
 	public void emptyNodes() {
-		if(cellTableNode != null){
+		if (cellTableNode != null) {
 			cellTableNode.setRowCount(0);
 			nodes = new ArrayList<Node>();
-			
+
 		}
-		if(cellTablePath != null){			
+		if (cellTablePath != null) {
 			cellTablePath.setRowCount(0);
-				
+
 		}
 		Utility.INSTANCE.clearPathFlow();
 

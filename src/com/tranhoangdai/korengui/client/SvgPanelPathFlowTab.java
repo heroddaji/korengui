@@ -1,6 +1,6 @@
 package com.tranhoangdai.korengui.client;
 
-import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.imp.Utility;
@@ -16,27 +16,28 @@ public class SvgPanelPathFlowTab extends SvgPanelGeneralDrawTab implements PathF
 	}
 
 	@Override
-	public void addStartNode(Node startNode) {
-		
-		
+	public void addStartNode(Node startNode) {				
 	}
 
 	@Override
 	public void addEndNode(Node endNode) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void emptyNodes() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void pathIsSetup(List<NodeLink> paths) {
-		// TODO Auto-generated method stub
+	public void pathIsSetup(Map<Integer,NodeLink> paths) {
+		//clone the global nodes
+		setNodesAndLinks(Utility.INSTANCE.getGlobalNodes(), paths);
 		
+		//readjust link
+		for(NodeLink link: paths.values()){
+			link.findAndMatchNode(currentNodes);
+		}
+
+		draw();
 	}
 
 }

@@ -37,6 +37,10 @@ public class NodeCellTable extends CellTable<Node> {
 		nodeList.addAll(nodemap.values());
 		setRowData(0, nodeList);
 	}
+	public void addNodeList(List<Node> nodelist){
+		setRowCount(nodelist.size());
+		setRowData(0, nodelist);
+	}
 	
 	
 }
