@@ -1,10 +1,5 @@
-package com.tranhoangdai.korengui.client.imp.node;
+package com.tranhoangdai.korengui.client.model.node;
 
-import org.vectomatic.dom.svg.OMSVGImageElement;
-import org.vectomatic.dom.svg.OMSVGLength;
-import org.vectomatic.dom.svg.OMSVGTextElement;
-
-import com.google.gwt.core.client.GWT;
 
 public class Switch extends VisualNode {
 

@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.imp.link;
+package com.tranhoangdai.korengui.client.model.link;
 
 import java.util.Map;
 
@@ -8,8 +8,8 @@ import org.vectomatic.dom.svg.OMSVGLineElement;
 import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
-import com.tranhoangdai.korengui.client.imp.SvgElement;
-import com.tranhoangdai.korengui.client.imp.node.Node;
+import com.tranhoangdai.korengui.client.model.SvgElement;
+import com.tranhoangdai.korengui.client.model.node.Node;
 
 public class NodeLink extends SvgElement implements Cloneable {
 

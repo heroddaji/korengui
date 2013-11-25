@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.imp.node;
+package com.tranhoangdai.korengui.client.model.node;
 
 public class NodePort {
 	public int getPortNumber() {

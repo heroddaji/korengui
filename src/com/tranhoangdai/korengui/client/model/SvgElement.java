@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.imp;
+package com.tranhoangdai.korengui.client.model;
 
 import java.io.Serializable;
 

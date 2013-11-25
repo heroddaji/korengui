@@ -6,12 +6,12 @@ import java.util.Map;
 import org.vectomatic.dom.svg.OMSVGImageElement;
 
 import com.google.gwt.user.client.ui.TabLayoutPanel;
-import com.tranhoangdai.korengui.client.imp.Utility;
-import com.tranhoangdai.korengui.client.imp.link.NodeLink;
-import com.tranhoangdai.korengui.client.imp.node.Node;
-import com.tranhoangdai.korengui.client.imp.node.SvgUtility;
-import com.tranhoangdai.korengui.client.imp.node.zoom.ZoomableNode;
+import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
+import com.tranhoangdai.korengui.client.model.helper.SvgUtility;
+import com.tranhoangdai.korengui.client.model.link.NodeLink;
+import com.tranhoangdai.korengui.client.model.node.Node;
+import com.tranhoangdai.korengui.client.model.node.zoom.ZoomableNode;
 
 public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab implements ZoomNotifier {
 

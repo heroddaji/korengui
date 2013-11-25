@@ -15,10 +15,10 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.tranhoangdai.korengui.client.imp.Utility;
-import com.tranhoangdai.korengui.client.imp.Utility.ActionState;
-import com.tranhoangdai.korengui.client.imp.link.NodeLink;
-import com.tranhoangdai.korengui.client.imp.node.Node;
+import com.tranhoangdai.korengui.client.controller.Utility;
+import com.tranhoangdai.korengui.client.controller.Utility.ActionState;
+import com.tranhoangdai.korengui.client.model.link.NodeLink;
+import com.tranhoangdai.korengui.client.model.node.Node;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.

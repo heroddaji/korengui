@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.imp.node;
+package com.tranhoangdai.korengui.client.model.helper;
 
 import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
@@ -8,8 +8,12 @@ import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import com.tranhoangdai.korengui.client.SvgPanel;
 import com.tranhoangdai.korengui.client.SvgPanelZoomTab;
-import com.tranhoangdai.korengui.client.imp.node.zoom.Cluster;
-import com.tranhoangdai.korengui.client.imp.node.zoom.ZoomableNode;
+import com.tranhoangdai.korengui.client.model.node.EndHost;
+import com.tranhoangdai.korengui.client.model.node.Gateway;
+import com.tranhoangdai.korengui.client.model.node.Node;
+import com.tranhoangdai.korengui.client.model.node.Switch;
+import com.tranhoangdai.korengui.client.model.node.zoom.Cluster;
+import com.tranhoangdai.korengui.client.model.node.zoom.ZoomableNode;
 
 public class SvgUtility {
 	public static OMSVGImageElement scaleUp(OMSVGImageElement shape, float centerLocation, float scaleFactor) {

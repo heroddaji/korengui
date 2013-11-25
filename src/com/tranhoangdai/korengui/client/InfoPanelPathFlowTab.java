@@ -14,12 +14,12 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.extendgui.LinkCellTable;
 import com.tranhoangdai.korengui.client.extendgui.NodeCellTable;
-import com.tranhoangdai.korengui.client.imp.Utility;
-import com.tranhoangdai.korengui.client.imp.link.NodeLink;
-import com.tranhoangdai.korengui.client.imp.node.Node;
 import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
+import com.tranhoangdai.korengui.client.model.link.NodeLink;
+import com.tranhoangdai.korengui.client.model.node.Node;
 
 public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotifier {
 

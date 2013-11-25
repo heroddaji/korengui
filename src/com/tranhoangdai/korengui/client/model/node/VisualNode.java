@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.imp.node;
+package com.tranhoangdai.korengui.client.model.node;
 
 import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.OMSVGGElement;
@@ -24,8 +24,8 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.tranhoangdai.korengui.client.imp.Utility;
-import com.tranhoangdai.korengui.client.imp.Utility.ActionState;
+import com.tranhoangdai.korengui.client.controller.Utility;
+import com.tranhoangdai.korengui.client.controller.Utility.ActionState;
 
 @SuppressWarnings("unused")
 public class VisualNode extends Node {

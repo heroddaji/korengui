@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.imp;
+package com.tranhoangdai.korengui.client.controller;
 
 import java.awt.Desktop.Action;
 import java.util.ArrayList;
@@ -13,19 +13,19 @@ import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.tranhoangdai.korengui.client.imp.link.NodeLink;
-import com.tranhoangdai.korengui.client.imp.node.EndHost;
-import com.tranhoangdai.korengui.client.imp.node.Gateway;
-import com.tranhoangdai.korengui.client.imp.node.Node;
-import com.tranhoangdai.korengui.client.imp.node.SvgUtility;
-import com.tranhoangdai.korengui.client.imp.node.Switch;
-import com.tranhoangdai.korengui.client.imp.node.VisualNode;
-import com.tranhoangdai.korengui.client.imp.node.zoom.Cluster;
-import com.tranhoangdai.korengui.client.imp.node.zoom.ZoomableNode;
 import com.tranhoangdai.korengui.client.interf.GuiEventNotifier;
 import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
+import com.tranhoangdai.korengui.client.model.helper.SvgUtility;
+import com.tranhoangdai.korengui.client.model.link.NodeLink;
+import com.tranhoangdai.korengui.client.model.node.EndHost;
+import com.tranhoangdai.korengui.client.model.node.Gateway;
+import com.tranhoangdai.korengui.client.model.node.Node;
+import com.tranhoangdai.korengui.client.model.node.Switch;
+import com.tranhoangdai.korengui.client.model.node.VisualNode;
+import com.tranhoangdai.korengui.client.model.node.zoom.Cluster;
+import com.tranhoangdai.korengui.client.model.node.zoom.ZoomableNode;
 import com.tranhoangdai.korengui.client.service.TopologyService;
 import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 

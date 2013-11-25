@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.tranhoangdai.korengui.client.imp.node.Node;
+import com.tranhoangdai.korengui.client.model.node.Node;
 
 public class NodeCellTable extends CellTable<Node> {
 	

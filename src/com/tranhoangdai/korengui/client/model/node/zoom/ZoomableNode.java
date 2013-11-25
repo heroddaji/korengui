@@ -1,11 +1,11 @@
-package com.tranhoangdai.korengui.client.imp.node.zoom;
+package com.tranhoangdai.korengui.client.model.node.zoom;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.tranhoangdai.korengui.client.imp.link.NodeLink;
-import com.tranhoangdai.korengui.client.imp.node.Node;
-import com.tranhoangdai.korengui.client.imp.node.VisualNode;
+import com.tranhoangdai.korengui.client.model.link.NodeLink;
+import com.tranhoangdai.korengui.client.model.node.Node;
+import com.tranhoangdai.korengui.client.model.node.VisualNode;
 
 public abstract class ZoomableNode extends VisualNode{
 	
@@ -18,19 +18,12 @@ public abstract class ZoomableNode extends VisualNode{
 
 	public Map<String, Node> getChildNodes() {
 		return childNodes;
-	}
-
-	public void setChildNodes(Map<String, Node> childNodes) {
-		this.childNodes = childNodes;
-	}
+	}	
 
 	public Map<Integer, NodeLink> getChildLinks() {
 		return childLinks;
 	}
-
-	public void setChildLinks(Map<Integer, NodeLink> childLinks) {
-		this.childLinks = childLinks;
-	}
+	
 	
 	public void addChildNode(Node childNode){
 		childNodes.put(childNode.getDpid(), childNode);

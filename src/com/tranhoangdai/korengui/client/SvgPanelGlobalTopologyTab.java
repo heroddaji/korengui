@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.user.client.ui.TabLayoutPanel;
-import com.tranhoangdai.korengui.client.imp.Utility;
-import com.tranhoangdai.korengui.client.imp.link.NodeLink;
-import com.tranhoangdai.korengui.client.imp.node.Node;
-import com.tranhoangdai.korengui.client.imp.node.SvgUtility;
+import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
+import com.tranhoangdai.korengui.client.model.helper.SvgUtility;
+import com.tranhoangdai.korengui.client.model.link.NodeLink;
+import com.tranhoangdai.korengui.client.model.node.Node;
 
 public class SvgPanelGlobalTopologyTab extends SvgPanelAbstractDrawTab implements TopologyNotifier {
 

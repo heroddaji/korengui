@@ -9,9 +9,9 @@ import org.vectomatic.dom.svg.utils.OMSVGParser;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
-import com.tranhoangdai.korengui.client.imp.link.NodeLink;
-import com.tranhoangdai.korengui.client.imp.node.Node;
-import com.tranhoangdai.korengui.client.imp.node.VisualNode;
+import com.tranhoangdai.korengui.client.model.link.NodeLink;
+import com.tranhoangdai.korengui.client.model.node.Node;
+import com.tranhoangdai.korengui.client.model.node.VisualNode;
 
 public class SvgPanelAbstractDrawTab extends ScrollPanel {
 

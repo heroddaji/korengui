@@ -1,11 +1,11 @@
-package com.tranhoangdai.korengui.client.imp.node.zoom;
+package com.tranhoangdai.korengui.client.model.node.zoom;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.tranhoangdai.korengui.client.imp.Utility;
-import com.tranhoangdai.korengui.client.imp.Utility.ActionState;
-import com.tranhoangdai.korengui.client.imp.link.NodeLink;
-import com.tranhoangdai.korengui.client.imp.node.Node;
-import com.tranhoangdai.korengui.client.imp.node.Switch;
+import com.tranhoangdai.korengui.client.controller.Utility;
+import com.tranhoangdai.korengui.client.controller.Utility.ActionState;
+import com.tranhoangdai.korengui.client.model.link.NodeLink;
+import com.tranhoangdai.korengui.client.model.node.Node;
+import com.tranhoangdai.korengui.client.model.node.Switch;
 
 public class Cluster extends ZoomableNode {
 
