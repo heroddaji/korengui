@@ -2,8 +2,8 @@ package com.tranhoangdai.korengui.client.interf;
 
 import java.util.Map;
 
-import com.tranhoangdai.korengui.client.model.link.NodeLink;
-import com.tranhoangdai.korengui.client.model.node.Node;
+import com.tranhoangdai.korengui.client.model.Node;
+import com.tranhoangdai.korengui.client.model.NodeLink;
 
 
 public interface TopologyNotifier {
