@@ -28,11 +28,11 @@ import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
 import com.tranhoangdai.korengui.client.model.Node;
-import com.tranhoangdai.korengui.client.model.NodeLink;
+import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.VisualNode;
-import com.tranhoangdai.korengui.client.model.ZoomableNode;
 import com.tranhoangdai.korengui.client.service.TopologyService;
 import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
+import com.tranhoangdai.korengui.client.view.svg.ZoomableNode;
 
 @SuppressWarnings("unused")
 public class SvgPanel extends TabLayoutPanel implements GuiEventNotifier {

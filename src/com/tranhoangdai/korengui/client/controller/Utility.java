@@ -18,16 +18,16 @@ import com.tranhoangdai.korengui.client.interf.GuiEventNotifier;
 import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
-import com.tranhoangdai.korengui.client.model.Cluster;
-import com.tranhoangdai.korengui.client.model.EndHost;
-import com.tranhoangdai.korengui.client.model.Gateway;
 import com.tranhoangdai.korengui.client.model.Node;
-import com.tranhoangdai.korengui.client.model.NodeLink;
-import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.VisualNode;
-import com.tranhoangdai.korengui.client.model.ZoomableNode;
 import com.tranhoangdai.korengui.client.service.TopologyService;
 import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
+import com.tranhoangdai.korengui.client.view.svg.Cluster;
+import com.tranhoangdai.korengui.client.view.svg.EndHost;
+import com.tranhoangdai.korengui.client.view.svg.Gateway;
+import com.tranhoangdai.korengui.client.view.svg.Switch;
+import com.tranhoangdai.korengui.client.view.svg.ZoomableNode;
 
 /**
  * This class handles interaction between nodes model and GUI
@@ -42,7 +42,7 @@ public class Utility {
 	public ActionState state = ActionState.NOTHING;
 	public List<Node> zoomStack = new ArrayList<Node>();
 	public Map<String, Node> globalNodes = new HashMap<String, Node>();
-	public Map<Integer, NodeLink> globalLinks = new HashMap<Integer, NodeLink>();
+	public Map<Integer, Link> globalLinks = new HashMap<Integer, Link>();
 
 	public List<TopologyNotifier> topologyNotifiers = new ArrayList<TopologyNotifier>();
 	public List<PathFlowNotifier> pathFlowNotifiers = new ArrayList<PathFlowNotifier>();
@@ -141,7 +141,7 @@ public class Utility {
 		}
 	}
 
-	public void notifyFinishDownloadPathFlow(Map<Integer, NodeLink> paths) {
+	public void notifyFinishDownloadPathFlow(Map<Integer, Link> paths) {
 		for (PathFlowNotifier pn : pathFlowNotifiers) {
 			pn.pathIsSetup(paths);
 		}
@@ -207,7 +207,7 @@ public class Utility {
 						int srcport = (int) obj.get("src-port").isNumber().doubleValue();
 						String dstIp = obj.get("dst-switch").isString().stringValue();
 						int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
-						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
+						Link link = new Link(srcIp, srcport, dstIp, dstport);
 
 						link.findAndMatchNode(globalNodes);
 						globalLinks.put(link.getId(), link);
@@ -239,7 +239,7 @@ public class Utility {
 			public void onSuccess(String result) {
 				JSONValue value = JSONParser.parseStrict(result);
 				JSONArray array = value.isArray();
-				Map<Integer, NodeLink> paths = new HashMap<Integer, NodeLink>();
+				Map<Integer, Link> paths = new HashMap<Integer, Link>();
 				if (array != null) {
 					for (int i = 0; i < array.size(); i++) {
 						JSONObject obj = array.get(i).isObject();
@@ -247,7 +247,7 @@ public class Utility {
 						int srcport = (int) obj.get("src-port").isNumber().doubleValue();
 						String dstIp = obj.get("dst-switch").isString().stringValue();
 						int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
-						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
+						Link link = new Link(srcIp, srcport, dstIp, dstport);
 						paths.put(link.getId(), link);
 					}
 
@@ -368,11 +368,11 @@ public class Utility {
 		globalNodes = activeNodes;
 	}
 
-	public Map<Integer, NodeLink> getGlobalLinks() {
+	public Map<Integer, Link> getGlobalLinks() {
 		return globalLinks;
 	}
 
-	public void setGlobalinks(Map<Integer, NodeLink> activeLinks) {
+	public void setGlobalinks(Map<Integer, Link> activeLinks) {
 		globalLinks = activeLinks;
 	}
 

@@ -8,7 +8,7 @@ import org.vectomatic.dom.svg.OMSVGLineElement;
 import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
-public class NodeLink extends SvgElement implements Cloneable {
+public class Link {
 
 	private static int UNIQUEID = -1;
 	OMSVGLineElement line = null;
@@ -91,14 +91,14 @@ public class NodeLink extends SvgElement implements Cloneable {
 	String type;
 	String direction;
 
-	public NodeLink(String srcSwitch, int srcPort, String dstSwitch, int dstPort) {
+	public Link(String srcSwitch, int srcPort, String dstSwitch, int dstPort) {
 		id = ++UNIQUEID;
 		this.srcSwitch = srcSwitch;
 		this.srcPort = srcPort;
 		this.dstSwitch = dstSwitch;
 		this.dstPort = dstPort;
 	}
-	public NodeLink(NodeLink link) {
+	public Link(Link link) {
 		this.id = link.getId();
 		this.srcSwitch = link.getSrcSwitch();
 		this.srcPort = link.getSrcPort();

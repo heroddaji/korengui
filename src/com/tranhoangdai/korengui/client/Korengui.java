@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.controller.Utility.ActionState;
 import com.tranhoangdai.korengui.client.model.Node;
-import com.tranhoangdai.korengui.client.model.NodeLink;
+import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.view.InfoPanel;
 import com.tranhoangdai.korengui.client.view.SvgPanel;
 
@@ -34,7 +34,7 @@ public class Korengui implements EntryPoint {
 	private static final String SERVER_ERROR = "An error occurred while " + "attempting to contact the server. Please check your network " + "connection and try again.";
 
 	CellTable<Node> cellTableNode;
-	CellTable<NodeLink> cellTableLink;
+	CellTable<Link> cellTableLink;
 
 	Label lblStatus = null;
 

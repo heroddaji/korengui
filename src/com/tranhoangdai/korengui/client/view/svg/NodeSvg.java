@@ -1,7 +1,6 @@
-package com.tranhoangdai.korengui.client.model;
+package com.tranhoangdai.korengui.client.view.svg;
 
 import org.vectomatic.dom.svg.OMSVGElement;
-import org.vectomatic.dom.svg.OMSVGGElement;
 import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGMatrix;
@@ -24,42 +23,39 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.tranhoangdai.korengui.client.controller.Utility;
-import com.tranhoangdai.korengui.client.controller.Utility.ActionState;
+import com.tranhoangdai.korengui.client.model.Node;
 
-@SuppressWarnings("unused")
-public class VisualNode extends Node {
-
+public class NodeSvg extends AbstractElementSvg{
+	
+	protected  int WIDTH = 60;
+	protected  int HEIGHT = 60;	
+	protected  int x;	
+	protected  int y;	
+	protected int scaleFactor = 2;
+	protected Node nodeModel;
 	protected String imageHref = "images/router.svg";
-	OMSVGImageElement shape;
-	boolean dragging = false;
-	OMSVGPoint beforeMovePoint = null;
+	protected OMSVGImageElement shape;
+	protected  OMSVGTextElement textShape;
+	protected boolean dragging = false;
+	protected OMSVGPoint beforeMovePoint = null;
 	protected boolean isScaleUp = false;
-
-	public VisualNode() {
-	}
-
-	public VisualNode(String ip, int x, int y) {
-		super(ip, x, y);
+	
+	public NodeSvg(Node _model){
+		this.nodeModel = _model;
 	}
 	
-	public VisualNode(Node node) {
-		super(node);
-		
-	}
-
 	protected void setupShape() {
 		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
 	}
 
 	protected void setupTextShape() {
-		textShape = new OMSVGTextElement(x, y, OMSVGLength.SVG_LENGTHTYPE_PX, dpid);
+		textShape = new OMSVGTextElement(x, y, OMSVGLength.SVG_LENGTHTYPE_PX, nodeModel.getDpid());
 		// move text to middle of shape
 		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
 		int fontsize = 9;
 		textShape.setAttribute("font-size", new Integer(fontsize).toString());
 		float midShapeX = shape.getWidth().getBaseVal().getValue() / 2;
-		int halfTextLength = dpid.length() * fontsize / 4;
+		int halfTextLength = nodeModel.getDpid().length() * fontsize / 4;
 
 		double moveLength = halfTextLength - midShapeX;
 
@@ -74,10 +70,9 @@ public class VisualNode extends Node {
 
 	}
 
-	protected void setupGroupShape() {
-		groupShape = new OMSVGGElement();
-		groupShape.appendChild(shape);
-		groupShape.appendChild(textShape);
+	protected void setupGroupShape() {	
+		appendChild(shape);
+		appendChild(textShape);
 	}
 
 	protected void setupEventHandler() {
@@ -122,11 +117,8 @@ public class VisualNode extends Node {
 		});
 	}
 
-	protected void handleMouseDownEvent(MouseDownEvent event) {
-		
-		if(Utility.INSTANCE.getState() == ActionState.FLOW){
-			Utility.INSTANCE.setPathFlowConnection(this);
-		}
+	protected void handleMouseDownEvent(MouseDownEvent event) {	
+	
 
 		event.stopPropagation();
 		event.preventDefault();
@@ -164,7 +156,7 @@ public class VisualNode extends Node {
 		}
 		t1 = svg.createSVGTransform();
 		t2 = svg.createSVGTransform();
-		OMSVGTransformList xforms = groupShape.getTransform().getBaseVal();
+		OMSVGTransformList xforms = getTransform().getBaseVal();
 		xforms.appendItem(t2);
 		xforms.appendItem(t1);
 		t2.setScale(scaleDownFactor, scaleDownFactor);
@@ -186,7 +178,7 @@ public class VisualNode extends Node {
 		}
 		t1 = svg.createSVGTransform();
 		t2 = svg.createSVGTransform();
-		OMSVGTransformList xforms = groupShape.getTransform().getBaseVal();
+		OMSVGTransformList xforms = getTransform().getBaseVal();
 		xforms.appendItem(t1);
 		xforms.appendItem(t2);
 		t1.setTranslate(-scaleUpX, -scaleUpY);
@@ -206,21 +198,11 @@ public class VisualNode extends Node {
 		GWT.log("client point transform:" + p1.getDescription());
 		return p1;
 	}
-
-	@Override
+	
 	public OMSVGElement getShape() {
 		return shape;
 	}
-
-	@Override
-	public OMSVGElement getGroupShape() {
-		return groupShape;
-	}
-
-	@Override
-	public void move(MouseEvent<?> event) {
-
-	}
+	
 
 	public void translateTo(int x, int y) {
 		setX(x);
@@ -228,10 +210,27 @@ public class VisualNode extends Node {
 		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
 		OMSVGTransform t;
 		t = svg.createSVGTransform();
-		OMSVGTransformList xforms = groupShape.getTransform().getBaseVal();
+		OMSVGTransformList xforms = getTransform().getBaseVal();
 		xforms.appendItem(t);
 		t.setTranslate(x, y);
 
 	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
 
 }

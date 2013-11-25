@@ -1,7 +1,7 @@
 package com.tranhoangdai.korengui.client.interf;
 
 import com.tranhoangdai.korengui.client.model.Node;
-import com.tranhoangdai.korengui.client.model.ZoomableNode;
+import com.tranhoangdai.korengui.client.view.svg.ZoomableNode;
 
 public interface GuiEventNotifier {
 	

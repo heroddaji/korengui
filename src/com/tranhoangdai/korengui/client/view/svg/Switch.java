@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.model;
+package com.tranhoangdai.korengui.client.view.svg;
 
 
 public class Switch extends VisualNode {

@@ -8,25 +8,25 @@ import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.helper.SvgUtility;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 import com.tranhoangdai.korengui.client.model.Node;
-import com.tranhoangdai.korengui.client.model.NodeLink;
+import com.tranhoangdai.korengui.client.model.Link;
 
 public class SvgPanelGlobalTopologyTab extends SvgPanelAbstractDrawTab implements TopologyNotifier {
 
 	protected Map<String, Node> currentNodes = new HashMap<String, Node>();
-	protected Map<Integer, NodeLink> currentLinks = new HashMap<Integer, NodeLink>();
+	protected Map<Integer, Link> currentLinks = new HashMap<Integer, Link>();
 
 	public SvgPanelGlobalTopologyTab(TabLayoutPanel parent) {
 		super(parent);
 		Utility.INSTANCE.addTopologyAble(this);
 	}
 
-	public void setNodesAndLinks(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
+	public void setNodesAndLinks(Map<String, Node> nodes, Map<Integer, Link> links) {
 		for (Node node : nodes.values()) {
 			Node cloneNode = SvgUtility.cloneNode(node);
 			this.currentNodes.put(cloneNode.getDpid(), cloneNode);
 		}
-		for (NodeLink link : links.values()) {
-			NodeLink cloneLink = new NodeLink(link);
+		for (Link link : links.values()) {
+			Link cloneLink = new Link(link);
 			cloneLink.findAndMatchNode(currentNodes);
 			cloneLink.adjust();
 			this.currentLinks.put(cloneLink.getId(), cloneLink);
@@ -34,7 +34,7 @@ public class SvgPanelGlobalTopologyTab extends SvgPanelAbstractDrawTab implement
 	}
 
 	@Override
-	public void finishDownload(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
+	public void finishDownload(Map<String, Node> nodes, Map<Integer, Link> links) {
 		if (currentNodes.size() > 0 && currentLinks.size() > 0) {
 			parent.selectTab(this);
 		} else {

@@ -10,7 +10,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.model.Node;
-import com.tranhoangdai.korengui.client.model.NodeLink;
+import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.VisualNode;
 
 public class SvgPanelAbstractDrawTab extends ScrollPanel {
@@ -31,7 +31,7 @@ public class SvgPanelAbstractDrawTab extends ScrollPanel {
 
 	}
 
-	public void draw(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
+	public void draw(Map<String, Node> nodes, Map<Integer, Link> links) {
 		drawNodes(nodes);
 		drawLinks(links);
 	}
@@ -58,9 +58,9 @@ public class SvgPanelAbstractDrawTab extends ScrollPanel {
 		}
 	}
 
-	protected void drawLinks(Map<Integer, NodeLink> links) {
+	protected void drawLinks(Map<Integer, Link> links) {
 
-		for (NodeLink link : links.values()) {
+		for (Link link : links.values()) {
 
 			link.adjust();
 			svgElement.getNode().insertFirst(link.getShape().getNode());

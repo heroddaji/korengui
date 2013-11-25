@@ -10,13 +10,13 @@ import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.helper.SvgUtility;
 import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
 import com.tranhoangdai.korengui.client.model.Node;
-import com.tranhoangdai.korengui.client.model.NodeLink;
-import com.tranhoangdai.korengui.client.model.ZoomableNode;
+import com.tranhoangdai.korengui.client.model.Link;
+import com.tranhoangdai.korengui.client.view.svg.ZoomableNode;
 
 public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab implements ZoomNotifier {
 
 	protected Map<String, Node> currentNodes = new HashMap<String, Node>();
-	protected Map<Integer, NodeLink> currentLinks = new HashMap<Integer, NodeLink>();
+	protected Map<Integer, Link> currentLinks = new HashMap<Integer, Link>();
 	ZoomableNode zoomNode = null;
 
 	public SvgPanelZoomTab(TabLayoutPanel parent) {

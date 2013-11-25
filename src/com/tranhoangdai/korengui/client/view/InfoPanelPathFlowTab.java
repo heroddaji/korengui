@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 import com.tranhoangdai.korengui.client.model.Node;
-import com.tranhoangdai.korengui.client.model.NodeLink;
+import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.view.widget.LinkCellTable;
 import com.tranhoangdai.korengui.client.view.widget.NodeCellTable;
 
@@ -93,7 +93,7 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 	}
 
 	@Override
-	public void pathIsSetup(Map<Integer,NodeLink> paths) {
+	public void pathIsSetup(Map<Integer,Link> paths) {
 		if (cellTablePath == null) {
 			setupCellTablesFlowResult();		}
 

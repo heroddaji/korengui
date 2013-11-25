@@ -1,8 +1,10 @@
-package com.tranhoangdai.korengui.client.model;
+package com.tranhoangdai.korengui.client.view.svg;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.controller.Utility.ActionState;
+import com.tranhoangdai.korengui.client.model.Link;
+import com.tranhoangdai.korengui.client.model.Node;
 
 public class Cluster extends ZoomableNode {
 
@@ -34,7 +36,7 @@ public class Cluster extends ZoomableNode {
 				continue;
 			}			
 
-			NodeLink link = new NodeLink(srcNode.getDpid(), 1, dstNode.getDpid(), 1);
+			Link link = new Link(srcNode.getDpid(), 1, dstNode.getDpid(), 1);
 			link.findAndMatchNode(childNodes);
 			addChildLink(link);			
 		}		

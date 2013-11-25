@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.model;
+package com.tranhoangdai.korengui.client.view.svg;
 
 import org.vectomatic.dom.svg.OMSVGImageElement;
 import org.vectomatic.dom.svg.OMSVGLength;

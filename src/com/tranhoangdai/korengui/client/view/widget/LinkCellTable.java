@@ -6,39 +6,39 @@ import java.util.Map;
 
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.tranhoangdai.korengui.client.model.NodeLink;
+import com.tranhoangdai.korengui.client.model.Link;
 
-public class LinkCellTable extends CellTable<NodeLink> {
+public class LinkCellTable extends CellTable<Link> {
 	
 	public LinkCellTable(){
-		TextColumn<NodeLink> linkSrcColumn = new TextColumn<NodeLink>() {
+		TextColumn<Link> linkSrcColumn = new TextColumn<Link>() {
 
 			@Override
-			public String getValue(NodeLink object) {
+			public String getValue(Link object) {
 				return object.getSrcSwitch();
 			}
 		};
 
-		TextColumn<NodeLink> linkSrcPortColumn = new TextColumn<NodeLink>() {
+		TextColumn<Link> linkSrcPortColumn = new TextColumn<Link>() {
 
 			@Override
-			public String getValue(NodeLink object) {
+			public String getValue(Link object) {
 				return new Integer(object.getSrcPort()).toString();
 			}
 		};
 
-		TextColumn<NodeLink> linkDestColumn = new TextColumn<NodeLink>() {
+		TextColumn<Link> linkDestColumn = new TextColumn<Link>() {
 
 			@Override
-			public String getValue(NodeLink object) {
+			public String getValue(Link object) {
 				return object.getDstSwitch();
 			}
 		};
 
-		TextColumn<NodeLink> linkDestPortColumn = new TextColumn<NodeLink>() {
+		TextColumn<Link> linkDestPortColumn = new TextColumn<Link>() {
 
 			@Override
-			public String getValue(NodeLink object) {
+			public String getValue(Link object) {
 				return new Integer(object.getDstPort()).toString();
 			}
 		};
@@ -50,9 +50,9 @@ public class LinkCellTable extends CellTable<NodeLink> {
 		addColumn(linkDestPortColumn, "dst-port");
 	}
 	
-	public void addLinkMap(Map<Integer, NodeLink> linkmap){
+	public void addLinkMap(Map<Integer, Link> linkmap){
 		setRowCount(linkmap.size());
-		List<NodeLink> linkList = new ArrayList<NodeLink>();
+		List<Link> linkList = new ArrayList<Link>();
 		linkList.addAll(linkmap.values());
 		setRowData(0, linkList);
 	}

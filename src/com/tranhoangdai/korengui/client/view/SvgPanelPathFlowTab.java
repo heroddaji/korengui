@@ -8,12 +8,12 @@ import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.helper.SvgUtility;
 import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 import com.tranhoangdai.korengui.client.model.Node;
-import com.tranhoangdai.korengui.client.model.NodeLink;
+import com.tranhoangdai.korengui.client.model.Link;
 
 public class SvgPanelPathFlowTab extends SvgPanelAbstractDrawTab implements PathFlowNotifier{
 	
 	protected Map<String, Node> currentNodes = new HashMap<String, Node>();
-	protected Map<Integer, NodeLink> currentLinks = new HashMap<Integer, NodeLink>();
+	protected Map<Integer, Link> currentLinks = new HashMap<Integer, Link>();
 
 	public SvgPanelPathFlowTab(TabLayoutPanel parent) {
 		super(parent);
@@ -33,24 +33,24 @@ public class SvgPanelPathFlowTab extends SvgPanelAbstractDrawTab implements Path
 	}
 
 	@Override
-	public void pathIsSetup(Map<Integer,NodeLink> paths) {
+	public void pathIsSetup(Map<Integer,Link> paths) {
 		//clone the global nodes		
 		setNodesAndLinks(Utility.INSTANCE.getGlobalNodes(), paths);
 		
 		//readjust link
-		for(NodeLink link: currentLinks.values()){
+		for(Link link: currentLinks.values()){
 			link.findAndMatchNode(currentNodes);
 		}
 
 		draw(currentNodes,currentLinks);
 	}
-	public void setNodesAndLinks(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
+	public void setNodesAndLinks(Map<String, Node> nodes, Map<Integer, Link> links) {
 		for (Node node : nodes.values()) {
 			Node cloneNode = SvgUtility.cloneNode(node);
 			this.currentNodes.put(cloneNode.getDpid(), cloneNode);
 		}
-		for (NodeLink link : links.values()) {
-			NodeLink cloneLink = new NodeLink(link);
+		for (Link link : links.values()) {
+			Link cloneLink = new Link(link);
 			cloneLink.findAndMatchNode(currentNodes);
 			cloneLink.adjust();
 			this.currentLinks.put(cloneLink.getId(), cloneLink);
