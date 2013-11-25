@@ -1,11 +1,11 @@
-package com.tranhoangdai.korengui.client;
+package com.tranhoangdai.korengui.client.gui;
 
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tranhoangdai.korengui.client.controller.Utility;
-import com.tranhoangdai.korengui.client.extendgui.LinkCellTable;
-import com.tranhoangdai.korengui.client.extendgui.NodeCellTable;
+import com.tranhoangdai.korengui.client.gui.widget.LinkCellTable;
+import com.tranhoangdai.korengui.client.gui.widget.NodeCellTable;
 import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
 import com.tranhoangdai.korengui.client.model.node.Node;
 import com.tranhoangdai.korengui.client.model.node.zoom.ZoomableNode;

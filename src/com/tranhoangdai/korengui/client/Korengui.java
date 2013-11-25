@@ -17,6 +17,8 @@ import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.controller.Utility.ActionState;
+import com.tranhoangdai.korengui.client.gui.InfoPanel;
+import com.tranhoangdai.korengui.client.gui.SvgPanel;
 import com.tranhoangdai.korengui.client.model.link.NodeLink;
 import com.tranhoangdai.korengui.client.model.node.Node;
 

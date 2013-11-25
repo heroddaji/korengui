@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.extendgui;
+package com.tranhoangdai.korengui.client.gui.widget;
 
 import java.util.ArrayList;
 import java.util.List;

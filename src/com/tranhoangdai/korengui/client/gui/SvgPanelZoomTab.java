@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client;
+package com.tranhoangdai.korengui.client.gui;
 
 import java.util.HashMap;
 import java.util.Map;

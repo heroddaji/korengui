@@ -6,8 +6,8 @@ import org.vectomatic.dom.svg.OMSVGTransform;
 import org.vectomatic.dom.svg.OMSVGTransformList;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
-import com.tranhoangdai.korengui.client.SvgPanel;
-import com.tranhoangdai.korengui.client.SvgPanelZoomTab;
+import com.tranhoangdai.korengui.client.gui.SvgPanel;
+import com.tranhoangdai.korengui.client.gui.SvgPanelZoomTab;
 import com.tranhoangdai.korengui.client.model.node.EndHost;
 import com.tranhoangdai.korengui.client.model.node.Gateway;
 import com.tranhoangdai.korengui.client.model.node.Node;
