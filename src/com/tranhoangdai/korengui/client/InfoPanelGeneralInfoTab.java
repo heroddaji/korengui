@@ -51,6 +51,7 @@ public class InfoPanelGeneralInfoTab extends VerticalPanel implements TopologyNo
 
 	@Override
 	public void finishDownload(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
+		
 		if(cellTableNode == null || cellTableLink == null){
 			setupCellTables();
 		}		

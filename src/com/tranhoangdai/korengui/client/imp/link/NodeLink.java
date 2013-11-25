@@ -101,6 +101,13 @@ public class NodeLink extends SvgElement implements Cloneable {
 		this.dstSwitch = dstSwitch;
 		this.dstPort = dstPort;
 	}
+	public NodeLink(NodeLink link) {
+		this.id = link.getId();
+		this.srcSwitch = link.getSrcSwitch();
+		this.srcPort = link.getSrcPort();
+		this.dstSwitch = link.getDstSwitch();
+		this.dstPort = link.getDstPort();
+	}
 
 	public void findAndMatchNode(Map<String, Node> nodes) {
 		startNode = nodes.get(srcSwitch);

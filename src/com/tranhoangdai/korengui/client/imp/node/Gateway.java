@@ -19,9 +19,8 @@ public class Gateway extends VisualNode {
 		setupTextShape();
 		setupGroupShape();
 		setupEventHandler();
-		setHarole("gateway");
-		
-		
+		setHarole("gateway"); 
 	}
+	
 
 }

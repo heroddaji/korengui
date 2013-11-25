@@ -41,7 +41,11 @@ public class VisualNode extends Node {
 
 	public VisualNode(String ip, int x, int y) {
 		super(ip, x, y);
-
+	}
+	
+	public VisualNode(Node node) {
+		super(node);
+		
 	}
 
 	protected void setupShape() {

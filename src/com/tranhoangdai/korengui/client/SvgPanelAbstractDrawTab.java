@@ -1,6 +1,5 @@
 package com.tranhoangdai.korengui.client;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGLength;
@@ -10,27 +9,18 @@ import org.vectomatic.dom.svg.utils.OMSVGParser;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
-import com.tranhoangdai.korengui.client.imp.Utility;
 import com.tranhoangdai.korengui.client.imp.link.NodeLink;
 import com.tranhoangdai.korengui.client.imp.node.Node;
 import com.tranhoangdai.korengui.client.imp.node.VisualNode;
-import com.tranhoangdai.korengui.client.imp.node.zoom.ZoomableNode;
-import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 
-public class SvgPanelGeneralDrawTab extends ScrollPanel implements TopologyNotifier {
+public class SvgPanelAbstractDrawTab extends ScrollPanel {
 
 	protected OMSVGSVGElement svgElement = null;
-
-	protected Map<String, Node> currentNodes = new HashMap<String, Node>();
-	protected Map<Integer, NodeLink> currentLinks = new HashMap<Integer, NodeLink>();
 	protected TabLayoutPanel parent = null;
 	protected float center = 0;
-
-	public SvgPanelGeneralDrawTab(TabLayoutPanel parent) {
-		super();
-		this.parent = parent;
-		Utility.INSTANCE.addTopologyAble(this);
-
+	
+	public SvgPanelAbstractDrawTab(TabLayoutPanel _parent){
+		parent = _parent;
 		this.setWidth("100%");
 		this.setHeight(new Integer(Window.getClientHeight()) + "px");
 
@@ -38,16 +28,12 @@ public class SvgPanelGeneralDrawTab extends ScrollPanel implements TopologyNotif
 		svgElement.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, Window.getClientWidth());
 		svgElement.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, Window.getClientHeight());
 		this.getElement().appendChild(svgElement.getElement());
+
 	}
 
-	public void setNodesAndLinks(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
-		this.currentLinks = links;
-		this.currentNodes = nodes;
-	}
-
-	public void draw() {
-		drawNodes(currentNodes);
-		drawLinks(currentLinks);
+	public void draw(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
+		drawNodes(nodes);
+		drawLinks(links);
 	}
 
 	protected void drawNodes(Map<String, Node> nodes) {
@@ -73,6 +59,7 @@ public class SvgPanelGeneralDrawTab extends ScrollPanel implements TopologyNotif
 	}
 
 	protected void drawLinks(Map<Integer, NodeLink> links) {
+
 		for (NodeLink link : links.values()) {
 
 			link.adjust();
@@ -88,10 +75,4 @@ public class SvgPanelGeneralDrawTab extends ScrollPanel implements TopologyNotif
 		}
 	}
 
-	@Override
-	public void finishDownload(Map<String, Node> nodes, Map<Integer, NodeLink> links) {
-		setNodesAndLinks(nodes, links);
-		draw();
-
-	}
 }

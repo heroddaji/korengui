@@ -1,31 +1,32 @@
 package com.tranhoangdai.korengui.client;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.vectomatic.dom.svg.OMSVGImageElement;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.imp.Utility;
+import com.tranhoangdai.korengui.client.imp.link.NodeLink;
 import com.tranhoangdai.korengui.client.imp.node.Node;
 import com.tranhoangdai.korengui.client.imp.node.SvgUtility;
 import com.tranhoangdai.korengui.client.imp.node.zoom.ZoomableNode;
 import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
 
-public class SvgPanelZoomTab extends SvgPanelGeneralDrawTab implements ZoomNotifier {
+public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab implements ZoomNotifier {
 
+	protected Map<String, Node> currentNodes = new HashMap<String, Node>();
+	protected Map<Integer, NodeLink> currentLinks = new HashMap<Integer, NodeLink>();
 	ZoomableNode zoomNode = null;
 
 	public SvgPanelZoomTab(TabLayoutPanel parent) {
 		super(parent);
-		Utility.INSTANCE.addZoomAble(this);
-
-		this.setHeight(String.valueOf(Window.getClientHeight()) + "px");
-		this.setWidth("100%");
+		Utility.INSTANCE.addZoomAble(this);		
 	}
 
-	public void draw() {
+	public void drawZoom() {
 		drawZoomLayout();
-		drawNodes(currentNodes);
-		drawLinks(currentLinks);
+		draw(currentNodes, currentLinks);
 	}
 
 	private void drawZoomLayout() {
@@ -51,7 +52,7 @@ public class SvgPanelZoomTab extends SvgPanelGeneralDrawTab implements ZoomNotif
 			}
 		} else {
 			setUpZoomNode((ZoomableNode) _zoomNode);
-			draw();
+			drawZoom();
 		}
 	}
 

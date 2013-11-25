@@ -33,6 +33,12 @@ public abstract class Node extends SvgElement implements Cloneable {
 	long connectedSince;
 	String dpid;
 	String harole;	
+	
+	
+	public Node(Node node){
+		setX(node.getX());
+		setY(node.getY());
+	}
 
 	public NodeAttributes getAttributes() {
 		return attributes;

@@ -22,10 +22,17 @@ public class InfoPanel extends TabLayoutPanel implements GuiEventNotifier {
 		super(barHeight, barUnit);
 	}
 
+	InfoPanelGeneralInfoTab nodeLinkTab = null;
+
 	@Override
 	public void eventGlobalTopology() {
-		InfoPanelGeneralInfoTab nodeLinkTab = new InfoPanelGeneralInfoTab(this);
-		add(nodeLinkTab, "Global");
+		if (nodeLinkTab == null) {
+			nodeLinkTab = new InfoPanelGeneralInfoTab(this);
+			add(nodeLinkTab, "Global");
+		}
+		else{
+			selectTab(nodeLinkTab);
+		}
 
 	}
 
@@ -36,6 +43,8 @@ public class InfoPanel extends TabLayoutPanel implements GuiEventNotifier {
 		if (pathFlowTab == null) {
 			pathFlowTab = new InfoPanelPathFlowTab(this);
 			add(pathFlowTab, "Flow");
+		}else{
+			selectTab(pathFlowTab);
 		}
 	}
 

@@ -83,7 +83,7 @@ public class Utility {
 	public void clearPathFlow() {
 		state = ActionState.NOTHING;
 		pathFlowNode1 = null;
-		pathFlowNode2 = null;		
+		pathFlowNode2 = null;
 	}
 
 	public void notifyGuiEvent(ActionState state, Object data) {
@@ -141,7 +141,7 @@ public class Utility {
 		}
 	}
 
-	public void notifyFinishDownloadPathFlow(Map<Integer,NodeLink> paths) {
+	public void notifyFinishDownloadPathFlow(Map<Integer, NodeLink> paths) {
 		for (PathFlowNotifier pn : pathFlowNotifiers) {
 			pn.pathIsSetup(paths);
 		}
@@ -152,7 +152,11 @@ public class Utility {
 	}
 
 	public void downloadGlobalTopology() {
-		downloadTopologySwitches();
+		if (globalNodes.size() > 0 && globalLinks.size() > 0) {
+			notifyFinishDownloadGlobalTopology();
+		} else {
+			downloadTopologySwitches();
+		}
 	}
 
 	public void downloadTopologySwitches() {
@@ -235,7 +239,7 @@ public class Utility {
 			public void onSuccess(String result) {
 				JSONValue value = JSONParser.parseStrict(result);
 				JSONArray array = value.isArray();
-				Map<Integer,NodeLink> paths = new HashMap<Integer,NodeLink>();
+				Map<Integer, NodeLink> paths = new HashMap<Integer, NodeLink>();
 				if (array != null) {
 					for (int i = 0; i < array.size(); i++) {
 						JSONObject obj = array.get(i).isObject();
@@ -244,7 +248,7 @@ public class Utility {
 						String dstIp = obj.get("dst-switch").isString().stringValue();
 						int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
 						NodeLink link = new NodeLink(srcIp, srcport, dstIp, dstport);
-						paths.put(link.getId(),link);
+						paths.put(link.getId(), link);
 					}
 
 					notifyFinishDownloadPathFlow(paths);

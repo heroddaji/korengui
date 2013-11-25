@@ -38,8 +38,9 @@ import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 public class SvgPanel extends TabLayoutPanel implements GuiEventNotifier {
 
 	public static SvgPanel INSTANCE = GWT.create(SvgPanel.class);
-	
+
 	private List<SvgPanelZoomTab> zoomTabs = new ArrayList<SvgPanelZoomTab>();
+
 	public SvgPanel() {
 		super(1.5, Unit.EM);
 		setupEventHandlers();
@@ -59,18 +60,21 @@ public class SvgPanel extends TabLayoutPanel implements GuiEventNotifier {
 			}
 		});
 	}
-	
+
+	SvgPanelGlobalTopologyTab globalTab = null;
 
 	@Override
 	public void eventGlobalTopology() {
-		SvgPanelGeneralDrawTab tab = new SvgPanelGeneralDrawTab(this);
-		this.add(tab, "Global");
-		this.selectTab(tab);
+		if (globalTab == null) {
+			globalTab = new SvgPanelGlobalTopologyTab(this);
+			this.add(globalTab, "Global");
+			this.selectTab(globalTab);
+		}
 	}
 
 	@Override
-	public void eventCreateNewZoomNode(ZoomableNode zoomNode) {		
-		
+	public void eventCreateNewZoomNode(ZoomableNode zoomNode) {
+
 		SvgPanelZoomTab tab = new SvgPanelZoomTab(this);
 		zoomTabs.add(tab);
 		String dpid = zoomNode.getDpid();
@@ -78,13 +82,15 @@ public class SvgPanel extends TabLayoutPanel implements GuiEventNotifier {
 		this.selectTab(tab);
 
 	}
-	
+
 	SvgPanelPathFlowTab pfTab = null;
+
 	@Override
 	public void eventGetPathFlow(Node node) {
-		if(pfTab == null){
+		if (pfTab == null) {
 			pfTab = new SvgPanelPathFlowTab(this);
 			add(pfTab, "Flow");
+			selectTab(pfTab);
 		}
 
 	}
@@ -92,5 +98,5 @@ public class SvgPanel extends TabLayoutPanel implements GuiEventNotifier {
 	public List<SvgPanelZoomTab> getZoomTabs() {
 		return zoomTabs;
 	}
-	
+
 }
