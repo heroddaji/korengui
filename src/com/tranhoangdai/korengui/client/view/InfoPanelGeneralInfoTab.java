@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
-import com.tranhoangdai.korengui.client.model.Node;
+import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.view.widget.LinkCellTable;
 import com.tranhoangdai.korengui.client.view.widget.NodeCellTable;
@@ -50,7 +50,7 @@ public class InfoPanelGeneralInfoTab extends VerticalPanel implements TopologyNo
 	}
 
 	@Override
-	public void finishDownload(Map<String, Node> nodes, Map<Integer, Link> links) {
+	public void finishDownload(Map<String, Switch> nodes, Map<Integer, Link> links) {
 		
 		if(cellTableNode == null || cellTableLink == null){
 			setupCellTables();

@@ -7,11 +7,11 @@ import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 import com.tranhoangdai.korengui.client.model.Link;
-import com.tranhoangdai.korengui.client.model.Node;
+import com.tranhoangdai.korengui.client.model.Switch;
 
 public class SvgPanelGlobalTopologyTab extends SvgPanelAbstractDrawTab {
 
-	protected Map<String, Node> currentNodes = new HashMap<String, Node>();
+	protected Map<String, Switch> currentNodes = new HashMap<String, Switch>();
 	protected Map<Integer, Link> currentLinks = new HashMap<Integer, Link>();
 
 	public SvgPanelGlobalTopologyTab(TabLayoutPanel parent) {

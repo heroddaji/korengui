@@ -8,11 +8,11 @@ import org.vectomatic.dom.svg.OMSVGImageElement;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.model.Link;
-import com.tranhoangdai.korengui.client.model.Node;
+import com.tranhoangdai.korengui.client.model.Switch;
 
 public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab  {
 
-	protected Map<String, Node> currentNodes = new HashMap<String, Node>();
+	protected Map<String, Switch> currentNodes = new HashMap<String, Switch>();
 	protected Map<Integer, Link> currentLinks = new HashMap<Integer, Link>();
 //	ZoomableNode zoomNode = null;
 

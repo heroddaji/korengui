@@ -5,7 +5,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.interf.GuiEventNotifier;
-import com.tranhoangdai.korengui.client.model.Node;
+import com.tranhoangdai.korengui.client.model.Switch;
 
 public class InfoPanel extends TabLayoutPanel implements GuiEventNotifier {
 
@@ -38,7 +38,7 @@ public class InfoPanel extends TabLayoutPanel implements GuiEventNotifier {
 	InfoPanelPathFlowTab pathFlowTab = null;
 
 	@Override
-	public void eventGetPathFlow(Node node) {
+	public void eventGetPathFlow(Switch node) {
 		if (pathFlowTab == null) {
 			pathFlowTab = new InfoPanelPathFlowTab(this);
 			add(pathFlowTab, "Flow");

@@ -18,7 +18,7 @@ import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
 import com.tranhoangdai.korengui.client.model.Link;
-import com.tranhoangdai.korengui.client.model.Node;
+import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.service.TopologyService;
 import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 
@@ -33,8 +33,8 @@ public class Utility {
 
 	public static Utility INSTANCE = GWT.create(Utility.class);
 	public ActionState state = ActionState.NOTHING;
-	public List<Node> zoomStack = new ArrayList<Node>();
-	public Map<String, Node> globalNodes = new HashMap<String, Node>();
+	public List<Switch> zoomStack = new ArrayList<Switch>();
+	public Map<String, Switch> globalNodes = new HashMap<String, Switch>();
 	public Map<Integer, Link> globalLinks = new HashMap<Integer, Link>();
 
 	public List<TopologyNotifier> topologyNotifiers = new ArrayList<TopologyNotifier>();
@@ -42,10 +42,10 @@ public class Utility {
 	public List<GuiEventNotifier> guiEventNotifiers = new ArrayList<GuiEventNotifier>();
 	public List<ZoomNotifier> zoomNotifiers = new ArrayList<ZoomNotifier>();
 
-	public Node pathFlowNode1 = null;
-	public Node pathFlowNode2 = null;
+	public Switch pathFlowNode1 = null;
+	public Switch pathFlowNode2 = null;
 
-	public void setPathFlowConnection(Node node) {
+	public void setPathFlowConnection(Switch node) {
 
 		if (state != ActionState.FLOW) {
 			return;
@@ -88,13 +88,13 @@ public class Utility {
 
 		if (state == ActionState.FLOW) {
 			for (GuiEventNotifier tn : guiEventNotifiers) {
-				tn.eventGetPathFlow((Node) data);
+				tn.eventGetPathFlow((Switch) data);
 			}
 		}
 
 		if (state == ActionState.ZOOM) {
 			for (GuiEventNotifier tn : guiEventNotifiers) {
-				Node node = (Node) data;
+				Switch node = (Switch) data;
 
 			}
 		}
@@ -173,7 +173,7 @@ public class Utility {
 		topo.getPathFlow(nodeId1, nodeId2, callback);
 	}
 
-	public void notifyGuiWantToZoomToNode(Node zoomNode) {
+	public void notifyGuiWantToZoomToNode(Switch zoomNode) {
 
 		if (getState() == ActionState.ZOOM) {
 			zoomStack.add(zoomNode);
@@ -188,15 +188,15 @@ public class Utility {
 		return state;
 	}
 
-	public void setZoomStack(List<Node> zoomStack) {
+	public void setZoomStack(List<Switch> zoomStack) {
 		this.zoomStack = zoomStack;
 	}
 
-	public Map<String, Node> getGlobalNodes() {
+	public Map<String, Switch> getGlobalNodes() {
 		return globalNodes;
 	}
 
-	public void setGlobalNodes(Map<String, Node> activeNodes) {
+	public void setGlobalNodes(Map<String, Switch> activeNodes) {
 		globalNodes = activeNodes;
 	}
 

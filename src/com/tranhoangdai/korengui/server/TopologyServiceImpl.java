@@ -1,9 +1,6 @@
 package com.tranhoangdai.korengui.server;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,49 +14,57 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 	@Override
 	public String getTopologySwitches() {
 		String json = "";
-
-		// try {
-		// json =
-		// readUrl("http://163.180.140.95:8080/wm/core/controller/switches/json");
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
+		String url = "http://163.180.118.215:8080/wm/core/controller/switches/json";
 
 		try {
-			json = readFile("sample-json/nodes.json");
-		} catch (IOException e1) {
-			e1.printStackTrace();
+			json = readUrl(url);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+
+		// try {
+		// json = readFile("sample-json/nodes.json");
+		// } catch (IOException e1) {
+		// e1.printStackTrace();
+		// }
 
 		return json;
 	}
-
 
 	@Override
 	public String getTopologyLinks() {
 
 		String json = "";
-
-		// try {
-		// json = readUrl("http://163.180.140.95:8080/wm/topology/links/json");
-		// } catch (IOException e) {
-		//
-		// }
+		String url = "http://163.180.118.215:8080//wm/topology/links/json";
 
 		try {
-			json = readFile("sample-json/links.json");
-		} catch (IOException e1) {
-			e1.printStackTrace();
+			json = readUrl(url);
+		} catch (IOException e) {
+
 		}
 
 		return json;
 	}
-	
+
+	public String getTopologyHosts() {
+
+		String json = "";
+		String url = "http://163.180.118.215:8080/wm/device/";
+
+		try {
+			json = readUrl(url);
+		} catch (IOException e) {
+
+		}
+
+		return json;
+	}
+
 	@Override
 	public String getPathFlow(String nodeId1, String nodeId2) {
-		
+
 		String json = "";
-	
+
 		try {
 			json = readFile("sample-json/paths.json");
 		} catch (IOException e1) {

@@ -1,10 +1,10 @@
 package com.tranhoangdai.korengui.client.view.svg;
 
-import com.tranhoangdai.korengui.client.model.Node;
+import com.tranhoangdai.korengui.client.model.Switch;
 
 public class GatewaySvg extends NodeSvg{
 
-	public GatewaySvg(Node _model) {
+	public GatewaySvg(Switch _model) {
 		super(_model);
 		// TODO Auto-generated constructor stub
 	}

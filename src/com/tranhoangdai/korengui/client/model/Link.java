@@ -19,8 +19,8 @@ public class Link {
 	String type;
 	String direction;
 
-	Node startNode = null;
-	Node endNode = null;
+	Switch startNode = null;
+	Switch endNode = null;
 
 	public Link(String srcSwitch, int srcPort, String dstSwitch, int dstPort) {
 		id = ++UNIQUEID;
@@ -94,19 +94,19 @@ public class Link {
 		this.direction = direction;
 	}
 
-	public Node getStartNode() {
+	public Switch getStartNode() {
 		return startNode;
 	}
 
-	public void setStartNode(Node startNode) {
+	public void setStartNode(Switch startNode) {
 		this.startNode = startNode;
 	}
 
-	public Node getEndNode() {
+	public Switch getEndNode() {
 		return endNode;
 	}
 
-	public void setEndNode(Node endNode) {
+	public void setEndNode(Switch endNode) {
 		this.endNode = endNode;
 	}
 

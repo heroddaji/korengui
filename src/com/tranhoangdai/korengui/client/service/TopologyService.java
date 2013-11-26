@@ -8,6 +8,7 @@ public interface TopologyService extends RemoteService {
 	
 	String getTopologySwitches();
 	String getTopologyLinks();
+	String getTopologyHosts();
 	String getPathFlow(String nodeId1, String nodeId2);
 	
 

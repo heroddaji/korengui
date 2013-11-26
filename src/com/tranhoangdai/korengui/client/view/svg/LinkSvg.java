@@ -9,7 +9,7 @@ import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.tranhoangdai.korengui.client.model.Link;
-import com.tranhoangdai.korengui.client.model.Node;
+import com.tranhoangdai.korengui.client.model.Switch;
 
 public class LinkSvg extends AbstractElementSvg{
 	
@@ -28,7 +28,7 @@ public class LinkSvg extends AbstractElementSvg{
 	
 
 
-	public void findAndMatchNode(Map<String, Node> nodes) {
+	public void findAndMatchNode(Map<String, Switch> nodes) {
 //		startNode = nodes.get(linkModel.getSrcSwitch());
 //		if (startNode != null) {
 //			startNode.addLink(this);

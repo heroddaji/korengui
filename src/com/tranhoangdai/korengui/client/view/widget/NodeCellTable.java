@@ -6,23 +6,23 @@ import java.util.Map;
 
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.tranhoangdai.korengui.client.model.Node;
+import com.tranhoangdai.korengui.client.model.Switch;
 
-public class NodeCellTable extends CellTable<Node> {
+public class NodeCellTable extends CellTable<Switch> {
 	
 	public NodeCellTable(){
-		TextColumn<Node> nodeIdColumn = new TextColumn<Node>() {
+		TextColumn<Switch> nodeIdColumn = new TextColumn<Switch>() {
 
 			@Override
-			public String getValue(Node object) {
+			public String getValue(Switch object) {
 				return object.getDpid();
 			}
 		};
 
-		TextColumn<Node> nodeTypeColumn = new TextColumn<Node>() {
+		TextColumn<Switch> nodeTypeColumn = new TextColumn<Switch>() {
 
 			@Override
-			public String getValue(Node object) {
+			public String getValue(Switch object) {
 				return object.getHarole();
 			}
 		};
@@ -31,13 +31,13 @@ public class NodeCellTable extends CellTable<Node> {
 		addColumn(nodeTypeColumn, "Type");	
 	}
 	
-	public void addNodeMap(Map<String, Node> nodemap){
+	public void addNodeMap(Map<String, Switch> nodemap){
 		setRowCount(nodemap.size());
-		List<Node> nodeList = new ArrayList<Node>();
+		List<Switch> nodeList = new ArrayList<Switch>();
 		nodeList.addAll(nodemap.values());
 		setRowData(0, nodeList);
 	}
-	public void addNodeList(List<Node> nodelist){
+	public void addNodeList(List<Switch> nodelist){
 		setRowCount(nodelist.size());
 		setRowData(0, nodelist);
 	}

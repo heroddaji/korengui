@@ -1,10 +1,10 @@
 package com.tranhoangdai.korengui.client.view.svg;
 
-import com.tranhoangdai.korengui.client.model.Node;
+import com.tranhoangdai.korengui.client.model.Switch;
 
 public class SwitchSvg extends NodeSvg{
 
-	public SwitchSvg(Node _model) {
+	public SwitchSvg(Switch _model) {
 		super(_model);
 		imageHref = "images/switch.svg";		
 		setupShape();

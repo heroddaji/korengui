@@ -23,7 +23,7 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.tranhoangdai.korengui.client.model.Node;
+import com.tranhoangdai.korengui.client.model.Switch;
 
 public class NodeSvg extends AbstractElementSvg{
 	
@@ -32,7 +32,7 @@ public class NodeSvg extends AbstractElementSvg{
 	protected  int x;	
 	protected  int y;	
 	protected int scaleFactor = 2;
-	protected Node nodeModel;
+	protected Switch nodeModel;
 	protected String imageHref = "images/router.svg";
 	protected OMSVGImageElement shape;
 	protected  OMSVGTextElement textShape;
@@ -40,7 +40,7 @@ public class NodeSvg extends AbstractElementSvg{
 	protected OMSVGPoint beforeMovePoint = null;
 	protected boolean isScaleUp = false;
 	
-	public NodeSvg(Node _model){
+	public NodeSvg(Switch _model){
 		this.nodeModel = _model;
 	}
 	

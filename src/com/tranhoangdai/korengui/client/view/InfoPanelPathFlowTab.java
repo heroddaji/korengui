@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
-import com.tranhoangdai.korengui.client.model.Node;
+import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.view.widget.LinkCellTable;
 import com.tranhoangdai.korengui.client.view.widget.NodeCellTable;
@@ -26,7 +26,7 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 	LinkCellTable cellTablePath = null;
 	NodeCellTable cellTableNode = null;
 	TabLayoutPanel parent = null;
-	List<Node> nodes = new ArrayList<Node>();
+	List<Switch> nodes = new ArrayList<Switch>();
 
 	public InfoPanelPathFlowTab(TabLayoutPanel parent) {
 		super();
@@ -58,8 +58,8 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 			public void onClick(ClickEvent event) {
 				if (nodes.size() == 2) {				
 					
-					Node node1 = nodes.get(0);
-					Node node2 = nodes.get(1);
+					Switch node1 = nodes.get(0);
+					Switch node2 = nodes.get(1);
 					Utility.INSTANCE.downloadPathFlow(node1.getDpid(), node2.getDpid());
 				}
 			}
@@ -102,16 +102,16 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 	}
 
 	@Override
-	public void addStartNode(Node startNode) {
+	public void addStartNode(Switch startNode) {
 		addPathFlowNode(startNode);
 	}
 
 	@Override
-	public void addEndNode(Node endNode) {
+	public void addEndNode(Switch endNode) {
 		addPathFlowNode(endNode);
 	}
 
-	private void addPathFlowNode(Node node) {
+	private void addPathFlowNode(Switch node) {
 		if (cellTableNode == null) {
 			setupCellTablesFlowInit();
 		}		
@@ -126,7 +126,7 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 	public void emptyNodes() {
 		if (cellTableNode != null) {
 			cellTableNode.setRowCount(0);
-			nodes = new ArrayList<Node>();
+			nodes = new ArrayList<Switch>();
 
 		}
 		if (cellTablePath != null) {
