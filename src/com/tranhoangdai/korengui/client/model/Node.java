@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Node  {
 	
-	protected List<NodePort> ports = new ArrayList<NodePort>();
+	protected List<Port> ports = new ArrayList<Port>();
 	protected NodeAttributes attributes;
 	protected NodeDescription description;	
 	protected int action;
@@ -15,10 +15,11 @@ public class Node  {
 	protected long connectedSince;
 	protected String dpid;
 	protected String harole;
-	public List<NodePort> getPorts() {
+	
+	public List<Port> getPorts() {
 		return ports;
 	}
-	public void setPorts(List<NodePort> ports) {
+	public void setPorts(List<Port> ports) {
 		this.ports = ports;
 	}
 	public NodeAttributes getAttributes() {

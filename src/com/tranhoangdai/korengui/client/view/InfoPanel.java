@@ -6,7 +6,6 @@ import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.interf.GuiEventNotifier;
 import com.tranhoangdai.korengui.client.model.Node;
-import com.tranhoangdai.korengui.client.view.svg.ZoomableNode;
 
 public class InfoPanel extends TabLayoutPanel implements GuiEventNotifier {
 
@@ -46,14 +45,6 @@ public class InfoPanel extends TabLayoutPanel implements GuiEventNotifier {
 		}else{
 			selectTab(pathFlowTab);
 		}
-	}
-
-	@Override
-	public void eventCreateNewZoomNode(ZoomableNode zoomNode) {
-		InfoPanelZoomTab zoomTab = new InfoPanelZoomTab(this);
-		String dpid = zoomNode.getDpid();
-		add(zoomTab, "Cluster \"" + dpid.substring(dpid.length() - 4, dpid.length()) + "\"");
-
 	}
 
 }

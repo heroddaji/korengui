@@ -6,7 +6,7 @@ public class ClusterSvg extends NodeSvg {
 
 	public ClusterSvg(Node _model) {
 		super(_model);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 }

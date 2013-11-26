@@ -1,7 +1,5 @@
 package com.tranhoangdai.korengui.client.view;
 
-import java.util.Map;
-
 import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
@@ -9,9 +7,6 @@ import org.vectomatic.dom.svg.utils.OMSVGParser;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
-import com.tranhoangdai.korengui.client.model.Node;
-import com.tranhoangdai.korengui.client.model.Link;
-import com.tranhoangdai.korengui.client.model.VisualNode;
 
 public class SvgPanelAbstractDrawTab extends ScrollPanel {
 
@@ -31,48 +26,48 @@ public class SvgPanelAbstractDrawTab extends ScrollPanel {
 
 	}
 
-	public void draw(Map<String, Node> nodes, Map<Integer, Link> links) {
-		drawNodes(nodes);
-		drawLinks(links);
-	}
+//	public void draw(Map<String, Node> nodes, Map<Integer, Link> links) {
+//		drawNodes(nodes);
+//		drawLinks(links);
+//	}
 
-	protected void drawNodes(Map<String, Node> nodes) {
-		float radius = SvgPanel.INSTANCE.getOffsetWidth() / 4;
-		calCenter();
-
-		float slice = (float) (2 * Math.PI / nodes.size());
-
-		int counter = 1;
-		try {
-
-			for (Node node : nodes.values()) {
-				int x = (int) (radius * Math.cos(counter * slice) + center);
-				int y = (int) (radius * Math.sin(counter * slice) + center);
-				((VisualNode) node).translateTo(x, y);
-				++counter;
-				svgElement.appendChild(node.getGroupShape());
-			}
-
-		} catch (Exception e) {
-			System.err.println(e);
-		}
-	}
-
-	protected void drawLinks(Map<Integer, Link> links) {
-
-		for (Link link : links.values()) {
-
-			link.adjust();
-			svgElement.getNode().insertFirst(link.getShape().getNode());
-		}
-	}
-
-	protected void calCenter() {
-		if (SvgPanel.INSTANCE.getOffsetHeight() < SvgPanel.INSTANCE.getOffsetWidth()) {
-			center = SvgPanel.INSTANCE.getOffsetHeight() / 2;
-		} else {
-			center = SvgPanel.INSTANCE.getOffsetWidth() / 2;
-		}
-	}
+//	protected void drawNodes(Map<String, Node> nodes) {
+//		float radius = SvgPanel.INSTANCE.getOffsetWidth() / 4;
+//		calCenter();
+//
+//		float slice = (float) (2 * Math.PI / nodes.size());
+//
+//		int counter = 1;
+//		try {
+//
+//			for (Node node : nodes.values()) {
+//				int x = (int) (radius * Math.cos(counter * slice) + center);
+//				int y = (int) (radius * Math.sin(counter * slice) + center);
+//				((VisualNode) node).translateTo(x, y);
+//				++counter;
+//				svgElement.appendChild(node.getGroupShape());
+//			}
+//
+//		} catch (Exception e) {
+//			System.err.println(e);
+//		}
+//	}
+//
+//	protected void drawLinks(Map<Integer, Link> links) {
+//
+//		for (Link link : links.values()) {
+//
+//			link.adjust();
+//			svgElement.getNode().insertFirst(link.getShape().getNode());
+//		}
+//	}
+//
+//	protected void calCenter() {
+//		if (SvgPanel.INSTANCE.getOffsetHeight() < SvgPanel.INSTANCE.getOffsetWidth()) {
+//			center = SvgPanel.INSTANCE.getOffsetHeight() / 2;
+//		} else {
+//			center = SvgPanel.INSTANCE.getOffsetWidth() / 2;
+//		}
+//	}
 
 }

@@ -6,7 +6,12 @@ public class SwitchSvg extends NodeSvg{
 
 	public SwitchSvg(Node _model) {
 		super(_model);
-		// TODO Auto-generated constructor stub
+		imageHref = "images/switch.svg";		
+		setupShape();
+		setupTextShape();
+		setupGroupShape();
+		setupEventHandler();
+		
 	}
 
 }

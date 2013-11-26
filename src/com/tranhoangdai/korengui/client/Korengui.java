@@ -17,8 +17,8 @@ import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.controller.Utility.ActionState;
-import com.tranhoangdai.korengui.client.model.Node;
 import com.tranhoangdai.korengui.client.model.Link;
+import com.tranhoangdai.korengui.client.model.Node;
 import com.tranhoangdai.korengui.client.view.InfoPanel;
 import com.tranhoangdai.korengui.client.view.SvgPanel;
 
@@ -103,7 +103,7 @@ public class Korengui implements EntryPoint {
 		btnTopology.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				lblStatus.setText("Action: Get topology information");
-				Utility.INSTANCE.downloadGlobalTopology();
+			//	Utility.INSTANCE.downloadGlobalTopology();
 			}
 		});
 
@@ -123,7 +123,7 @@ public class Korengui implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				//event will propagate to visual node in mousedown event handler
 				lblStatus.setText("Action: Click on 2 nodes to get path flow");				
-				Utility.INSTANCE.setState(ActionState.FLOW);
+				//Utility.INSTANCE.setState(ActionState.FLOW);
 			}
 		});
 

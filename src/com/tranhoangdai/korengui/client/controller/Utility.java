@@ -1,6 +1,5 @@
 package com.tranhoangdai.korengui.client.controller;
 
-import java.awt.Desktop.Action;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,21 +12,15 @@ import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.tranhoangdai.korengui.client.helper.SvgUtility;
+import com.tranhoangdai.korengui.client.controller.Utility.ActionState;
 import com.tranhoangdai.korengui.client.interf.GuiEventNotifier;
 import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 import com.tranhoangdai.korengui.client.interf.TopologyNotifier;
 import com.tranhoangdai.korengui.client.interf.ZoomNotifier;
-import com.tranhoangdai.korengui.client.model.Node;
 import com.tranhoangdai.korengui.client.model.Link;
-import com.tranhoangdai.korengui.client.model.VisualNode;
+import com.tranhoangdai.korengui.client.model.Node;
 import com.tranhoangdai.korengui.client.service.TopologyService;
 import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
-import com.tranhoangdai.korengui.client.view.svg.Cluster;
-import com.tranhoangdai.korengui.client.view.svg.EndHost;
-import com.tranhoangdai.korengui.client.view.svg.Gateway;
-import com.tranhoangdai.korengui.client.view.svg.Switch;
-import com.tranhoangdai.korengui.client.view.svg.ZoomableNode;
 
 /**
  * This class handles interaction between nodes model and GUI
@@ -101,10 +94,8 @@ public class Utility {
 
 		if (state == ActionState.ZOOM) {
 			for (GuiEventNotifier tn : guiEventNotifiers) {
-				ZoomableNode node = (ZoomableNode) data;
-				if (!SvgUtility.checkIfZoomNodeExist(node)) {
-					tn.eventCreateNewZoomNode(node);
-				}
+				Node node = (Node) data;
+
 			}
 		}
 	}
@@ -135,11 +126,7 @@ public class Utility {
 		}
 	}
 
-	public void notifyZoomEvent(ZoomableNode zoomNode) {
-		for (ZoomNotifier zn : zoomNotifiers) {
-			zn.zoomIn(zoomNode);
-		}
-	}
+	
 
 	public void notifyFinishDownloadPathFlow(Map<Integer, Link> paths) {
 		for (PathFlowNotifier pn : pathFlowNotifiers) {
@@ -149,85 +136,6 @@ public class Utility {
 		pathFlowNode1 = null;
 		pathFlowNode2 = null;
 		state = ActionState.NOTHING;
-	}
-
-	public void downloadGlobalTopology() {
-		if (globalNodes.size() > 0 && globalLinks.size() > 0) {
-			notifyFinishDownloadGlobalTopology();
-		} else {
-			downloadTopologySwitches();
-		}
-	}
-
-	public void downloadTopologySwitches() {
-		TopologyServiceAsync topo = GWT.create(TopologyService.class);
-
-		AsyncCallback<String> callback = new AsyncCallback<String>() {
-
-			@Override
-			public void onSuccess(String result) {
-
-				JSONValue value = JSONParser.parseStrict(result);
-				JSONArray array = value.isArray();
-
-				if (array != null) {
-					for (int i = 0; i < array.size(); i++) {
-						JSONObject jobj = array.get(i).isObject();
-						createNode(jobj);
-					}
-					// finish download nodes info, now download links info
-					downloadTopologyLinks();
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				System.out.println("failed to load nodes");
-
-			}
-		};
-
-		topo.getTopologySwitches(callback);
-	}
-
-	public void downloadTopologyLinks() {
-		TopologyServiceAsync topo = GWT.create(TopologyService.class);
-
-		AsyncCallback<String> callback = new AsyncCallback<String>() {
-
-			@Override
-			public void onSuccess(String result) {
-
-				JSONValue value = JSONParser.parseStrict(result);
-				JSONArray array = value.isArray();
-				if (array != null) {
-					for (int i = 0; i < array.size(); i++) {
-						JSONObject obj = array.get(i).isObject();
-						String srcIp = obj.get("src-switch").isString().stringValue();
-						int srcport = (int) obj.get("src-port").isNumber().doubleValue();
-						String dstIp = obj.get("dst-switch").isString().stringValue();
-						int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
-						Link link = new Link(srcIp, srcport, dstIp, dstport);
-
-						link.findAndMatchNode(globalNodes);
-						globalLinks.put(link.getId(), link);
-					}
-
-					fakeChildLink();
-
-					// finish download links, notify finish download event
-					notifyFinishDownloadGlobalTopology();
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				System.out.println("failed to load links");
-
-			}
-		};
-
-		topo.getTopologyLinks(callback);
 	}
 
 	public void downloadPathFlow(String nodeId1, String nodeId2) {
@@ -265,95 +173,19 @@ public class Utility {
 		topo.getPathFlow(nodeId1, nodeId2, callback);
 	}
 
-	public void fakeChildLink() {
-		for (Node node : globalNodes.values()) {
-			if (node.getClass().equals(Cluster.class)) {
-				((Cluster) node).fakeLinks();
-			}
-		}
-	}
-
-	public void createNode(JSONObject jobj) {
-		Node activeNode = null;
-		Node tempNode = null;
-
-		String nodeId = jobj.get("dpid").isString().stringValue();
-		tempNode = new VisualNode(nodeId, 0, 0);
-		tempNode = setNodeProperties(tempNode, jobj);
-
-		if (setChildNode(tempNode, jobj)) {
-			// do nothing
-		} else {
-			activeNode = tempNode;
-		}
-
-		if (activeNode != null) {
-			globalNodes.put(activeNode.getDpid(), activeNode);
-		}
-	}
-
-	public Node setNodeProperties(Node tempNode, JSONObject jobj) {
-
-		if (jobj.get("type") != null) {
-			String type = jobj.get("type").isString().stringValue();
-
-			if (type.equals("cluster")) {
-				tempNode = new Cluster(tempNode.getDpid(), tempNode.getX(), tempNode.getY());
-			} else if (type.equals("gateway")) {
-				tempNode = new Gateway(tempNode.getDpid(), tempNode.getX(), tempNode.getY());
-			} else if (type.equals("switch")) {
-				tempNode = new Switch(tempNode.getDpid(), tempNode.getX(), tempNode.getY());
-			} else if (type.equals("endhost")) {
-				tempNode = new EndHost(tempNode.getDpid(), tempNode.getX(), tempNode.getY());
-			}
-		}
-
-		return tempNode;
-	}
-
-	public boolean setChildNode(Node tempNode, JSONObject jobj) {
-
-		boolean result = false;
-
-		if (jobj.get("childOf") != null) {
-
-			/*
-			 * doesn't know why it wrap quote value into the string, so remove
-			 * it
-			 */
-			String belongToId = jobj.get("childOf").isString().toString().replaceAll("\"", "");
-
-			if (globalNodes.get(belongToId) != null) {
-				Node parentNode = globalNodes.get(belongToId);
-				((Cluster) parentNode).addChildNode(tempNode);
-				result = true;
-			}
-		}
-		return result;
-	}
-
-	public void notifyGuiWantToZoomToNode(ZoomableNode zoomNode) {
+	public void notifyGuiWantToZoomToNode(Node zoomNode) {
 
 		if (getState() == ActionState.ZOOM) {
 			zoomStack.add(zoomNode);
 
 			notifyGuiEvent(ActionState.ZOOM, zoomNode);
-			notifyZoomEvent(zoomNode);
 
-			setState(ActionState.NOTHING);
+			
 		}
 	}
 
 	public ActionState getState() {
 		return state;
-	}
-
-	public void setState(ActionState state) {
-		this.state = state;
-	}
-
-	public List<Node> getZoomStack() {
-		return zoomStack;
 	}
 
 	public void setZoomStack(List<Node> zoomStack) {
@@ -390,6 +222,11 @@ public class Utility {
 
 	public void addGuiEventAble(GuiEventNotifier guiEventAble) {
 		guiEventNotifiers.add(guiEventAble);
+	}
+
+	public void setState(ActionState state) {
+		
+		
 	}
 
 }

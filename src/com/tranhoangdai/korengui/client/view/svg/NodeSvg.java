@@ -77,7 +77,7 @@ public class NodeSvg extends AbstractElementSvg{
 
 	protected void setupEventHandler() {
 		shape.addMouseDownHandler(new MouseDownHandler() {
-
+		
 			@Override
 			public void onMouseDown(MouseDownEvent event) {
 				handleMouseDownEvent(event);
@@ -203,6 +203,11 @@ public class NodeSvg extends AbstractElementSvg{
 		return shape;
 	}
 	
+	@Override
+	public OMSVGElement getText() {
+
+		return null;
+	}	
 
 	public void translateTo(int x, int y) {
 		setX(x);
@@ -213,7 +218,6 @@ public class NodeSvg extends AbstractElementSvg{
 		OMSVGTransformList xforms = getTransform().getBaseVal();
 		xforms.appendItem(t);
 		t.setTranslate(x, y);
-
 	}
 
 	public int getX() {
@@ -231,6 +235,6 @@ public class NodeSvg extends AbstractElementSvg{
 	public void setY(int y) {
 		this.y = y;
 	}
-
+	
 
 }

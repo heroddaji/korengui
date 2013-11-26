@@ -1,6 +1,28 @@
 package com.tranhoangdai.korengui.client.model;
 
-public class NodePort {
+public class Port {
+	
+	int portNumber;
+	String hardwareAddress;
+	String name;
+	int config;
+	int state;
+	int currentFeatures;
+	int advertisedFeatures;
+	int supportedFeatures;
+	int peerFeatures;
+	
+	
+//	"portNumber": 3,
+//    "hardwareAddress": "00:22:64:22:0c:6f",
+//    "name": "eth3",
+//    "config": 0,
+//    "state": 512,
+//    "currentFeatures": 672,
+//    "advertisedFeatures": 1727,
+//    "supportedFeatures": 703,
+//    "peerFeatures": 0
+	
 	public int getPortNumber() {
 		return portNumber;
 	}
@@ -73,27 +95,5 @@ public class NodePort {
 		this.peerFeatures = peerFeatures;
 	}
 
-	int portNumber;
-	String hardwareAddress;
-	String name;
-	int config;
-	int state;
-	int currentFeatures;
-	int advertisedFeatures;
-	int supportedFeatures;
-	int peerFeatures;
 	
-	public NodePort(){
-		
-	}
-	
-//	"portNumber": 3,
-//    "hardwareAddress": "00:22:64:22:0c:6f",
-//    "name": "eth3",
-//    "config": 0,
-//    "state": 512,
-//    "currentFeatures": 672,
-//    "advertisedFeatures": 1727,
-//    "supportedFeatures": 703,
-//    "peerFeatures": 0
 }
