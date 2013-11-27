@@ -1,6 +1,8 @@
 package com.tranhoangdai.korengui.client.service.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
@@ -12,6 +14,7 @@ import com.tranhoangdai.korengui.client.model.Attributes;
 import com.tranhoangdai.korengui.client.model.Description;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
+import com.tranhoangdai.korengui.client.model.Port;
 import com.tranhoangdai.korengui.client.model.Switch;
 
 /**
@@ -47,26 +50,23 @@ public class JSONSerializationHelper {
 	}
 
 	public Map<Integer, Link> createLinks(String jsonValue) {
+		Map<Integer,Link> links = new HashMap<Integer,Link>();
 		JSONValue value = JSONParser.parseStrict(jsonValue);
 		JSONArray array = value.isArray();
 		if (array != null) {
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject obj = array.get(i).isObject();
-				String srcIp = obj.get("src-switch").isString().stringValue();
-				int srcport = (int) obj.get("src-port").isNumber().doubleValue();
-				String dstIp = obj.get("dst-switch").isString().stringValue();
-				int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
-				Link link = new Link(srcIp, srcport, dstIp, dstport);
-
+				Link link = createLink(obj);
+				links.put(link.getId(), link);
 			}
 		}
-		return null;
+		return links;
 	}
 
 	private Switch createSwitch(JSONObject jobj) {
 		System.out.println(jobj);
 		Switch newSwitch = new Switch();
-		
+
 		String dpid = jobj.get("dpid").isString().stringValue();
 		String harole = jobj.get("harole").isString().stringValue();
 		double connectedSince = jobj.get("connectedSince").isNumber().doubleValue();
@@ -76,7 +76,8 @@ public class JSONSerializationHelper {
 		double capabilities = jobj.get("capabilities").isNumber().doubleValue();
 		Attributes attributes = createAttributes(jobj.get("attributes").isObject());
 		Description desc = createDescription(jobj.get("description").isObject());
-		
+		List<Port> ports = createPorts(jobj.get("ports").isArray());
+
 		newSwitch.setDpid(dpid);
 		newSwitch.setHarole(harole);
 		newSwitch.setInetAddress(inetAddress);
@@ -85,8 +86,9 @@ public class JSONSerializationHelper {
 		newSwitch.setCapabilities(capabilities);
 		newSwitch.setConnectedSince(connectedSince);
 		newSwitch.setAttributes(attributes);
-		newSwitch.setDescription(desc);		
-		
+		newSwitch.setDescription(desc);
+		newSwitch.setPorts(ports);
+
 		return newSwitch;
 
 	}
@@ -96,12 +98,21 @@ public class JSONSerializationHelper {
 
 	}
 
-	private Switch createLink(JSONObject jobj) {
-		return null;
-
+	private Link createLink(JSONObject obj) {		
+		String srcSwitch = obj.get("src-switch").isString().stringValue();
+		int srcPort = (int) obj.get("src-port").isNumber().doubleValue();
+		String dstSwitch = obj.get("dst-switch").isString().stringValue();
+		int dstPort = (int) obj.get("dst-port").isNumber().doubleValue();
+		String type = obj.get("type").isString().stringValue();
+		String direction = obj.get("direction").isString().stringValue();
+		
+		Link link = new Link(srcSwitch, srcPort, dstSwitch, dstPort);
+		link.setType(type);
+		link.setDirection(direction);
+		return link;
 	}
-	
-	private Attributes createAttributes(JSONObject jobj){
+
+	private Attributes createAttributes(JSONObject jobj) {
 		Attributes attributes = new Attributes();
 		attributes.setFastWildcards(jobj.get("FastWildcards").isNumber().doubleValue());
 		attributes.setSupportsNxRole(jobj.get("supportsNxRole").isBoolean().booleanValue());
@@ -109,7 +120,8 @@ public class JSONSerializationHelper {
 		attributes.setSupportsOfppTable(jobj.get("supportsOfppTable").isBoolean().booleanValue());
 		return attributes;
 	}
-	private Description createDescription(JSONObject jobj){
+
+	private Description createDescription(JSONObject jobj) {
 		Description desc = new Description();
 		desc.setDatapath(jobj.get("datapath").isString().stringValue());
 		desc.setHardware(jobj.get("hardware").isString().stringValue());
@@ -119,4 +131,25 @@ public class JSONSerializationHelper {
 		return desc;
 	}
 
+	private List<Port> createPorts(JSONArray array) {
+		List<Port> ports = new ArrayList<Port>();
+		for (int i = 0; i < array.size(); i++) {
+			JSONObject obj = array.get(i).isObject();
+			Port port = new Port();
+			port.setPortNumber(obj.get("portNumber").isNumber().doubleValue());
+			port.setHardwareAddress(obj.get("hardwareAddress").isString().stringValue());
+			port.setName(obj.get("name").isString().stringValue());
+			port.setConfig(obj.get("config").isNumber().doubleValue());
+			port.setState(obj.get("state").isNumber().doubleValue());
+			port.setCurrentFeatures(obj.get("currentFeatures").isNumber().doubleValue());
+			port.setAdvertisedFeatures(obj.get("advertisedFeatures").isNumber().doubleValue());
+			port.setSupportedFeatures(obj.get("supportedFeatures").isNumber().doubleValue());
+			port.setPeerFeatures(obj.get("peerFeatures").isNumber().doubleValue());
+			ports.add(port);
+		}
+
+		return ports;
+	}
+
 }
+
