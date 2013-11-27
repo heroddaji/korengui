@@ -9,7 +9,6 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.tranhoangdai.korengui.client.controller.GlobalTopologyEvenController;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
@@ -31,17 +30,20 @@ public class ClientServiceHelper {
 	interface CountToAct {
 		void count();
 	}
-	
+
 	Map<String, Switch> topologySwitches = new HashMap<String, Switch>();
 	Map<Integer, Link> topologyLinks = new HashMap<Integer, Link>();
 	Map<String, Host> topologyHosts = new HashMap<String, Host>();
+
+	private ClientServiceHelper() {
+	}
 
 	public <N, L, H> void getGlobalTopology(final ClientServiceAsync<N, L, H> callback) {
 
 		CountToAct counter = new CountToAct() {
 			int n = 0;
 			int limit = 3;
-			
+
 			@Override
 			public void count() {
 				if (++n == limit) {
@@ -66,23 +68,14 @@ public class ClientServiceHelper {
 
 			@Override
 			public void onSuccess(String result) {
-
-				JSONValue value = JSONParser.parseStrict(result);
-				JSONArray array = value.isArray();
-
-				if (array != null) {
-					for (int i = 0; i < array.size(); i++) {
-						JSONObject jobj = array.get(i).isObject();
-						// createNode(jobj);
-					}
-
-					c.count();
-				}
+				topologySwitches = JSONSerializationHelper.INSTANCE.createSwitches(result);
+				c.count();
+				System.out.println(result);
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				System.out.println("failed to load nodes");
+				System.err.println(caught);
 
 			}
 		};
@@ -96,30 +89,16 @@ public class ClientServiceHelper {
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
 
 			@Override
-			public void onSuccess(String result) {
-
-				JSONValue value = JSONParser.parseStrict(result);
-				JSONArray array = value.isArray();
-				if (array != null) {
-					for (int i = 0; i < array.size(); i++) {
-						JSONObject obj = array.get(i).isObject();
-						String srcIp = obj.get("src-switch").isString().stringValue();
-						int srcport = (int) obj.get("src-port").isNumber().doubleValue();
-						String dstIp = obj.get("dst-switch").isString().stringValue();
-						int dstport = (int) obj.get("dst-port").isNumber().doubleValue();
-						Link link = new Link(srcIp, srcport, dstIp, dstport);
-						
-						topologyLinks.put(link.getId(), link);
-					}
-
-					c.count();
-
-				}
+			public void onSuccess(String result) {				
+				topologyLinks = JSONSerializationHelper.INSTANCE.createLinks(result);
+				c.count();
+				System.out.println(result);
+				
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				System.out.println("failed to load links");
+				System.err.println(caught);
 
 			}
 		};
@@ -129,17 +108,19 @@ public class ClientServiceHelper {
 
 	private void downloadTopologyHost(final CountToAct c) {
 		TopologyServiceAsync topo = GWT.create(TopologyService.class);
-
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
 
 			@Override
-			public void onSuccess(String result) {
+			public void onSuccess(String result) {				
+				topologyHosts = JSONSerializationHelper.INSTANCE.createHosts(result);
 				c.count();
+				System.out.println(result);
+				
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				System.out.println("failed to load links");
+				System.err.println(caught);
 
 			}
 		};

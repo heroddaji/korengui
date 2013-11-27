@@ -2,15 +2,15 @@ package com.tranhoangdai.korengui.client.model;
 
 public class Port {
 	
-	int portNumber;
+	double portNumber;
 	String hardwareAddress;
 	String name;
-	int config;
-	int state;
-	int currentFeatures;
-	int advertisedFeatures;
-	int supportedFeatures;
-	int peerFeatures;
+	double config;
+	double state;
+	double currentFeatures;
+	double advertisedFeatures;
+	double supportedFeatures;
+	double peerFeatures;
 	
 	
 //	"portNumber": 3,
@@ -23,11 +23,11 @@ public class Port {
 //    "supportedFeatures": 703,
 //    "peerFeatures": 0
 	
-	public int getPortNumber() {
+	public double getPortNumber() {
 		return portNumber;
 	}
 
-	public void setPortNumber(int portNumber) {
+	public void setPortNumber(double portNumber) {
 		this.portNumber = portNumber;
 	}
 
@@ -47,51 +47,51 @@ public class Port {
 		this.name = name;
 	}
 
-	public int getConfig() {
+	public double getConfig() {
 		return config;
 	}
 
-	public void setConfig(int config) {
+	public void setConfig(double config) {
 		this.config = config;
 	}
 
-	public int getState() {
+	public double getState() {
 		return state;
 	}
 
-	public void setState(int state) {
+	public void setState(double state) {
 		this.state = state;
 	}
 
-	public int getCurrentFeatures() {
+	public double getCurrentFeatures() {
 		return currentFeatures;
 	}
 
-	public void setCurrentFeatures(int currentFeatures) {
+	public void setCurrentFeatures(double currentFeatures) {
 		this.currentFeatures = currentFeatures;
 	}
 
-	public int getAdvertisedFeatures() {
+	public double getAdvertisedFeatures() {
 		return advertisedFeatures;
 	}
 
-	public void setAdvertisedFeatures(int advertisedFeatures) {
+	public void setAdvertisedFeatures(double advertisedFeatures) {
 		this.advertisedFeatures = advertisedFeatures;
 	}
 
-	public int getSupportedFeatures() {
+	public double getSupportedFeatures() {
 		return supportedFeatures;
 	}
 
-	public void setSupportedFeatures(int supportedFeatures) {
+	public void setSupportedFeatures(double supportedFeatures) {
 		this.supportedFeatures = supportedFeatures;
 	}
 
-	public int getPeerFeatures() {
+	public double getPeerFeatures() {
 		return peerFeatures;
 	}
 
-	public void setPeerFeatures(int peerFeatures) {
+	public void setPeerFeatures(double peerFeatures) {
 		this.peerFeatures = peerFeatures;
 	}
 

@@ -1,13 +1,13 @@
 package com.tranhoangdai.korengui.client.model;
 
-public class NodeAttributes {
+public class Attributes {
 
 	boolean supportsOfppFlood;
 	boolean supportsNxRole;
-    int fastWildcards;
+    double fastWildcards;
     boolean supportsOfppTable;
     
-    public NodeAttributes(){
+    public Attributes(){
     	
     }
 
@@ -27,12 +27,12 @@ public class NodeAttributes {
 		this.supportsNxRole = supportsNxRole;
 	}
 
-	public int getFastWildcards() {
+	public double getFastWildcards() {
 		return fastWildcards;
 	}
 
-	public void setFastWildcards(int fastWildcards) {
-		this.fastWildcards = fastWildcards;
+	public void setFastWildcards(double b) {
+		this.fastWildcards = b;
 	}
 
 	public boolean isSupportsOfppTable() {

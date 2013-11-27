@@ -1,13 +1,13 @@
 package com.tranhoangdai.korengui.client.model;
 
-public class NodeDescription {
+public class Description {
 	String software;
 	String hardware;
 	String manufacturer;
 	String serialNum;
 	String datapath;
 	
-	public NodeDescription(){
+	public Description(){
 		
 	}
 

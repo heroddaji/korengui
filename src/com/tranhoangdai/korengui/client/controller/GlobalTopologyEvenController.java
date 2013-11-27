@@ -12,6 +12,8 @@ import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
 public class GlobalTopologyEvenController extends AbstractEventController {
 
 	public static GlobalTopologyEvenController INSTANCE = GWT.create(GlobalTopologyEvenController.class);
+	
+	private GlobalTopologyEvenController(){}
 
 	/**
 	 * Download network topology, then draw
@@ -24,7 +26,7 @@ public class GlobalTopologyEvenController extends AbstractEventController {
 			
 			@Override
 			public void onSuccess(Map<String, Switch> switches, Map<Integer, Link> links, Map<String, Host> hosts) {
-				System.out.println("haha");
+				int a = 0;
 			}
 			
 			@Override

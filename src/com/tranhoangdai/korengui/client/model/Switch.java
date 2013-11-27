@@ -6,13 +6,13 @@ import java.util.List;
 public class Switch  {
 	
 	protected List<Port> ports = new ArrayList<Port>();
-	protected NodeAttributes attributes;
-	protected NodeDescription description;	
-	protected int action;
-	protected int buffers;
-	protected int capabilities;
+	protected Attributes attributes;
+	protected Description description;	
+	protected double action;
+	protected double buffers;
+	protected double capabilities;
 	protected String inetAddress;
-	protected long connectedSince;
+	protected double connectedSince;
 	protected String dpid;
 	protected String harole;
 	
@@ -22,34 +22,34 @@ public class Switch  {
 	public void setPorts(List<Port> ports) {
 		this.ports = ports;
 	}
-	public NodeAttributes getAttributes() {
+	public Attributes getAttributes() {
 		return attributes;
 	}
-	public void setAttributes(NodeAttributes attributes) {
+	public void setAttributes(Attributes attributes) {
 		this.attributes = attributes;
 	}
-	public NodeDescription getDescription() {
+	public Description getDescription() {
 		return description;
 	}
-	public void setDescription(NodeDescription description) {
+	public void setDescription(Description description) {
 		this.description = description;
 	}
-	public int getAction() {
+	public double getAction() {
 		return action;
 	}
-	public void setAction(int action) {
+	public void setAction(double action) {
 		this.action = action;
 	}
-	public int getBuffers() {
+	public double getBuffers() {
 		return buffers;
 	}
-	public void setBuffers(int buffers) {
+	public void setBuffers(double buffers) {
 		this.buffers = buffers;
 	}
-	public int getCapabilities() {
+	public double getCapabilities() {
 		return capabilities;
 	}
-	public void setCapabilities(int capabilities) {
+	public void setCapabilities(double capabilities) {
 		this.capabilities = capabilities;
 	}
 	public String getInetAddress() {
@@ -58,10 +58,10 @@ public class Switch  {
 	public void setInetAddress(String inetAddress) {
 		this.inetAddress = inetAddress;
 	}
-	public long getConnectedSince() {
+	public double getConnectedSince() {
 		return connectedSince;
 	}
-	public void setConnectedSince(long connectedSince) {
+	public void setConnectedSince(double connectedSince) {
 		this.connectedSince = connectedSince;
 	}
 	public String getDpid() {
