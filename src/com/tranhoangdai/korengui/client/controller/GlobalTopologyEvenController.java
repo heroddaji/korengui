@@ -9,6 +9,7 @@ import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceAsync;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
 
+@SuppressWarnings("unused")
 public class GlobalTopologyEvenController extends AbstractEventController {
 
 	public static GlobalTopologyEvenController INSTANCE = GWT.create(GlobalTopologyEvenController.class);
@@ -26,6 +27,7 @@ public class GlobalTopologyEvenController extends AbstractEventController {
 			
 			@Override
 			public void onSuccess(Map<String, Switch> switches, Map<Integer, Link> links, Map<String, Host> hosts) {
+				
 				int a = 0;
 			}
 			

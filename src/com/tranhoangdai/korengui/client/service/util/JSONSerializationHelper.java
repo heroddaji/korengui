@@ -10,6 +10,7 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
+import com.tranhoangdai.korengui.client.model.AttachmentPoint;
 import com.tranhoangdai.korengui.client.model.Attributes;
 import com.tranhoangdai.korengui.client.model.Description;
 import com.tranhoangdai.korengui.client.model.Host;
@@ -45,12 +46,22 @@ public class JSONSerializationHelper {
 	}
 
 	public Map<String, Host> createHosts(String jsonValue) {
+		Map<String, Host> hosts = new HashMap<String, Host>();
 		JSONValue value = JSONParser.parseStrict(jsonValue);
-		return null;
+		JSONArray array = value.isArray();
+		if (array != null) {
+			for (int i = 0; i < array.size(); i++) {
+				JSONObject jobj = array.get(i).isObject();
+				Host host = createHost(jobj);
+				hosts.put(host.getMac().get(0), host);
+			}
+		}
+
+		return hosts;
 	}
 
 	public Map<Integer, Link> createLinks(String jsonValue) {
-		Map<Integer,Link> links = new HashMap<Integer,Link>();
+		Map<Integer, Link> links = new HashMap<Integer, Link>();
 		JSONValue value = JSONParser.parseStrict(jsonValue);
 		JSONArray array = value.isArray();
 		if (array != null) {
@@ -93,19 +104,61 @@ public class JSONSerializationHelper {
 
 	}
 
-	private Switch createHost(JSONObject jobj) {
-		return null;
+	private Host createHost(JSONObject jobj) {
+		Host host = new Host();
+
+		String entityClass = jobj.get("entityClass").isString().toString();
+		double lastSeen = jobj.get("lastSeen").isNumber().doubleValue();
+		host.setEntityClass(entityClass);
+		host.setLastSeen(lastSeen);
+
+		// host mac
+		List<String> values = new ArrayList<String>();
+		JSONArray macarray = jobj.get("mac").isArray();
+		if (macarray != null) {
+			for (int i = 0; i < macarray.size(); i++) {
+				String mac = macarray.get(i).isString().stringValue();
+				values.add(mac);
+			}
+			host.setMac(values);
+		}
+
+		// host ipv4
+		values = new ArrayList<String>();
+		JSONArray ipv4array = jobj.get("ipv4").isArray();
+		if (ipv4array != null) {
+			for (int i = 0; i < ipv4array.size(); i++) {
+				String ipv4 = ipv4array.get(i).isString().stringValue();
+				values.add(ipv4);
+			}
+			host.setIpv4(values);
+		}
+
+		// host vlan
+		values = new ArrayList<String>();
+		JSONArray vlanarray = jobj.get("vlan").isArray();
+		if (vlanarray != null) {
+			for (int i = 0; i < vlanarray.size(); i++) {
+				String vlan = vlanarray.get(i).isString().stringValue();
+				values.add(vlan);
+			}
+			host.setVlan(values);
+		}
+
+		List<AttachmentPoint> attachmentPoints = createAttachmentPoints(jobj.get("attachmentPoint").isArray());
+		host.setAttachmentPoints(attachmentPoints);
+		return host;
 
 	}
 
-	private Link createLink(JSONObject obj) {		
+	private Link createLink(JSONObject obj) {
 		String srcSwitch = obj.get("src-switch").isString().stringValue();
 		int srcPort = (int) obj.get("src-port").isNumber().doubleValue();
 		String dstSwitch = obj.get("dst-switch").isString().stringValue();
 		int dstPort = (int) obj.get("dst-port").isNumber().doubleValue();
 		String type = obj.get("type").isString().stringValue();
 		String direction = obj.get("direction").isString().stringValue();
-		
+
 		Link link = new Link(srcSwitch, srcPort, dstSwitch, dstPort);
 		link.setType(type);
 		link.setDirection(direction);
@@ -133,23 +186,36 @@ public class JSONSerializationHelper {
 
 	private List<Port> createPorts(JSONArray array) {
 		List<Port> ports = new ArrayList<Port>();
-		for (int i = 0; i < array.size(); i++) {
-			JSONObject obj = array.get(i).isObject();
-			Port port = new Port();
-			port.setPortNumber(obj.get("portNumber").isNumber().doubleValue());
-			port.setHardwareAddress(obj.get("hardwareAddress").isString().stringValue());
-			port.setName(obj.get("name").isString().stringValue());
-			port.setConfig(obj.get("config").isNumber().doubleValue());
-			port.setState(obj.get("state").isNumber().doubleValue());
-			port.setCurrentFeatures(obj.get("currentFeatures").isNumber().doubleValue());
-			port.setAdvertisedFeatures(obj.get("advertisedFeatures").isNumber().doubleValue());
-			port.setSupportedFeatures(obj.get("supportedFeatures").isNumber().doubleValue());
-			port.setPeerFeatures(obj.get("peerFeatures").isNumber().doubleValue());
-			ports.add(port);
+		if (array != null) {
+			for (int i = 0; i < array.size(); i++) {
+				JSONObject obj = array.get(i).isObject();
+				Port port = new Port();
+				port.setPortNumber(obj.get("portNumber").isNumber().doubleValue());
+				port.setHardwareAddress(obj.get("hardwareAddress").isString().stringValue());
+				port.setName(obj.get("name").isString().stringValue());
+				port.setConfig(obj.get("config").isNumber().doubleValue());
+				port.setState(obj.get("state").isNumber().doubleValue());
+				port.setCurrentFeatures(obj.get("currentFeatures").isNumber().doubleValue());
+				port.setAdvertisedFeatures(obj.get("advertisedFeatures").isNumber().doubleValue());
+				port.setSupportedFeatures(obj.get("supportedFeatures").isNumber().doubleValue());
+				port.setPeerFeatures(obj.get("peerFeatures").isNumber().doubleValue());
+				ports.add(port);
+			}
 		}
-
 		return ports;
 	}
 
-}
+	private List<AttachmentPoint> createAttachmentPoints(JSONArray array) {
+		List<AttachmentPoint> points = new ArrayList<AttachmentPoint>();
+		for (int i = 0; i < array.size(); i++) {
+			JSONObject obj = array.get(i).isObject();
+			AttachmentPoint point = new AttachmentPoint();
+			//point.setErrorStatus(obj.get("errorStatus").isString().stringValue());
+			point.setPort((int) obj.get("port").isNumber().doubleValue());
+			point.setSwitchDPID(obj.get("switchDPID").isString().stringValue());
+			points.add(point);
+		}
+		return points;
+	}
 
+}
