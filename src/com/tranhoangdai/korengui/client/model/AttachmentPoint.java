@@ -1,6 +1,6 @@
 package com.tranhoangdai.korengui.client.model;
 
-public class AttachmentPoint {
+public class AttachmentPoint extends GeneralModel{
 	String switchDPID;
 	int port;
 	String errorStatus;

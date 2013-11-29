@@ -1,6 +1,6 @@
 package com.tranhoangdai.korengui.client.model;
 
-public class Description {
+public class Description extends GeneralModel {
 	String software;
 	String hardware;
 	String manufacturer;

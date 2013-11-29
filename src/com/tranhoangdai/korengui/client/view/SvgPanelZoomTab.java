@@ -16,9 +16,15 @@ public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab  {
 	protected Map<Integer, Link> currentLinks = new HashMap<Integer, Link>();
 //	ZoomableNode zoomNode = null;
 
-	public SvgPanelZoomTab(TabLayoutPanel parent) {
-		super(parent);
-//		Utility.INSTANCE.addZoomAble(this);		
+	public SvgPanelZoomTab(AbstractPanel _parent) {
+		super(_parent);
+		
+	}
+
+	@Override
+	protected void draw() {
+		// TODO Auto-generated method stub
+		
 	}
 
 //	public void drawZoom() {

@@ -1,6 +1,6 @@
 package com.tranhoangdai.korengui.client.model;
 
-public class Port {
+public class Port extends GeneralModel{
 	
 	double portNumber;
 	String hardwareAddress;

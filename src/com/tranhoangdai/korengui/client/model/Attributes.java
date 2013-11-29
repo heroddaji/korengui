@@ -1,6 +1,6 @@
 package com.tranhoangdai.korengui.client.model;
 
-public class Attributes {
+public class Attributes extends GeneralModel {
 
 	boolean supportsOfppFlood;
 	boolean supportsNxRole;

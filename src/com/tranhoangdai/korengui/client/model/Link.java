@@ -1,14 +1,7 @@
 package com.tranhoangdai.korengui.client.model;
 
-import java.util.Map;
 
-import org.vectomatic.dom.svg.OMSVGElement;
-import org.vectomatic.dom.svg.OMSVGImageElement;
-import org.vectomatic.dom.svg.OMSVGLineElement;
-import org.vectomatic.dom.svg.OMSVGTextElement;
-import org.vectomatic.dom.svg.utils.SVGConstants;
-
-public class Link {
+public class Link extends GeneralModel{
 
 	private static int UNIQUEID = -1;
 	int id;

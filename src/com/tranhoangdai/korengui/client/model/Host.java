@@ -2,7 +2,7 @@ package com.tranhoangdai.korengui.client.model;
 
 import java.util.List;
 
-public class Host {
+public class Host extends GeneralModel {
 	String entityClass;
 	List<String> mac;
 	List<String> ipv4;

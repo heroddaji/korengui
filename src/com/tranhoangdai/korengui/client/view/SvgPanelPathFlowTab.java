@@ -12,9 +12,14 @@ public class SvgPanelPathFlowTab extends SvgPanelAbstractDrawTab {
 	protected Map<String, Switch> currentNodes = new HashMap<String, Switch>();
 	protected Map<Integer, Link> currentLinks = new HashMap<Integer, Link>();
 
-	public SvgPanelPathFlowTab(TabLayoutPanel parent) {
-		super(parent);
-		//Utility.INSTANCE.addPathFlowAble(this);
+	public SvgPanelPathFlowTab(AbstractPanel _parent) {
+		super(_parent);
+	}
+
+	@Override
+	protected void draw() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

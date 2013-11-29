@@ -3,7 +3,7 @@ package com.tranhoangdai.korengui.client.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Switch  {
+public class Switch  extends GeneralModel {
 	
 	protected List<Port> ports = new ArrayList<Port>();
 	protected Attributes attributes;
