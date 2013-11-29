@@ -10,7 +10,7 @@ import com.tranhoangdai.korengui.client.model.Switch;
 public class InfoPanel extends AbstractPanel {
 
 	public static InfoPanel INSTANCE = GWT.create(InfoPanel.class);
-	InfoPanelGeneralInfoTab nodeLinkTab = null;
+	InfoPanelGlobalTopologyTab globalTab = null;
 	InfoPanelPathFlowTab pathFlowTab = null;
 	
 	public InfoPanel() {
@@ -18,7 +18,13 @@ public class InfoPanel extends AbstractPanel {
 	}
 	
 	public void showGlobalTopology(){
-		
+		if(globalTab == null){
+			globalTab = new InfoPanelGlobalTopologyTab(this);
+			add(globalTab,"Network");
+			globalTab.showInfo();
+		}else{
+			selectTab(globalTab);
+		}
 	}
 
 }

@@ -28,7 +28,7 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 	TabLayoutPanel parent = null;
 	List<Switch> nodes = new ArrayList<Switch>();
 
-	public InfoPanelPathFlowTab(TabLayoutPanel parent) {
+	public InfoPanelPathFlowTab(InfoPanel parent) {
 		super();
 		this.parent = parent;
 		Utility.INSTANCE.addPathFlowAble(this);
@@ -97,7 +97,7 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 		if (cellTablePath == null) {
 			setupCellTablesFlowResult();		}
 
-		cellTablePath.addLinkMap(paths);
+//		cellTablePath.addLinkModels(parent)
 		parent.selectTab(this);
 	}
 

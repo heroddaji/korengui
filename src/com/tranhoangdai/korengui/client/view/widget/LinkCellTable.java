@@ -41,8 +41,7 @@ public class LinkCellTable extends CellTable<Link> {
 			public String getValue(Link object) {
 				return new Integer(object.getDstPort()).toString();
 			}
-		};
-		
+		};		
 
 		addColumn(linkSrcColumn, "src-switch");
 		addColumn(linkSrcPortColumn, "src-port");
@@ -50,10 +49,10 @@ public class LinkCellTable extends CellTable<Link> {
 		addColumn(linkDestPortColumn, "dst-port");
 	}
 	
-	public void addLinkMap(Map<Integer, Link> linkmap){
-		setRowCount(linkmap.size());
+	public void addLinkModels(Map<Integer, Link> linkModels){
+		setRowCount(linkModels.size());
 		List<Link> linkList = new ArrayList<Link>();
-		linkList.addAll(linkmap.values());
+		linkList.addAll(linkModels.values());
 		setRowData(0, linkList);
 	}
 	

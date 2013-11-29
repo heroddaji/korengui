@@ -83,6 +83,7 @@ public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 	/**
 	 * This method must be call after all the nodes have been drawn	 *  
 	 * otherwise it cannot setup the coordinate of line
+	 * also insert line as first element to make them stay behind the nodes
 	 */
 	protected void drawLinks() {
 		createLinksCoordination(linksSvg, nodesSvg);

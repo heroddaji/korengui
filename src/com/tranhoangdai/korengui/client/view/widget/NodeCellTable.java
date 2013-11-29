@@ -31,10 +31,10 @@ public class NodeCellTable extends CellTable<Switch> {
 		addColumn(nodeTypeColumn, "Type");	
 	}
 	
-	public void addNodeMap(Map<String, Switch> nodemap){
-		setRowCount(nodemap.size());
+	public void addNodeModels(Map<String, Switch> nodeModels){
+		setRowCount(nodeModels.size());
 		List<Switch> nodeList = new ArrayList<Switch>();
-		nodeList.addAll(nodemap.values());
+		nodeList.addAll(nodeModels.values());
 		setRowData(0, nodeList);
 	}
 	public void addNodeList(List<Switch> nodelist){
