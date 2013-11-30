@@ -23,6 +23,7 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.tranhoangdai.korengui.client.EventBus;
 import com.tranhoangdai.korengui.client.model.GeneralModel;
 import com.tranhoangdai.korengui.client.model.Switch;
 
@@ -122,9 +123,9 @@ public class NodeSvg extends AbstractElementSvg{
 		});
 	}
 
-	protected void handleMouseDownEvent(MouseDownEvent event) {	
-	
+	protected void handleMouseDownEvent(MouseDownEvent event) {
 
+		EventBus.INSTANCE.deliverEventUserClickedNode(this);
 		event.stopPropagation();
 		event.preventDefault();
 	}

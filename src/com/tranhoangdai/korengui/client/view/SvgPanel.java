@@ -13,15 +13,16 @@ import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
 
 @SuppressWarnings("unused")
 public class SvgPanel extends AbstractPanel  {
 
 	public static SvgPanel INSTANCE = GWT.create(SvgPanel.class);
-	private List<SvgPanelZoomTab> zoomTabs = new ArrayList<SvgPanelZoomTab>();
-	SvgPanelGlobalTopologyTab globalTab = null;
-	SvgPanelPathFlowTab pfTab = null;
 	
+	List<SvgPanelZoomTab> zoomTabs = new ArrayList<SvgPanelZoomTab>();
+	SvgPanelGlobalTopologyTab globalTab = null;
+	SvgPanelPathFlowTab pfTab = null;	
 	
 	public SvgPanel() {
 		super(1.5, Unit.EM);
@@ -40,8 +41,6 @@ public class SvgPanel extends AbstractPanel  {
 		});
 	}
 	
-	
-	
 	public void drawGlobalTopology(){
 		if(globalTab != null){
 			selectTab(globalTab);
@@ -53,32 +52,22 @@ public class SvgPanel extends AbstractPanel  {
 		}
 	}
 	
-	
-
-//	@Override
-//	public void eventCreateNewZoomNode(ZoomableNode zoomNode) {
-//
-//		SvgPanelZoomTab tab = new SvgPanelZoomTab(this);
-//		zoomTabs.add(tab);
-//		String dpid = zoomNode.getDpid();
-//		this.add(tab, "Cluster \"" + dpid.substring(dpid.length() - 4, dpid.length()) + "\"");
-//		this.selectTab(tab);
-//
-//	}
-//
-//	
-//	@Override
-//	public void eventGetPathFlow(Node node) {
-//		if (pfTab == null) {
-//			pfTab = new SvgPanelPathFlowTab(this);
-//			add(pfTab, "Flow");
-//			selectTab(pfTab);
-//		}
-//
-//	}
-
-	public List<SvgPanelZoomTab> getZoomTabs() {
-		return zoomTabs;
+	public void drawZoomTopology(Switch zoomSwitchModel, Map<String,Host> childHost){
+		for(SvgPanelZoomTab tab: zoomTabs){
+			if(tab.hasZoomModel(zoomSwitchModel)){
+				selectTab(tab);
+				return;
+			}
+		}
+		
+		//if not exist, create new zoom tab
+		SvgPanelZoomTab zoomTab = new SvgPanelZoomTab(this, zoomSwitchModel);
+		zoomTab.draw();
+		zoomTabs.add(zoomTab);
+		String name = zoomSwitchModel.getDpid();
+		add(zoomTab, "Node " + name.substring(name.length() - 5, name.length()));
+		selectTab(zoomTab);
 	}
+
 
 }

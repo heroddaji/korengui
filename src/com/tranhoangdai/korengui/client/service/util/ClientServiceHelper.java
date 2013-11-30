@@ -127,4 +127,17 @@ public class ClientServiceHelper {
 
 		topo.getTopologyHosts(callback);
 	}
+
+	public Map<String, Switch> getTopologySwitches() {
+		return topologySwitches;
+	}
+	
+	public Map<Integer, Link> getTopologyLinks() {
+		return topologyLinks;
+	}	
+
+	public Map<String, Host> getTopologyHosts() {
+		return topologyHosts;
+	}
+	
 }

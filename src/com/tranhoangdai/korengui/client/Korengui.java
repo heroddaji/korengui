@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.tranhoangdai.korengui.client.controller.GUIInstructionController;
 import com.tranhoangdai.korengui.client.controller.Utility;
 import com.tranhoangdai.korengui.client.controller.Utility.ActionState;
 import com.tranhoangdai.korengui.client.model.Link;
@@ -60,6 +61,8 @@ public class Korengui implements EntryPoint {
 
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel);
+		HorizontalPanel horizontalPanel_status = new HorizontalPanel();
+		verticalPanel.add(horizontalPanel_status);
 
 		final Button btnTopology = new Button("Get topoloy");
 		btnTopology.setText("Get topology");
@@ -80,9 +83,10 @@ public class Korengui implements EntryPoint {
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		splitLayoutPanel.addSouth(horizontalPanel_1, 20);
 
-		lblStatus = new Label("Status: normal");
+		lblStatus = new Label("");
 		lblStatus.setPixelSize(30, 30);
-		horizontalPanel_1.add(lblStatus);
+		lblStatus.setWidth("100%");
+		horizontalPanel_status.add(lblStatus);
 
 		// svg panel //
 		final SvgPanel svgPanel = SvgPanel.INSTANCE;
@@ -100,20 +104,20 @@ public class Korengui implements EntryPoint {
 
 
 		// ////////////////// button events///////////////
+		GUIInstructionController.INSTANCE.setStatus(lblStatus);
+		
+		
 		btnTopology.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				lblStatus.setText("Action: Get topology information");
-				EventBus.INSTANCE.deliverDownloadGlobalTopologyEvent(btnTopology);
+			public void onClick(ClickEvent event) {				
+				EventBus.INSTANCE.deliverDownloadGlobalTopologyEvent(event.getSource());
 			}
 		});
 
 		btnZoomIn.addClickHandler(new ClickHandler() {
 
 			@Override
-			public void onClick(ClickEvent event) {
-				//event will propagate to visual node in mousedown event handler
-				lblStatus.setText("Action: Click on cluster node to zoom in ");
-				Utility.INSTANCE.setState(ActionState.ZOOM);
+			public void onClick(ClickEvent event) {				
+				EventBus.INSTANCE.deliverEventUserClickedZoomButton(event.getSource());
 			}
 		});
 
@@ -121,9 +125,7 @@ public class Korengui implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				//event will propagate to visual node in mousedown event handler
-				lblStatus.setText("Action: Click on 2 nodes to get path flow");				
-				//Utility.INSTANCE.setState(ActionState.FLOW);
+				
 			}
 		});
 

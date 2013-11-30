@@ -25,6 +25,7 @@ import com.tranhoangdai.korengui.client.service.TopologyServiceAsync;
 /**
  * This class handles interaction between nodes model and GUI
  */
+@Deprecated
 public class Utility {
 
 	public enum ActionState {

@@ -30,6 +30,13 @@ public class GlobalTopologyEvenController extends AbstractEventController {
 			
 			@Override
 			public void onSuccess(Map<String, Switch> switches, Map<Integer, Link> links, Map<String, Host> hosts) {
+				
+				/*
+				 * Never pass svg elements to Svgpanel or Infopanel, since those svg elements
+				 * will be draw on screen, they can get cross references in different tabs.
+				 * Always pass just the models, then the draw will create only svg elements for 
+				 * that tab to draw  
+				 */
 				SvgPanel.INSTANCE.setModelInformation(switches, links, hosts);
 				SvgPanel.INSTANCE.drawGlobalTopology();
 				InfoPanel.INSTANCE.setModelInformation(switches, links, hosts);
