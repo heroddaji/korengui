@@ -36,6 +36,14 @@ public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 		svgElement.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, Window.getClientHeight());
 		this.getElement().appendChild(svgElement.getElement());
 	}
+	
+	protected Object createSvgElement(Class type, Object item) {
+		return null;
+	}
+	
+	protected List<?> createSvgElements(Class type,List<?> items) {
+		return null;
+	}
 
 	protected void createElements(Class type) {		
 		if (type.equals(NodeSvg.class)){

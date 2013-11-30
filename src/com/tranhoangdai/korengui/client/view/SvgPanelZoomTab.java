@@ -23,7 +23,6 @@ public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab {
 
 	@Override
 	protected void draw() {
-		// TODO Auto-generated method stub
 
 	}
 
