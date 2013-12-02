@@ -1,20 +1,26 @@
 package com.tranhoangdai.korengui.client.view;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.vectomatic.dom.svg.OMSVGImageElement;
+import org.vectomatic.dom.svg.OMNode;
 
-import com.google.gwt.user.client.ui.TabLayoutPanel;
-import com.tranhoangdai.korengui.client.controller.Utility;
+import com.tranhoangdai.korengui.client.model.GeneralModel;
+import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
+import com.tranhoangdai.korengui.client.view.svg.HostSvg;
+import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
+import com.tranhoangdai.korengui.client.view.svg.SwitchSvg;
 
 public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab {
-
-	protected Map<String, Switch> currentNodes = new HashMap<String, Switch>();
-	protected Map<Integer, Link> currentLinks = new HashMap<Integer, Link>();
+	
 	Switch zoomModel = null;
+	Map<String,Host> childModels = new HashMap<String, Host>();
+	
 
 	public SvgPanelZoomTab(AbstractPanel _parent, Switch _zoomModel) {
 		super(_parent);
@@ -22,8 +28,28 @@ public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab {
 	}
 
 	@Override
-	protected void draw() {
+	public void draw() {
+		SwitchSvg zoomSwitchSvg = (SwitchSvg) createSvgElement(SwitchSvg.class, zoomModel);
+		
+		HostSvg hostSvgClass = new HostSvg();
+		List<HostSvg> hostSvgs = createSvgElements(hostSvgClass, childModels.values());
+		
+		drawZoomSwitchSvg(zoomSwitchSvg);
+		drawHosts(hostSvgs);
+	}
 
+	private void drawZoomSwitchSvg(SwitchSvg zoomSvg) {	
+		calCenter();	
+		zoomSvg.formElement();				
+		zoomSvg.translateTo((int)center, (int)center);
+		svgElement.appendChild((OMNode) zoomSvg);				
+	}
+
+	private void drawHosts(List<HostSvg> hostSvgs) {
+		for(HostSvg hostSvg: hostSvgs){
+			
+		}
+		
 	}
 
 	public boolean hasZoomModel(Switch _zoomModel){
@@ -31,6 +57,10 @@ public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab {
 			return true;
 		}
 		return false;
+	}
+	
+	public void setChildModels(Map<String,Host> _childModels){
+		this.childModels = _childModels;
 	}
 	
 	//	public void drawZoom() {

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.bcel.generic.GETSTATIC;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
@@ -78,15 +80,15 @@ public class JSONSerializationHelper {
 		System.out.println(jobj);
 		Switch newSwitch = new Switch();
 
-		String dpid = jobj.get("dpid").isString().stringValue();
-		String harole = jobj.get("harole").isString().stringValue();
-		double connectedSince = jobj.get("connectedSince").isNumber().doubleValue();
-		String inetAddress = jobj.get("inetAddress").isString().stringValue();
-		double buffers = jobj.get("buffers").isNumber().doubleValue();
-		double actions = jobj.get("actions").isNumber().doubleValue();
-		double capabilities = jobj.get("capabilities").isNumber().doubleValue();
-		Attributes attributes = createAttributes(jobj.get("attributes").isObject());
-		Description desc = createDescription(jobj.get("description").isObject());
+		String dpid = getJSONStringValue(jobj, "dpid");
+		String harole = getJSONStringValue(jobj, "harole");
+		double connectedSince = getJSONNumberValue(jobj, "connectionSince");
+		String inetAddress = getJSONStringValue(jobj, "inetAddress");
+		double buffers = getJSONNumberValue(jobj, "buffers");
+		double actions = getJSONNumberValue(jobj, "actions");
+		double capabilities = getJSONNumberValue(jobj, "capabilities");
+		Attributes attributes = createAttributes(jobj.get("attributes"));
+		Description desc = createDescription(jobj.get("description"));
 		List<Port> ports = createPorts(jobj.get("ports").isArray());
 
 		newSwitch.setDpid(dpid);
@@ -107,8 +109,8 @@ public class JSONSerializationHelper {
 	private Host createHost(JSONObject jobj) {
 		Host host = new Host();
 
-		String entityClass = jobj.get("entityClass").isString().toString();
-		double lastSeen = jobj.get("lastSeen").isNumber().doubleValue();
+		String entityClass = getJSONStringValue(jobj, "entityClass");
+		double lastSeen = getJSONNumberValue(jobj, "lastSeen");
 		host.setEntityClass(entityClass);
 		host.setLastSeen(lastSeen);
 
@@ -151,13 +153,13 @@ public class JSONSerializationHelper {
 
 	}
 
-	private Link createLink(JSONObject obj) {
-		String srcSwitch = obj.get("src-switch").isString().stringValue();
-		int srcPort = (int) obj.get("src-port").isNumber().doubleValue();
-		String dstSwitch = obj.get("dst-switch").isString().stringValue();
-		int dstPort = (int) obj.get("dst-port").isNumber().doubleValue();
-		String type = obj.get("type").isString().stringValue();
-		String direction = obj.get("direction").isString().stringValue();
+	private Link createLink(JSONObject jobj) {
+		String srcSwitch = getJSONStringValue(jobj, "src-switch");
+		int srcPort = (int)getJSONNumberValue(jobj, "src-port");
+		String dstSwitch =  getJSONStringValue(jobj, "dst-switch");
+		int dstPort = (int) getJSONNumberValue(jobj, "dst-port");
+		String type =  getJSONStringValue(jobj, "type");
+		String direction = getJSONStringValue(jobj, "direction");
 
 		Link link = new Link(srcSwitch, srcPort, dstSwitch, dstPort);
 		link.setType(type);
@@ -165,22 +167,32 @@ public class JSONSerializationHelper {
 		return link;
 	}
 
-	private Attributes createAttributes(JSONObject jobj) {
-		Attributes attributes = new Attributes();
-		attributes.setFastWildcards(jobj.get("FastWildcards").isNumber().doubleValue());
-		attributes.setSupportsNxRole(jobj.get("supportsNxRole").isBoolean().booleanValue());
-		attributes.setSupportsOfppFlood(jobj.get("supportsOfppFlood").isBoolean().booleanValue());
-		attributes.setSupportsOfppTable(jobj.get("supportsOfppTable").isBoolean().booleanValue());
+	private Attributes createAttributes(JSONValue value) {
+		Attributes attributes = new Attributes(); 
+		if(value == null){
+			return attributes;
+		}
+		JSONObject jobj = value.isObject();		
+		attributes.setFastWildcards(getJSONNumberValue(jobj, "FastWildcards") );
+		attributes.setSupportsNxRole(getJSONBooleanValue(jobj, "supportNxRole"));
+		attributes.setSupportsOfppFlood(getJSONBooleanValue(jobj, "supportsOfppFlood"));
+		attributes.setSupportsOfppTable(getJSONBooleanValue(jobj, "supportsOfppTable"));
 		return attributes;
 	}
 
-	private Description createDescription(JSONObject jobj) {
+	private Description createDescription(JSONValue value) {
 		Description desc = new Description();
-		desc.setDatapath(jobj.get("datapath").isString().stringValue());
-		desc.setHardware(jobj.get("hardware").isString().stringValue());
-		desc.setManufacturer(jobj.get("manufacturer").isString().stringValue());
-		desc.setSerialNum(jobj.get("serialNum").isString().stringValue());
-		desc.setSoftware(jobj.get("software").isString().stringValue());
+		if(value == null){
+			return desc;
+		}
+		
+		JSONObject jobj = value.isObject();
+		
+		desc.setDatapath(getJSONStringValue(jobj, "datapath"));
+		desc.setHardware(getJSONStringValue(jobj, "hardware"));
+		desc.setManufacturer(getJSONStringValue(jobj, "manufacturer"));
+		desc.setSerialNum(getJSONStringValue(jobj, "serialNum"));
+		desc.setSoftware(getJSONStringValue(jobj, "software"));
 		return desc;
 	}
 
@@ -188,17 +200,17 @@ public class JSONSerializationHelper {
 		List<Port> ports = new ArrayList<Port>();
 		if (array != null) {
 			for (int i = 0; i < array.size(); i++) {
-				JSONObject obj = array.get(i).isObject();
+				JSONObject jobj = array.get(i).isObject();
 				Port port = new Port();
-				port.setPortNumber(obj.get("portNumber").isNumber().doubleValue());
-				port.setHardwareAddress(obj.get("hardwareAddress").isString().stringValue());
-				port.setName(obj.get("name").isString().stringValue());
-				port.setConfig(obj.get("config").isNumber().doubleValue());
-				port.setState(obj.get("state").isNumber().doubleValue());
-				port.setCurrentFeatures(obj.get("currentFeatures").isNumber().doubleValue());
-				port.setAdvertisedFeatures(obj.get("advertisedFeatures").isNumber().doubleValue());
-				port.setSupportedFeatures(obj.get("supportedFeatures").isNumber().doubleValue());
-				port.setPeerFeatures(obj.get("peerFeatures").isNumber().doubleValue());
+				port.setPortNumber(getJSONNumberValue(jobj, "portNumber"));
+				port.setHardwareAddress(getJSONStringValue(jobj, "hardwareAddress"));
+				port.setName(getJSONStringValue(jobj, "name"));
+				port.setConfig(getJSONNumberValue(jobj, "config"));
+				port.setState(getJSONNumberValue(jobj, "state"));
+				port.setCurrentFeatures(getJSONNumberValue(jobj, "currentFeatures"));
+				port.setAdvertisedFeatures(getJSONNumberValue(jobj, "advertisedFeatures"));
+				port.setSupportedFeatures(getJSONNumberValue(jobj, "supportedFeatures"));
+				port.setPeerFeatures(getJSONNumberValue(jobj, "peerFeatures"));
 				ports.add(port);
 			}
 		}
@@ -208,14 +220,49 @@ public class JSONSerializationHelper {
 	private List<AttachmentPoint> createAttachmentPoints(JSONArray array) {
 		List<AttachmentPoint> points = new ArrayList<AttachmentPoint>();
 		for (int i = 0; i < array.size(); i++) {
-			JSONObject obj = array.get(i).isObject();
+			JSONObject jobj = array.get(i).isObject();
 			AttachmentPoint point = new AttachmentPoint();
 			//point.setErrorStatus(obj.get("errorStatus").isString().stringValue());
-			point.setPort((int) obj.get("port").isNumber().doubleValue());
-			point.setSwitchDPID(obj.get("switchDPID").isString().stringValue());
+			point.setPort((int)getJSONNumberValue(jobj, "port"));
+			point.setSwitchDPID(getJSONStringValue(jobj, "switchDPID"));
 			points.add(point);
 		}
 		return points;
 	}
-
+	
+	private String getJSONStringValue(JSONObject jobj, String key){
+		String value = "";
+		if(jobj.get(key) == null){
+			return value;
+		}
+		
+		if(jobj.get(key).isString() != null){
+			value = jobj.get(key).isString().stringValue();
+		}
+		return value;
+	}
+	
+	private double getJSONNumberValue(JSONObject jobj, String key){
+		double value = 0.0;
+		
+		if(jobj.get(key) == null){
+			return value;
+		}
+		if(jobj.get(key).isString() != null){
+			value = jobj.get(key).isNumber().doubleValue();
+		}
+		return value;
+	}
+	private boolean getJSONBooleanValue(JSONObject jobj, String key){
+		boolean value = true;
+		
+		if(jobj.get(key) == null){
+			return value;
+		}
+		
+		if(jobj.get(key).isString() != null){
+			value = jobj.get(key).isBoolean().booleanValue();
+		}
+		return value;
+	}
 }

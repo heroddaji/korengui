@@ -6,12 +6,7 @@ public class SwitchSvg extends NodeSvg{
 
 	public SwitchSvg(Switch _model) {
 		super(_model);
-		imageHref = "images/switch.svg";		
-		setupShape();
-		setupTextShape();
-		setupGroupShape();
-		setupEventHandler();
-		
+		imageHref = "images/switch.svg";
 	}
 
 }

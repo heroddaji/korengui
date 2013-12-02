@@ -48,11 +48,13 @@ public class SvgPanel extends AbstractPanel  {
 		else{
 			globalTab = new SvgPanelGlobalTopologyTab(this);
 			add(globalTab,"Network");
+			globalTab.setSwitchModels(topologySwitches);
+			globalTab.setLinkModels(topologyLinks);
 			globalTab.draw();
 		}
 	}
 	
-	public void drawZoomTopology(Switch zoomSwitchModel, Map<String,Host> childHost){
+	public void drawZoomTopology(Switch zoomSwitchModel, Map<String,Host> childHosts){
 		for(SvgPanelZoomTab tab: zoomTabs){
 			if(tab.hasZoomModel(zoomSwitchModel)){
 				selectTab(tab);
@@ -61,8 +63,11 @@ public class SvgPanel extends AbstractPanel  {
 		}
 		
 		//if not exist, create new zoom tab
-		SvgPanelZoomTab zoomTab = new SvgPanelZoomTab(this, zoomSwitchModel);
+		SvgPanelZoomTab zoomTab = new SvgPanelZoomTab(this,zoomSwitchModel);
+		zoomTab.setChildModels(childHosts);
 		zoomTab.draw();
+		
+		//add to list of tabs
 		zoomTabs.add(zoomTab);
 		String name = zoomSwitchModel.getDpid();
 		add(zoomTab, "Node " + name.substring(name.length() - 5, name.length()));

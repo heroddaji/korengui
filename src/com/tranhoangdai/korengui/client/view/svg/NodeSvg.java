@@ -34,7 +34,7 @@ public class NodeSvg extends AbstractElementSvg{
 	protected  int x;	
 	protected  int y;	
 	protected int scaleFactor = 2;
-	protected Switch nodeModel;
+	protected GeneralModel nodeModel;
 	protected String imageHref = "images/node.svg";
 	protected OMSVGImageElement shape;
 	protected  OMSVGTextElement textShape;
@@ -42,26 +42,35 @@ public class NodeSvg extends AbstractElementSvg{
 	protected OMSVGPoint beforeMovePoint = null;
 	protected boolean isScaleUp = false;
 	
-	public NodeSvg(Switch _model){
-		this.nodeModel = _model;
+	public NodeSvg(){
+		
+	}
+	
+	public NodeSvg(GeneralModel _model){
+		this.nodeModel = (Switch) _model;		
+	}	
+	
+	public void formElement(){
 		setupShape();
 		setupTextShape();		
 		setupEventHandler();
 		setupGroupShape();
-	}	
+	}
 	
 	protected void setupShape() {
 		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
 	}
 
 	protected void setupTextShape() {
-		textShape = new OMSVGTextElement(x, y, OMSVGLength.SVG_LENGTHTYPE_PX, nodeModel.getDpid());
+		
+		Switch model = (Switch)nodeModel;
+		textShape = new OMSVGTextElement(x, y, OMSVGLength.SVG_LENGTHTYPE_PX, model.getDpid());
 		// move text to middle of shape
 		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
 		int fontsize = 9;
 		textShape.setAttribute("font-size", new Integer(fontsize).toString());
 		float midShapeX = shape.getWidth().getBaseVal().getValue() / 2;
-		int halfTextLength = nodeModel.getDpid().length() * fontsize / 4;
+		int halfTextLength = model.getDpid().length() * fontsize / 4;
 
 		double moveLength = halfTextLength - midShapeX;
 
@@ -211,8 +220,7 @@ public class NodeSvg extends AbstractElementSvg{
 	
 	@Override
 	public OMSVGElement getText() {
-
-		return null;
+		return textShape;
 	}	
 
 	public void translateTo(int x, int y) {
@@ -243,7 +251,7 @@ public class NodeSvg extends AbstractElementSvg{
 	}
 
 	@Override
-	public Switch getModel() {
+	public GeneralModel getModel() {
 		return nodeModel;
 	}
 	

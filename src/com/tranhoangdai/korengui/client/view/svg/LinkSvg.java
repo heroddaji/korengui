@@ -9,6 +9,7 @@ import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.tranhoangdai.korengui.client.model.Link;
+import com.tranhoangdai.korengui.client.model.Switch;
 
 public class LinkSvg extends AbstractElementSvg {
 
@@ -23,13 +24,15 @@ public class LinkSvg extends AbstractElementSvg {
 		linkModel = model;
 	}
 
-	public void findAndMatchNode(List<NodeSvg> nodesSvg) {
+	public <E> void findAndMatchNode(List<E> nodeSvgs) {
 		// use brute-force to find noeds, since the list is quite small
-		for (NodeSvg nodeSvg : nodesSvg) {
-			if (nodeSvg.getModel().getDpid().equals(linkModel.getSrcSwitch())) {
+		for (E e : nodeSvgs) {
+			NodeSvg nodeSvg = (NodeSvg)e;
+			Switch model = (Switch)nodeSvg.getModel();
+			if (model.getDpid().equals(linkModel.getSrcSwitch())) {
 				srcNodeSvg = nodeSvg;
 			}
-			if (nodeSvg.getModel().getDpid().equals(linkModel.getDstSwitch())) {
+			if (model.getDpid().equals(linkModel.getDstSwitch())) {
 				dstNodeSvg = nodeSvg;
 			}
 		}

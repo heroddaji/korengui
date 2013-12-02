@@ -11,10 +11,17 @@ import com.tranhoangdai.korengui.client.service.TopologyService;
 
 public class TopologyServiceImpl extends RemoteServiceServlet implements TopologyService {
 
+	//"http://163.180.118.215:8080/wm/core/controller/switches/json";
+	String host = "http://localhost";
+	String port = "9876";
+	String switchApi = "/wm/core/controller/switches/json";
+	String linkApi = "/wm/topology/links/json";
+	String hostApi = "/wm/device/";
+	
 	@Override
 	public String getTopologySwitches() {
 		String json = "";
-		String url = "http://163.180.118.215:8080/wm/core/controller/switches/json";
+		String url = host + ":" + port + switchApi;
 
 		try {
 			json = readUrl(url);
@@ -35,7 +42,7 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 	public String getTopologyLinks() {
 
 		String json = "";
-		String url = "http://163.180.118.215:8080//wm/topology/links/json";
+		String url = host + ":" + port + linkApi;
 
 		try {
 			json = readUrl(url);
@@ -49,7 +56,7 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 	public String getTopologyHosts() {
 
 		String json = "";
-		String url = "http://163.180.118.215:8080/wm/device/";
+		String url = host + ":" + port + hostApi;
 
 		try {
 			json = readUrl(url);

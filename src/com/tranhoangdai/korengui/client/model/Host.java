@@ -11,6 +11,10 @@ public class Host extends GeneralModel {
 	String dhcpClientName;
 	List<AttachmentPoint> attachmentPoints;
 	
+	public String getMacAddress() {
+		return mac.get(0);
+	}
+	
 	public String getEntityClass() {
 		return entityClass;
 	}

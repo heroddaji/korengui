@@ -19,7 +19,7 @@ public class ZoomEventController extends AbstractEventController {
 	@Override
 	public void handleEvent(Object source) {
 		NodeSvg zoomNodeSvg = (NodeSvg) source;
-		Switch zoomSwitchModel = zoomNodeSvg.getModel();		
+		Switch zoomSwitchModel = (Switch) zoomNodeSvg.getModel();		
 		
 		Map<String, Host> childHosts = getChildHostsOfSourceSwitch(zoomSwitchModel);
 		if(childHosts.size() == 0){

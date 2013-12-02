@@ -1,37 +1,26 @@
 package com.tranhoangdai.korengui.client.view;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.tranhoangdai.korengui.client.controller.Utility;
-import com.tranhoangdai.korengui.client.interf.PathFlowNotifier;
 import com.tranhoangdai.korengui.client.model.Switch;
-import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.view.widget.LinkCellTable;
 import com.tranhoangdai.korengui.client.view.widget.NodeCellTable;
 
-public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotifier {
+public class InfoPanelPathFlowTab extends InfoPanelAbstractInfoTab {
 
 	LinkCellTable cellTablePath = null;
 	NodeCellTable cellTableNode = null;
 	TabLayoutPanel parent = null;
 	List<Switch> nodes = new ArrayList<Switch>();
 
-	public InfoPanelPathFlowTab(InfoPanel parent) {
-		super();
-		this.parent = parent;
-		Utility.INSTANCE.addPathFlowAble(this);
+	public InfoPanelPathFlowTab(InfoPanel _parent) {
+		super(_parent);		
 	}
 
 	private void setupCellTablesFlowInit() {
@@ -60,7 +49,7 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 					
 					Switch node1 = nodes.get(0);
 					Switch node2 = nodes.get(1);
-					Utility.INSTANCE.downloadPathFlow(node1.getDpid(), node2.getDpid());
+					
 				}
 			}
 		});
@@ -72,7 +61,7 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 
 			@Override
 			public void onClick(ClickEvent event) {
-				emptyNodes();
+				
 			}
 		});
 
@@ -92,25 +81,6 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 	
 	}
 
-	@Override
-	public void pathIsSetup(Map<Integer,Link> paths) {
-		if (cellTablePath == null) {
-			setupCellTablesFlowResult();		}
-
-//		cellTablePath.addLinkModels(parent)
-		parent.selectTab(this);
-	}
-
-	@Override
-	public void addStartNode(Switch startNode) {
-		addPathFlowNode(startNode);
-	}
-
-	@Override
-	public void addEndNode(Switch endNode) {
-		addPathFlowNode(endNode);
-	}
-
 	private void addPathFlowNode(Switch node) {
 		if (cellTableNode == null) {
 			setupCellTablesFlowInit();
@@ -122,19 +92,11 @@ public class InfoPanelPathFlowTab extends VerticalPanel implements PathFlowNotif
 		}
 	}
 
+	
 	@Override
-	public void emptyNodes() {
-		if (cellTableNode != null) {
-			cellTableNode.setRowCount(0);
-			nodes = new ArrayList<Switch>();
-
-		}
-		if (cellTablePath != null) {
-			cellTablePath.setRowCount(0);
-
-		}
-		Utility.INSTANCE.clearPathFlow();
-
+	public void showInfo() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

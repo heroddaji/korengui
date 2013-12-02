@@ -6,7 +6,7 @@ public class GatewaySvg extends NodeSvg{
 
 	public GatewaySvg(Switch _model) {
 		super(_model);
-		// TODO Auto-generated constructor stub
+	
 	}
 
 }

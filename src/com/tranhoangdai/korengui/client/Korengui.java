@@ -16,8 +16,6 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tranhoangdai.korengui.client.controller.GUIInstructionController;
-import com.tranhoangdai.korengui.client.controller.Utility;
-import com.tranhoangdai.korengui.client.controller.Utility.ActionState;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.view.InfoPanel;
