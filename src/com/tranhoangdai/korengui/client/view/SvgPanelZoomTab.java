@@ -15,6 +15,7 @@ import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
 import com.tranhoangdai.korengui.client.view.svg.HostSvg;
 import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
 import com.tranhoangdai.korengui.client.view.svg.SwitchSvg;
+import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
 
 public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab {
 	
@@ -35,23 +36,18 @@ public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab {
 		List<HostSvg> hostSvgs = createSvgElements(hostSvgClass, childModels.values());
 		
 		drawZoomSwitchSvg(zoomSwitchSvg);
-		drawHosts(hostSvgs);
+		drawSvgNodeElements(hostSvgs);
+		
 	}
 
 	private void drawZoomSwitchSvg(SwitchSvg zoomSvg) {	
 		calCenter();	
-		zoomSvg.formElement();				
-		zoomSvg.translateTo((int)center, (int)center);
+		zoomSvg.formElement();
+		SvgTransformationHelper.translateTo(zoomSvg, (int)center, (int)center);		
 		svgElement.appendChild((OMNode) zoomSvg);				
 	}
 
-	private void drawHosts(List<HostSvg> hostSvgs) {
-		for(HostSvg hostSvg: hostSvgs){
-			
-		}
-		
-	}
-
+	
 	public boolean hasZoomModel(Switch _zoomModel){
 		if(zoomModel.getDpid().equals(_zoomModel.getDpid())){
 			return true;

@@ -26,6 +26,7 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.tranhoangdai.korengui.client.EventBus;
 import com.tranhoangdai.korengui.client.model.GeneralModel;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
 
 public class NodeSvg extends AbstractElementSvg{
 	
@@ -160,44 +161,55 @@ public class NodeSvg extends AbstractElementSvg{
 
 	protected void scaleDown(MouseEvent<?> event) {
 		isScaleUp = false;
-		OMSVGTransform t1 = null;
-		OMSVGTransform t2 = null;
-		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
+		
 		if (fisrtTimeScaleDown) {
 			scaleDownX = ((shape.getX().getBaseVal().getValue() + shape.getWidth().getBaseVal().getValue() / 2) * (1 - scaleFactor));
 			scaleDownY = ((shape.getY().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (1 - scaleFactor));
 			scaleDownFactor = 1.0f / scaleFactor;
 			fisrtTimeScaleDown = false;
 		}
-		t1 = svg.createSVGTransform();
-		t2 = svg.createSVGTransform();
-		OMSVGTransformList xforms = getTransform().getBaseVal();
-		xforms.appendItem(t2);
-		xforms.appendItem(t1);
-		t2.setScale(scaleDownFactor, scaleDownFactor);
-		t1.setTranslate(-scaleDownX, -scaleDownY);
+		
+		SvgTransformationHelper.scaleDown(this, scaleDownX, scaleDownY, scaleDownFactor);
+		
+//		OMSVGTransform t1 = null;
+//		OMSVGTransform t2 = null;
+//		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
+//		t1 = svg.createSVGTransform();
+//		t2 = svg.createSVGTransform();
+//		OMSVGTransformList xforms = getTransform().getBaseVal();
+//		xforms.appendItem(t2);
+//		xforms.appendItem(t1);
+//		t2.setScale(scaleDownFactor, scaleDownFactor);
+//		t1.setTranslate(-scaleDownX, -scaleDownY);
 
 		event.stopPropagation();
 		event.preventDefault();
 	}
 
 	protected void scaleUp(MouseEvent<?> event) {
-		isScaleUp = true;
-		OMSVGTransform t1 = null;
-		OMSVGTransform t2 = null;
-		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
+		isScaleUp = true;	
+		
 		if (fisrtTimeScaleUp) {
 			scaleUpX = ((shape.getX().getBaseVal().getValue() + shape.getWidth().getBaseVal().getValue() / 2) * (scaleFactor - 1));
 			scaleUpY = ((shape.getX().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (scaleFactor - 1));
 			fisrtTimeScaleUp = false;
 		}
-		t1 = svg.createSVGTransform();
-		t2 = svg.createSVGTransform();
-		OMSVGTransformList xforms = getTransform().getBaseVal();
-		xforms.appendItem(t1);
-		xforms.appendItem(t2);
-		t1.setTranslate(-scaleUpX, -scaleUpY);
-		t2.setScale(scaleFactor, scaleFactor);
+		
+		SvgTransformationHelper.scaleUp(this, scaleUpX, scaleUpY, scaleFactor);
+		
+		
+//		OMSVGTransform t1 = null;
+//		OMSVGTransform t2 = null;
+//		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
+//		
+//		
+//		t1 = svg.createSVGTransform();
+//		t2 = svg.createSVGTransform();
+//		OMSVGTransformList xforms = getTransform().getBaseVal();
+//		xforms.appendItem(t1);
+//		xforms.appendItem(t2);
+//		t1.setTranslate(-scaleUpX, -scaleUpY);
+//		t2.setScale(scaleFactor, scaleFactor);
 
 		event.stopPropagation();
 		event.preventDefault();
@@ -222,17 +234,7 @@ public class NodeSvg extends AbstractElementSvg{
 	public OMSVGElement getText() {
 		return textShape;
 	}	
-
-	public void translateTo(int x, int y) {
-		setX(x);
-		setY(y);
-		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
-		OMSVGTransform t;
-		t = svg.createSVGTransform();
-		OMSVGTransformList xforms = getTransform().getBaseVal();
-		xforms.appendItem(t);
-		t.setTranslate(x, y);
-	}
+	
 
 	public int getX() {
 		return x;

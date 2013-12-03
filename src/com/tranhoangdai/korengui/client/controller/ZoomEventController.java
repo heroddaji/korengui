@@ -7,6 +7,7 @@ import com.google.gwt.core.client.GWT;
 import com.tranhoangdai.korengui.client.model.AttachmentPoint;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.model.util.ModelHelper;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
 import com.tranhoangdai.korengui.client.view.InfoPanel;
 import com.tranhoangdai.korengui.client.view.SvgPanel;
@@ -21,7 +22,7 @@ public class ZoomEventController extends AbstractEventController {
 		NodeSvg zoomNodeSvg = (NodeSvg) source;
 		Switch zoomSwitchModel = (Switch) zoomNodeSvg.getModel();		
 		
-		Map<String, Host> childHosts = getChildHostsOfSourceSwitch(zoomSwitchModel);
+		Map<String, Host> childHosts = ModelHelper.getChildHostsOfSourceSwitch(zoomSwitchModel, ClientServiceHelper.INSTANCE.getTopologyHosts());
 		if(childHosts.size() == 0){
 			GUIInstructionController.INSTANCE.tellConnectedHostsToZoomIn();
 			return;
@@ -30,18 +31,7 @@ public class ZoomEventController extends AbstractEventController {
 		InfoPanel.INSTANCE.showZoomTopology(zoomSwitchModel,childHosts);
 	}
 	
-	//get all the hosts that connect to params switch model
-	private Map<String, Host> getChildHostsOfSourceSwitch(Switch zoomSwitch){
-		Map<String, Host> hosts = ClientServiceHelper.INSTANCE.getTopologyHosts(); //should have already download from the global network
-		Map<String, Host> childHosts = new HashMap<String, Host>();
-		for(Host host: hosts.values()){
-			for(AttachmentPoint ap: host.getAttachmentPoints()){
-				if(ap.getSwitchDPID().equals(zoomSwitch.getDpid())){
-					childHosts.put(host.getMac().get(0), host);
-				}
-			}
-		}
-		return childHosts;
-	}
+	
+	
 
 }

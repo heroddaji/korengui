@@ -37,10 +37,27 @@ public class LinkSvg extends AbstractElementSvg {
 			}
 		}
 
-		adjust();
+		formElement();
 	}
 
-	public void adjust() {
+	@Override
+	public OMSVGElement getShape() {
+		return line;
+	}
+
+	@Override
+	public OMSVGElement getText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Link getModel() {
+		return linkModel;
+	}
+
+	@Override
+	public void formElement() {
 		if (srcNodeSvg == null || dstNodeSvg == null) {
 			return;
 		}
@@ -65,22 +82,31 @@ public class LinkSvg extends AbstractElementSvg {
 		line.getY1().getBaseVal().setValue(y1 + height1 / 2);
 		line.getX2().getBaseVal().setValue(x2 + width2 / 2);
 		line.getY2().getBaseVal().setValue(y2 + height2 / 2);
+		
 	}
 
 	@Override
-	public OMSVGElement getShape() {
-		return line;
+	public int getX() {
+		return 0;
+		
 	}
 
 	@Override
-	public OMSVGElement getText() {
+	public int getY() {
+		return 0;
+		
+	}
+
+	@Override
+	public void setX(int x) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
-	public Link getModel() {
-		return linkModel;
+	public void setY(int y) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

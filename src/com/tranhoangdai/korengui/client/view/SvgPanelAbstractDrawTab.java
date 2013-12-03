@@ -20,6 +20,7 @@ import com.tranhoangdai.korengui.client.view.svg.HostSvg;
 import com.tranhoangdai.korengui.client.view.svg.LinkSvg;
 import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
 import com.tranhoangdai.korengui.client.view.svg.SwitchSvg;
+import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
 
 @SuppressWarnings("unchecked")
 public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
@@ -85,22 +86,22 @@ public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 	}
 
 
-	protected <E> void drawNodes(List<E> nodeSvgs) {
+	protected <E> void drawSvgNodeElements(List<? extends AbstractElementSvg> eSvgs) {
 		float radius = SvgPanel.INSTANCE.getOffsetWidth() / 4;
 		calCenter();
 
-		float slice = (float) (2 * Math.PI / nodeSvgs.size());
+		float slice = (float) (2 * Math.PI / eSvgs.size());
 
 		int counter = 1;
 		try {
-			for (E e : nodeSvgs) {
-				NodeSvg nodeSvg = (NodeSvg)e;
-				nodeSvg.formElement();
+			for (AbstractElementSvg element : eSvgs) {
+				
+				element.formElement();
 				int x = (int) (radius * Math.cos(counter * slice) + center);
 				int y = (int) (radius * Math.sin(counter * slice) + center);
-				nodeSvg.translateTo(x, y);
+				SvgTransformationHelper.translateTo(element, x, y);
 				++counter;
-				svgElement.appendChild((OMNode) nodeSvg);
+				svgElement.appendChild((OMNode) element);
 			}
 		} catch (Exception e) {
 			System.err.println(e);

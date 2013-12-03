@@ -27,7 +27,7 @@ public class SvgPanelGlobalTopologyTab extends SvgPanelAbstractDrawTab {
 		List<NodeSvg> nodeSvgs =  createSvgElements(nodeSvgClass, switchModels.values());		
 		List<LinkSvg> linkSvgs =  createSvgElements(linkSvgClass, linkModels.values());
 		
-		drawNodes(nodeSvgs);
+		drawSvgNodeElements(nodeSvgs);
 		drawLinks(linkSvgs,nodeSvgs);
 	}
 
