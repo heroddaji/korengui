@@ -1,19 +1,16 @@
 package com.tranhoangdai.korengui.client.view;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.vectomatic.dom.svg.OMNode;
 
-import com.tranhoangdai.korengui.client.model.GeneralModel;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
-import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
 import com.tranhoangdai.korengui.client.view.svg.HostSvg;
-import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
+import com.tranhoangdai.korengui.client.view.svg.LinkSvg;
 import com.tranhoangdai.korengui.client.view.svg.SwitchSvg;
 import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
 
@@ -21,6 +18,7 @@ public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab {
 	
 	Switch zoomModel = null;
 	Map<String,Host> childModels = new HashMap<String, Host>();
+	Map<Integer,Link> linkModels = new HashMap<Integer, Link>();
 	
 
 	public SvgPanelZoomTab(AbstractPanel _parent, Switch _zoomModel) {
@@ -33,10 +31,18 @@ public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab {
 		SwitchSvg zoomSwitchSvg = (SwitchSvg) createSvgElement(SwitchSvg.class, zoomModel);
 		
 		HostSvg hostSvgClass = new HostSvg();
+		LinkSvg linkSvgClass = new LinkSvg();
 		List<HostSvg> hostSvgs = createSvgElements(hostSvgClass, childModels.values());
+		List<LinkSvg> linkSvgs = createSvgElements(linkSvgClass, linkModels.values());
 		
 		drawZoomSwitchSvg(zoomSwitchSvg);
-		drawSvgNodeElements(hostSvgs);
+		drawNodeElementsSvg(hostSvgs);
+		drawZoomLinksSvg(zoomSwitchSvg,hostSvgs,linkSvgs);
+		
+	}
+
+	private void drawZoomLinksSvg(SwitchSvg zoomSwitchSvg, List<HostSvg> hostSvgs, List<LinkSvg> linkSvgs) {
+		
 		
 	}
 
@@ -58,47 +64,10 @@ public class SvgPanelZoomTab extends SvgPanelAbstractDrawTab {
 	public void setChildModels(Map<String,Host> _childModels){
 		this.childModels = _childModels;
 	}
-	
-	//	public void drawZoom() {
-	//		drawZoomLayout();
-	//		draw(currentNodes, currentLinks);
-	//	}
-	//
-	//	private void drawZoomLayout() {
-	//		if (zoomNode == null) {
-	//			return;
-	//		}
-	//
-	//		String opacityLevel = "0.3";
-	//		float scale = 12;
-	//		calCenter();
-	//		OMSVGImageElement background = (OMSVGImageElement) zoomNode.getShape().cloneNode(true);
-	//		svgElement.appendChild(background);
-	//		background.setAttribute("opacity", opacityLevel);
-	//		background = SvgUtility.scaleUp(background, center, scale);
-	//
-	//	}
-	//
-	//	@Override
-	//	public void zoomIn(Node _zoomNode) {
-	//		if (zoomNode != null) {
-	//			if (zoomNode.equals(_zoomNode)) {
-	//				parent.selectTab(this);
-	//			}
-	//		} else {
-	//			setUpZoomNode((ZoomableNode) _zoomNode);
-	//			drawZoom();
-	//		}
-	//	}
-	//
-	//	public void setUpZoomNode(ZoomableNode _zoomNode) {
-	//		zoomNode = _zoomNode;
-	//		currentNodes = zoomNode.getChildNodes();
-	//		currentLinks = zoomNode.getChildLinks();
-	//	}
-	//
-	//	public Node getZoomNode() {
-	//		return zoomNode;
-	//	}
+
+
+	public void setLinkModels(Map<Integer, Link> linkModels) {
+		this.linkModels = linkModels;
+	}	
 
 }

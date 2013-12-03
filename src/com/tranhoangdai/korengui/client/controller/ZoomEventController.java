@@ -1,11 +1,10 @@
 package com.tranhoangdai.korengui.client.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
-import com.tranhoangdai.korengui.client.model.AttachmentPoint;
 import com.tranhoangdai.korengui.client.model.Host;
+import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.model.util.ModelHelper;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
@@ -23,12 +22,14 @@ public class ZoomEventController extends AbstractEventController {
 		Switch zoomSwitchModel = (Switch) zoomNodeSvg.getModel();		
 		
 		Map<String, Host> childHosts = ModelHelper.getChildHostsOfSourceSwitch(zoomSwitchModel, ClientServiceHelper.INSTANCE.getTopologyHosts());
+		Map<Integer,Link> linkModels = ModelHelper.getLinksOfSourceSwitch(zoomSwitchModel,ClientServiceHelper.INSTANCE.getTopologyHosts());
 		if(childHosts.size() == 0){
 			GUIInstructionController.INSTANCE.tellConnectedHostsToZoomIn();
 			return;
 		}
-		SvgPanel.INSTANCE.drawZoomTopology(zoomSwitchModel,childHosts);		
-		InfoPanel.INSTANCE.showZoomTopology(zoomSwitchModel,childHosts);
+		
+		SvgPanel.INSTANCE.drawZoomTopology(zoomSwitchModel,childHosts, linkModels);		
+		InfoPanel.INSTANCE.showZoomTopology(zoomSwitchModel,childHosts, linkModels);
 	}
 	
 	

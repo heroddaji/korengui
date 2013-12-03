@@ -86,7 +86,7 @@ public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 	}
 
 
-	protected <E> void drawSvgNodeElements(List<? extends AbstractElementSvg> eSvgs) {
+	protected <E> void drawNodeElementsSvg(List<? extends AbstractElementSvg> eSvgs) {
 		float radius = SvgPanel.INSTANCE.getOffsetWidth() / 4;
 		calCenter();
 

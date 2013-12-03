@@ -20,6 +20,9 @@ public class LinkSvg extends AbstractElementSvg {
 	OMSVGTextElement textShapeDstPort;
 	OMSVGLineElement line = null;
 
+	public LinkSvg() {
+		
+	}
 	public LinkSvg(Link model) {
 		linkModel = model;
 	}

@@ -5,6 +5,7 @@ import java.util.Map;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.tranhoangdai.korengui.client.model.Host;
+import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 
 public class InfoPanel extends AbstractPanel {
@@ -27,7 +28,7 @@ public class InfoPanel extends AbstractPanel {
 		}
 	}
 
-	public void showZoomTopology(Switch zoomSwitchModel, Map<String, Host> childHost) {
+	public void showZoomTopology(Switch zoomSwitchModel, Map<String, Host> childHost, Map<Integer, Link> linkModels) {
 
 	}
 

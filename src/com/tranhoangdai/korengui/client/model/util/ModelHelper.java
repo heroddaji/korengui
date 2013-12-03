@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.tranhoangdai.korengui.client.model.AttachmentPoint;
 import com.tranhoangdai.korengui.client.model.Host;
+import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 
 public class ModelHelper {
@@ -19,5 +20,10 @@ public class ModelHelper {
 			}
 		}
 		return childHosts;
+	}
+
+	public static Map<Integer, Link> getLinksOfSourceSwitch(Switch zoomSwitchModel, Map<String, Host> topologyHosts) {
+
+		return null;
 	}
 }

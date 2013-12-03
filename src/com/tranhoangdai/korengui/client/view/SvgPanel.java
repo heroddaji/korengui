@@ -54,7 +54,7 @@ public class SvgPanel extends AbstractPanel  {
 		}
 	}
 	
-	public void drawZoomTopology(Switch zoomSwitchModel, Map<String,Host> childHosts){
+	public void drawZoomTopology(Switch zoomSwitchModel, Map<String,Host> childHosts, Map<Integer, Link> linkModels){
 		for(SvgPanelZoomTab tab: zoomTabs){
 			if(tab.hasZoomModel(zoomSwitchModel)){
 				selectTab(tab);
@@ -65,6 +65,7 @@ public class SvgPanel extends AbstractPanel  {
 		//if not exist, create new zoom tab
 		SvgPanelZoomTab zoomTab = new SvgPanelZoomTab(this,zoomSwitchModel);
 		zoomTab.setChildModels(childHosts);
+		zoomTab.setLinkModels(linkModels);
 		zoomTab.draw();
 		
 		//add to list of tabs
