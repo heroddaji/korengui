@@ -25,7 +25,6 @@ import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
 @SuppressWarnings("unchecked")
 public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 
-
 	protected OMSVGSVGElement svgElement = null;
 	protected AbstractPanel parent = null;
 	protected float center = 0;
@@ -60,20 +59,18 @@ public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 		List<T> svgs = new ArrayList<T>();
 		AbstractElementSvg svg = null;
 		for (E mod : models) {
-			if (svgType instanceof SwitchSvg ) {
+			if (svgType instanceof SwitchSvg) {
 				svg = new SwitchSvg((Switch) mod);
 			}
-			
+
 			else if (svgType instanceof HostSvg) {
 				svg = new HostSvg((Host) mod);
 			}
-			
+
 			else if (svgType instanceof NodeSvg) {
 				svg = new NodeSvg((Switch) mod);
 			}
-			
-			
-			
+
 			else if (svgType instanceof LinkSvg) {
 				svg = new LinkSvg((Link) mod);
 			}
@@ -85,7 +82,6 @@ public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 		return svgs;
 	}
 
-
 	protected <E> void drawNodeElementsSvg(List<? extends AbstractElementSvg> eSvgs) {
 		float radius = SvgPanel.INSTANCE.getOffsetWidth() / 4;
 		calCenter();
@@ -95,7 +91,7 @@ public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 		int counter = 1;
 		try {
 			for (AbstractElementSvg element : eSvgs) {
-				
+
 				element.formElement();
 				int x = (int) (radius * Math.cos(counter * slice) + center);
 				int y = (int) (radius * Math.sin(counter * slice) + center);
@@ -112,23 +108,15 @@ public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 	 * This method must be call after all the nodes have been drawn * otherwise
 	 * it cannot setup the coordinate of line also insert line as first element
 	 * to make them stay behind the nodes
+	 * 
 	 * @param <E>
 	 */
-	protected <E> void drawLinks(List<LinkSvg> linkSvgs,List<E> nodeSvgs) {
-		createLinksCoordination(linkSvgs, nodeSvgs);
+	protected <E> void drawLinks(List<LinkSvg> linkSvgs, List<E> nodeSvgs) {
+
 		for (LinkSvg linkSvg : linkSvgs) {
+			linkSvg.findAndMatchMultipleNodes(nodeSvgs);
 			svgElement.getElement().insertFirst(linkSvg.getElement());
 		}
-	}
-
-	protected <E> void createLinksCoordination(List<LinkSvg> linkSvgs, List<E> nodeSvgs) {
-		for (LinkSvg linkSvg : linkSvgs) {
-			linkSvg.findAndMatchNode(nodeSvgs);
-		}
-	}
-
-	protected void drawhosts(List<HostSvg> hostsSvg) {
-
 	}
 
 	protected void calCenter() {

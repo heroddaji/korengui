@@ -1,5 +1,5 @@
 package com.tranhoangdai.korengui.client.model;
 
-public class GeneralModel {
+public abstract class GeneralModel {
 	
 }

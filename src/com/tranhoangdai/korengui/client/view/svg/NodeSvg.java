@@ -25,6 +25,7 @@ import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.tranhoangdai.korengui.client.EventBus;
 import com.tranhoangdai.korengui.client.model.GeneralModel;
+import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
 
@@ -35,7 +36,7 @@ public class NodeSvg extends AbstractElementSvg{
 	protected  int x;	
 	protected  int y;	
 	protected int scaleFactor = 2;
-	protected GeneralModel nodeModel;
+	protected ModelWithId nodeModel;
 	protected String imageHref = "images/node.svg";
 	protected OMSVGImageElement shape;
 	protected  OMSVGTextElement textShape;
@@ -65,13 +66,13 @@ public class NodeSvg extends AbstractElementSvg{
 	protected void setupTextShape() {
 		
 		Switch model = (Switch)nodeModel;
-		textShape = new OMSVGTextElement(x, y, OMSVGLength.SVG_LENGTHTYPE_PX, model.getDpid());
+		textShape = new OMSVGTextElement(x, y, OMSVGLength.SVG_LENGTHTYPE_PX, model.getId());
 		// move text to middle of shape
 		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
 		int fontsize = 9;
 		textShape.setAttribute("font-size", new Integer(fontsize).toString());
 		float midShapeX = shape.getWidth().getBaseVal().getValue() / 2;
-		int halfTextLength = model.getDpid().length() * fontsize / 4;
+		int halfTextLength = model.getId().length() * fontsize / 4;
 
 		double moveLength = halfTextLength - midShapeX;
 
@@ -253,7 +254,7 @@ public class NodeSvg extends AbstractElementSvg{
 	}
 
 	@Override
-	public GeneralModel getModel() {
+	public ModelWithId getModel() {
 		return nodeModel;
 	}
 	

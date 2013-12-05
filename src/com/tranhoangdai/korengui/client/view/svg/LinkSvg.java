@@ -9,37 +9,45 @@ import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.tranhoangdai.korengui.client.model.Link;
+import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
 
 public class LinkSvg extends AbstractElementSvg {
 
 	Link linkModel = null;
-	NodeSvg srcNodeSvg = null;
-	NodeSvg dstNodeSvg = null;
+	AbstractElementSvg srcNodeSvg = null;
+	AbstractElementSvg dstNodeSvg = null;
 	OMSVGTextElement textShapeSrcPort;
 	OMSVGTextElement textShapeDstPort;
 	OMSVGLineElement line = null;
 
 	public LinkSvg() {
-		
+
 	}
+
 	public LinkSvg(Link model) {
 		linkModel = model;
 	}
 
-	public <E> void findAndMatchNode(List<E> nodeSvgs) {
-		// use brute-force to find noeds, since the list is quite small
-		for (E e : nodeSvgs) {
-			NodeSvg nodeSvg = (NodeSvg)e;
-			Switch model = (Switch)nodeSvg.getModel();
-			if (model.getDpid().equals(linkModel.getSrcSwitch())) {
-				srcNodeSvg = nodeSvg;
+	public <E> void findAndMatchMultipleNodes(List<E> svgs) {
+		// use brute-force to find nodes, since the list is quite small
+		for (E e : svgs) {
+			AbstractElementSvg eSvg = (AbstractElementSvg) e;
+			ModelWithId model = eSvg.getModel();
+			if (model.getId().equals(linkModel.getSrcSwitch())) {
+				srcNodeSvg = eSvg;
 			}
-			if (model.getDpid().equals(linkModel.getDstSwitch())) {
-				dstNodeSvg = nodeSvg;
+			if (model.getId().equals(linkModel.getDstSwitch())) {
+				dstNodeSvg = eSvg;
 			}
 		}
 
+		formElement();
+	}
+
+	public <T, E> void findAndMatchZoomNode(T zoomElementSvg, E svgElement) {		
+		srcNodeSvg = (AbstractElementSvg) svgElement;
+		dstNodeSvg = (AbstractElementSvg) zoomElementSvg;
 		formElement();
 	}
 
@@ -50,10 +58,10 @@ public class LinkSvg extends AbstractElementSvg {
 
 	@Override
 	public OMSVGElement getText() {
-		// TODO Auto-generated method stub
+		// TODO Auto-igenerated method stub
 		return null;
 	}
-	
+
 	@Override
 	public Link getModel() {
 		return linkModel;
@@ -85,31 +93,31 @@ public class LinkSvg extends AbstractElementSvg {
 		line.getY1().getBaseVal().setValue(y1 + height1 / 2);
 		line.getX2().getBaseVal().setValue(x2 + width2 / 2);
 		line.getY2().getBaseVal().setValue(y2 + height2 / 2);
-		
+
 	}
 
 	@Override
 	public int getX() {
 		return 0;
-		
+
 	}
 
 	@Override
 	public int getY() {
 		return 0;
-		
+
 	}
 
 	@Override
 	public void setX(int x) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setY(int y) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

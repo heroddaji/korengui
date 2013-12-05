@@ -2,7 +2,7 @@ package com.tranhoangdai.korengui.client.model;
 
 import java.util.List;
 
-public class Host extends GeneralModel {
+public class Host extends ModelWithId {
 	String entityClass;
 	List<String> mac;
 	List<String> ipv4;
@@ -10,6 +10,10 @@ public class Host extends GeneralModel {
 	double lastSeen;
 	String dhcpClientName;
 	List<AttachmentPoint> attachmentPoints;
+	
+	public String getId(){
+		return getMacAddress();
+	}
 	
 	public String getMacAddress() {
 		return mac.get(0);

@@ -70,7 +70,7 @@ public class JSONSerializationHelper {
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject obj = array.get(i).isObject();
 				Link link = createLink(obj);
-				links.put(link.getId(), link);
+				links.put(link.getIntId(), link);
 			}
 		}
 		return links;

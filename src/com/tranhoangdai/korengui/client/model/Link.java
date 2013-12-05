@@ -1,7 +1,7 @@
 package com.tranhoangdai.korengui.client.model;
 
 
-public class Link extends GeneralModel{
+public class Link extends ModelWithId{
 
 	private static int UNIQUEID = -1;
 	int id;
@@ -14,6 +14,9 @@ public class Link extends GeneralModel{
 
 	Switch startNode = null;
 	Switch endNode = null;
+	
+	public Link() {
+	}	
 
 	public Link(String srcSwitch, int srcPort, String dstSwitch, int dstPort) {
 		id = ++UNIQUEID;
@@ -24,14 +27,18 @@ public class Link extends GeneralModel{
 	}
 
 	public Link(Link link) {
-		this.id = link.getId();
+		this.id = link.getIntId();
 		this.srcSwitch = link.getSrcSwitch();
 		this.srcPort = link.getSrcPort();
 		this.dstSwitch = link.getDstSwitch();
 		this.dstPort = link.getDstPort();
 	}
 
-	public int getId() {
+	public String getId() {
+		return Integer.valueOf(id).toString();
+	}
+	
+	public int getIntId() {
 		return id;
 	}
 
