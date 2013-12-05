@@ -12,8 +12,10 @@ import com.tranhoangdai.korengui.client.service.TopologyService;
 public class TopologyServiceImpl extends RemoteServiceServlet implements TopologyService {
 
 	//"http://163.180.118.215:8080/wm/core/controller/switches/json";
-	String host = "http://localhost";
-	String port = "9876";
+	//String host = "http://localhost";
+	//String port = "9876";
+	String host = "http://163.180.118.215";
+	String port = "8080";
 	String switchApi = "/wm/core/controller/switches/json";
 	String linkApi = "/wm/topology/links/json";
 	String hostApi = "/wm/device/";

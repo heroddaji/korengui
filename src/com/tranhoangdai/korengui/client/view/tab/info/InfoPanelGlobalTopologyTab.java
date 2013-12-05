@@ -1,12 +1,13 @@
-package com.tranhoangdai.korengui.client.view;
+package com.tranhoangdai.korengui.client.view.tab.info;
 
 import com.google.gwt.user.client.ui.Label;
+import com.tranhoangdai.korengui.client.view.InfoPanel;
 import com.tranhoangdai.korengui.client.view.widget.LinkCellTable;
-import com.tranhoangdai.korengui.client.view.widget.NodeCellTable;
+import com.tranhoangdai.korengui.client.view.widget.SwitchCellTable;
 
 public class InfoPanelGlobalTopologyTab extends InfoPanelAbstractInfoTab {
 
-	NodeCellTable cellTableNode = null;
+	SwitchCellTable cellTableNode = null;
 	LinkCellTable cellTableLink = null;	
 
 	public InfoPanelGlobalTopologyTab(InfoPanel _parent) {
@@ -17,7 +18,7 @@ public class InfoPanelGlobalTopologyTab extends InfoPanelAbstractInfoTab {
 		// table for display nodes information
 		Label nodeLabel = new Label("Nodes information");
 		add(nodeLabel);
-		cellTableNode = new NodeCellTable();
+		cellTableNode = new SwitchCellTable();
 		add(cellTableNode);
 
 		// add empty lable for nice layout

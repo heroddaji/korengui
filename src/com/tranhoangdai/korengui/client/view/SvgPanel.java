@@ -14,6 +14,9 @@ import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
+import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelGlobalTopologyTab;
+import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelPathFlowTab;
+import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelZoomTab;
 
 @SuppressWarnings("unused")
 public class SvgPanel extends AbstractPanel  {
@@ -70,7 +73,7 @@ public class SvgPanel extends AbstractPanel  {
 		
 		//add to list of tabs
 		zoomTabs.add(zoomTab);
-		String name = zoomSwitchModel.getDpid();
+		String name = zoomSwitchModel.getId();
 		add(zoomTab, "Node " + name.substring(name.length() - 5, name.length()));
 		selectTab(zoomTab);
 	}

@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.view;
+package com.tranhoangdai.korengui.client.view.tab.svg;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,7 @@ import java.util.Map;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.view.AbstractPanel;
 
 public class SvgPanelPathFlowTab extends SvgPanelAbstractDrawTab {
 	

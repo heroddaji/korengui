@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.view;
+package com.tranhoangdai.korengui.client.view.tab.svg;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,6 +15,8 @@ import com.tranhoangdai.korengui.client.model.GeneralModel;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.view.AbstractPanel;
+import com.tranhoangdai.korengui.client.view.SvgPanel;
 import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
 import com.tranhoangdai.korengui.client.view.svg.HostSvg;
 import com.tranhoangdai.korengui.client.view.svg.LinkSvg;

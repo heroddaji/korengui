@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.view;
+package com.tranhoangdai.korengui.client.view.tab.info;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +9,14 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.view.InfoPanel;
 import com.tranhoangdai.korengui.client.view.widget.LinkCellTable;
-import com.tranhoangdai.korengui.client.view.widget.NodeCellTable;
+import com.tranhoangdai.korengui.client.view.widget.SwitchCellTable;
 
 public class InfoPanelPathFlowTab extends InfoPanelAbstractInfoTab {
 
 	LinkCellTable cellTablePath = null;
-	NodeCellTable cellTableNode = null;
+	SwitchCellTable cellTableNode = null;
 	TabLayoutPanel parent = null;
 	List<Switch> nodes = new ArrayList<Switch>();
 
@@ -29,7 +30,7 @@ public class InfoPanelPathFlowTab extends InfoPanelAbstractInfoTab {
 		Label lblPathLabel = new Label("Add nodes to get PathFlow");
 		add(lblPathLabel);
 
-		cellTableNode = new NodeCellTable();
+		cellTableNode = new SwitchCellTable();
 		add(cellTableNode);
 
 		

@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.view;
+package com.tranhoangdai.korengui.client.view.tab.svg;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.view.AbstractPanel;
 import com.tranhoangdai.korengui.client.view.svg.LinkSvg;
 import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
 

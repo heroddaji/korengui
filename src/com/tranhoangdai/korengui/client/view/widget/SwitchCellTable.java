@@ -8,9 +8,9 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.tranhoangdai.korengui.client.model.Switch;
 
-public class NodeCellTable extends CellTable<Switch> {
+public class SwitchCellTable extends CellTable<Switch> {
 	
-	public NodeCellTable(){
+	public SwitchCellTable(){
 		TextColumn<Switch> nodeIdColumn = new TextColumn<Switch>() {
 
 			@Override
