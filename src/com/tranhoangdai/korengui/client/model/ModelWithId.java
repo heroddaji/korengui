@@ -23,6 +23,6 @@ public abstract class ModelWithId extends GeneralModel {
 		if(methodName.equals(MODEL_GETIDMETHOD)){
 			return getId();
 		}
-		return null;
+		return "";
 	}
 }

@@ -36,7 +36,7 @@ public class Link extends ModelWithId {
 	@Override
 	public String callMethod(String methodName) {
 		String result = super.callMethod(methodName);
-		if (result != null) {
+		if (result != "") {
 			return result;
 		}
 
