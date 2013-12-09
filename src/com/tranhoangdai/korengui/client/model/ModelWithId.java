@@ -1,12 +1,12 @@
 package com.tranhoangdai.korengui.client.model;
 
 public abstract class ModelWithId extends GeneralModel {
-	public static final String MODEL_GETIDMETHOD = "ID";
-	public static final String LINK_GETSRCPORT = "LINK_GETSRCPORT";
-	public static final String LINK_GETSRCID = "LINK_GETSRCID";
-	public static final String LINK_GETDSTPORT = "LINK_GETDSTPORT";
-	public static final String LINK_GETDSTID= "LINK_GETDSTID";
-	public static final String SWITCH_GETROLE= "SWITCH_GETROLE";
+	public static final String MODEL_GETIDMETHOD = "ID";	
+	public static final String LINK_GETSRCID = "Src-switch";
+	public static final String LINK_GETSRCPORT = "Src-port";	
+	public static final String LINK_GETDSTID= "Dst-switch";
+	public static final String LINK_GETDSTPORT = "Dst-port";
+	public static final String SWITCH_GETROLE= "Role";
 	
 	
 
