@@ -6,16 +6,18 @@ import java.util.Map;
 import com.google.gwt.user.client.ui.Label;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
+import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.view.InfoPanel;
 import com.tranhoangdai.korengui.client.view.widget.LinkCellTable;
+import com.tranhoangdai.korengui.client.view.widget.ModelCellTable;
 import com.tranhoangdai.korengui.client.view.widget.SwitchCellTable;
 
 public class InfoPanelZoomTab extends InfoPanelAbstractInfoTab{
-
+	
+	ModelCellTable<Switch> switchCellTable = null;
+	ModelCellTable<Host> hostsCellTable = null;
 	Switch zoomModel = null;
-	SwitchCellTable cellTableNode = null;
-	LinkCellTable cellTableLink = null;
 	Map<String, Host> childModels = new HashMap<String, Host>();
 	Map<Integer, Link> linkModels = new HashMap<Integer, Link>();
 	
@@ -28,11 +30,11 @@ public class InfoPanelZoomTab extends InfoPanelAbstractInfoTab{
 
 	private void setupCellTables() {
 		// table for display nodes information
-		Label nodeLabel = new Label("Nodes information");
+		Label nodeLabel = new Label("Switch information");
 		add(nodeLabel);
 
-		cellTableNode = new SwitchCellTable();
-		add(cellTableNode);
+		switchCellTable = new ModelCellTable<Switch>(ModelWithId.MODEL_GETIDMETHOD);
+		add(switchCellTable);
 
 		// add empty lable for nice layout
 		Label emptyLabel = new Label("");
@@ -40,20 +42,22 @@ public class InfoPanelZoomTab extends InfoPanelAbstractInfoTab{
 		add(emptyLabel);
 
 		// table for display link
-		Label linkLabel = new Label("Links information");
+		Label linkLabel = new Label("Hosts information");
 		add(linkLabel);
-
-		cellTableLink = new LinkCellTable();
-		add(cellTableLink);
+		
+		hostsCellTable = new ModelCellTable<Host>(ModelWithId.MODEL_GETIDMETHOD);
+		add(hostsCellTable);
 	}
 
 
 	@Override
 	public void showInfo() {
-		if (cellTableNode == null || cellTableLink == null) {
+		if (switchCellTable == null || hostsCellTable == null) {
 			setupCellTables();
 		}
 		
+		switchCellTable.addModelData(zoomModel);
+		hostsCellTable.addModelData(childModels);
 		
 	}
 
@@ -74,7 +78,6 @@ public class InfoPanelZoomTab extends InfoPanelAbstractInfoTab{
 
 	public void setLinkModels(Map<Integer, Link> linkModels) {
 		this.linkModels = linkModels;
-	}
-
+	}	
 	
 }

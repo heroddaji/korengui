@@ -1,7 +1,6 @@
 package com.tranhoangdai.korengui.client.model;
 
-
-public class Link extends ModelWithId{
+public class Link extends ModelWithId {
 
 	private static int UNIQUEID = -1;
 	int id;
@@ -14,9 +13,9 @@ public class Link extends ModelWithId{
 
 	Switch startNode = null;
 	Switch endNode = null;
-	
+
 	public Link() {
-	}	
+	}
 
 	public Link(String srcSwitch, int srcPort, String dstSwitch, int dstPort) {
 		id = ++UNIQUEID;
@@ -34,10 +33,32 @@ public class Link extends ModelWithId{
 		this.dstPort = link.getDstPort();
 	}
 
+	@Override
+	public String callMethod(String methodName) {
+		String result = super.callMethod(methodName);
+		if (result != null) {
+			return result;
+		}
+
+		if (methodName.equals(ModelWithId.LINK_GETSRCID)) {
+			result = getSrcSwitch();
+		}
+		if (methodName.equals(ModelWithId.LINK_GETSRCPORT)) {
+			result = String.valueOf(getSrcPort());
+		}
+		if (methodName.equals(ModelWithId.LINK_GETDSTID)) {
+			result = getDstSwitch();
+		}
+		if (methodName.equals(ModelWithId.LINK_GETDSTPORT)) {
+			result = String.valueOf(getDstPort());
+		}
+		return result;
+	}
+
 	public String getId() {
 		return Integer.valueOf(id).toString();
 	}
-	
+
 	public int getIntId() {
 		return id;
 	}

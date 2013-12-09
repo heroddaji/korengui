@@ -71,6 +71,7 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 			}
 			reader.close();
 		} catch (Exception e) {
+			System.out.println("ERROR, CANNOT GET NETWORK DATA, START CHEATING PROTOCOL");
 			//cheating, read from file
 			if (url.contains(switchApi)) {
 				return readFile(fileSwitches);
