@@ -1,9 +1,11 @@
 package com.tranhoangdai.korengui.server;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -19,96 +21,88 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 	String switchApi = "/wm/core/controller/switches/json";
 	String linkApi = "/wm/topology/links/json";
 	String hostApi = "/wm/device/";
-	
+	String fileSwitches = "sample-json/nodes.json";
+	String fileLinks = "sample-json/links.json";
+	String fileDevices = "sample-json/devices.json";
+	String filePath = "sample-json/paths.json";
+
 	@Override
 	public String getTopologySwitches() {
 		String json = "";
 		String url = host + ":" + port + switchApi;
-
-		try {
-			json = readUrl(url);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		// try {
-		// json = readFile("sample-json/nodes.json");
-		// } catch (IOException e1) {
-		// e1.printStackTrace();
-		// }
-
+		json = readUrl(url);
 		return json;
 	}
 
 	@Override
 	public String getTopologyLinks() {
-
 		String json = "";
 		String url = host + ":" + port + linkApi;
-
-		try {
-			json = readUrl(url);
-		} catch (IOException e) {
-
-		}
-
+		json = readUrl(url);
 		return json;
 	}
 
 	public String getTopologyHosts() {
-
 		String json = "";
 		String url = host + ":" + port + hostApi;
-
-		try {
-			json = readUrl(url);
-		} catch (IOException e) {
-
-		}
-
+		json = readUrl(url);
 		return json;
 	}
 
 	@Override
 	public String getPathFlow(String nodeId1, String nodeId2) {
-
 		String json = "";
-
-		try {
-			json = readFile("sample-json/paths.json");
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
+		json = readFile(filePath);
 		return json;
 	}
 
-	public String readUrl(String url) throws IOException {
+	public String readUrl(String url) {
+
 		String inputLine = "";
 		String inputLine2 = "";
 
-		URL topologyUrl = new URL(url);
+		URL topologyUrl;
+		try {
+			topologyUrl = new URL(url);
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(topologyUrl.openStream()));
-		while ((inputLine = reader.readLine()) != null) {
-			inputLine2 += inputLine;
+			BufferedReader reader = new BufferedReader(new InputStreamReader(topologyUrl.openStream()));
+			while ((inputLine = reader.readLine()) != null) {
+				inputLine2 += inputLine;
+			}
+			reader.close();
+		} catch (Exception e) {
+			//cheating, read from file
+			if (url.contains(switchApi)) {
+				return readFile(fileSwitches);
+			}
+			
+			if (url.contains(linkApi)) {
+				return readFile(fileLinks);
+			}
+			
+			if (url.contains(hostApi)) {
+				return readFile(fileDevices);
+			}
 		}
-		reader.close();
 
 		return inputLine2;
 	}
 
-	public String readFile(String filePath) throws IOException {
+	public String readFile(String filePath) {
 		String inputLine = "";
 		String inputLine2 = "";
 
-		BufferedReader reader = new BufferedReader(new FileReader(filePath));
-		while ((inputLine = reader.readLine()) != null) {
-			inputLine2 += inputLine;
-		}
-		reader.close();
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader(filePath));
 
+			while ((inputLine = reader.readLine()) != null) {
+				inputLine2 += inputLine;
+			}
+			reader.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return inputLine2;
 	}
-
 }
