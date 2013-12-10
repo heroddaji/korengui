@@ -76,10 +76,8 @@ public class JSONSerializationHelper {
 		return links;
 	}
 
-	private Switch createSwitch(JSONObject jobj) {
-		System.out.println(jobj);
+	private Switch createSwitch(JSONObject jobj) {		
 		Switch newSwitch = new Switch();
-
 		String dpid = getJSONStringValue(jobj, "dpid");
 		String harole = getJSONStringValue(jobj, "harole");
 		double connectedSince = getJSONNumberValue(jobj, "connectionSince");

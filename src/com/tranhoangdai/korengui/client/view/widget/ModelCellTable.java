@@ -13,8 +13,7 @@ import com.tranhoangdai.korengui.client.model.ModelWithId;
 public class ModelCellTable<T> extends CellTable<T> {
 
 	public ModelCellTable(String... columnAttributes) {		
-		for (final String columnAttr : columnAttributes) {
-			System.out.println(columnAttr);			
+		for (final String columnAttr : columnAttributes) {						
 			TextColumn<Object> column = new TextColumn<Object>() {
 
 				@Override

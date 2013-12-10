@@ -3,11 +3,8 @@ package com.tranhoangdai.korengui.client.service.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONParser;
-import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
@@ -70,12 +67,13 @@ public class ClientServiceHelper {
 			public void onSuccess(String result) {
 				topologySwitches = JSONSerializationHelper.INSTANCE.createSwitches(result);
 				c.count();
-				System.out.println(result);
+				Log.debug("getting data:" + result);
+				
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				System.err.println(caught);
+				Log.error("error:" + caught);
 
 			}
 		};
@@ -92,14 +90,13 @@ public class ClientServiceHelper {
 			public void onSuccess(String result) {				
 				topologyLinks = JSONSerializationHelper.INSTANCE.createLinks(result);
 				c.count();
-				System.out.println(result);
+				Log.debug("getting data:" + result);
 				
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				System.err.println(caught);
-
+				Log.error("error:" + caught);
 			}
 		};
 
@@ -114,14 +111,13 @@ public class ClientServiceHelper {
 			public void onSuccess(String result) {				
 				topologyHosts = JSONSerializationHelper.INSTANCE.createHosts(result);
 				c.count();
-				System.out.println(result);
+				Log.debug("getting data:" + result);
 				
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				System.err.println(caught);
-
+				Log.error("error" + caught);
 			}
 		};
 

@@ -1,16 +1,16 @@
 package com.tranhoangdai.korengui.server;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
+
+import javax.servlet.ServletContext;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.tranhoangdai.korengui.client.service.TopologyService;
 
+@SuppressWarnings("unused")
 public class TopologyServiceImpl extends RemoteServiceServlet implements TopologyService {
 
 	//"http://163.180.118.215:8080/wm/core/controller/switches/json";
@@ -71,16 +71,16 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 			}
 			reader.close();
 		} catch (Exception e) {
-			System.out.println("ERROR, CANNOT GET NETWORK DATA, START CHEATING PROTOCOL");
+
 			//cheating, read from file
 			if (url.contains(switchApi)) {
 				return readFile(fileSwitches);
 			}
-			
+
 			if (url.contains(linkApi)) {
 				return readFile(fileLinks);
 			}
-			
+
 			if (url.contains(hostApi)) {
 				return readFile(fileDevices);
 			}
@@ -90,6 +90,9 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 	}
 
 	public String readFile(String filePath) {
+		ServletContext servletContext = getServletContext();		
+		String path = servletContext.getRealPath("/");		
+		filePath = path + filePath;
 		String inputLine = "";
 		String inputLine2 = "";
 
@@ -102,7 +105,7 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 			}
 			reader.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e);
 		}
 		return inputLine2;
 	}
