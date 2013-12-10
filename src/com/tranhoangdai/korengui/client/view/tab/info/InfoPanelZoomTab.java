@@ -9,9 +9,7 @@ import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.view.InfoPanel;
-import com.tranhoangdai.korengui.client.view.widget.LinkCellTable;
 import com.tranhoangdai.korengui.client.view.widget.ModelCellTable;
-import com.tranhoangdai.korengui.client.view.widget.SwitchCellTable;
 
 public class InfoPanelZoomTab extends InfoPanelAbstractInfoTab{
 	
@@ -33,7 +31,7 @@ public class InfoPanelZoomTab extends InfoPanelAbstractInfoTab{
 		Label nodeLabel = new Label("Switch information");
 		add(nodeLabel);
 
-		switchCellTable = new ModelCellTable<Switch>(ModelWithId.MODEL_GETIDMETHOD);
+		switchCellTable = new ModelCellTable<Switch>(ModelWithId.MODEL_GETID);
 		add(switchCellTable);
 
 		// add empty lable for nice layout
@@ -45,7 +43,7 @@ public class InfoPanelZoomTab extends InfoPanelAbstractInfoTab{
 		Label linkLabel = new Label("Hosts information");
 		add(linkLabel);
 		
-		hostsCellTable = new ModelCellTable<Host>(ModelWithId.MODEL_GETIDMETHOD);
+		hostsCellTable = new ModelCellTable<Host>(ModelWithId.MODEL_GETID);
 		add(hostsCellTable);
 	}
 

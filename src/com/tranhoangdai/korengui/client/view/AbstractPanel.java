@@ -11,9 +11,9 @@ import com.tranhoangdai.korengui.client.model.Switch;
 
 public class AbstractPanel extends TabLayoutPanel {
 	
-	Map<String, Switch> topologySwitches = new HashMap<String, Switch>();
-	Map<Integer, Link> topologyLinks = new HashMap<Integer, Link>();
-	Map<String, Host> topologyHosts = new HashMap<String, Host>();
+	protected Map<String, Switch> topologySwitches = new HashMap<String, Switch>();
+	protected Map<Integer, Link> topologyLinks = new HashMap<Integer, Link>();
+	protected Map<String, Host> topologyHosts = new HashMap<String, Host>();
 
 	public AbstractPanel(double barHeight, Unit barUnit) {
 		super(barHeight, barUnit);

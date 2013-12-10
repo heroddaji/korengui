@@ -155,7 +155,7 @@ public class JSONSerializationHelper {
 
 	private Link createLink(JSONObject jobj) {
 		String srcSwitch = getJSONStringValue(jobj, "src-switch");
-		int srcPort = (int)getJSONNumberValue(jobj, "src-port");
+		int srcPort = (int)getJSONNumberValue(jobj, "src-port");		
 		String dstSwitch =  getJSONStringValue(jobj, "dst-switch");
 		int dstPort = (int) getJSONNumberValue(jobj, "dst-port");
 		String type =  getJSONStringValue(jobj, "type");
@@ -248,7 +248,7 @@ public class JSONSerializationHelper {
 		if(jobj.get(key) == null){
 			return value;
 		}
-		if(jobj.get(key).isString() != null){
+		if(jobj.get(key).isNumber() != null){
 			value = jobj.get(key).isNumber().doubleValue();
 		}
 		return value;
@@ -260,7 +260,7 @@ public class JSONSerializationHelper {
 			return value;
 		}
 		
-		if(jobj.get(key).isString() != null){
+		if(jobj.get(key).isBoolean() != null){
 			value = jobj.get(key).isBoolean().booleanValue();
 		}
 		return value;

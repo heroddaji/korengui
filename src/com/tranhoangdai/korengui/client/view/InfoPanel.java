@@ -27,6 +27,8 @@ public class InfoPanel extends AbstractPanel {
 	public void showGlobalTopology() {
 		if (globalTab == null) {
 			globalTab = new InfoPanelGlobalTopologyTab(this);
+			globalTab.setSwitchModels(topologySwitches);
+			globalTab.setLinkModels(topologyLinks);
 			add(globalTab, "Network");
 			globalTab.showInfo();
 		} else {

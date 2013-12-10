@@ -16,6 +16,21 @@ public class Switch  extends ModelWithId {
 	protected String dpid;
 	protected String harole;
 	
+
+	@Override
+	public String callMethod(String methodName) {
+		String result = super.callMethod(methodName);
+		if (result != "") {
+			return result;
+		}
+
+		if (methodName.equals(ModelWithId.SWITCH_GETROLE)) {
+			result = getHarole();
+		}
+		
+		return result;
+	}
+	
 	public String getId(){
 		return getDpid();
 	}
