@@ -24,7 +24,7 @@ public class ZoomEventController extends AbstractEventController {
 		Map<String, Host> childHosts = ModelHelper.getChildHostsOfSourceSwitch(zoomSwitchModel, ClientServiceHelper.INSTANCE.getTopologyHosts());
 		Map<Integer,Link> linkModels = ModelHelper.getLinksOfSourceSwitch(zoomSwitchModel,ClientServiceHelper.INSTANCE.getTopologyHosts());
 		if(childHosts.size() == 0){
-			GUIInstructionController.INSTANCE.tellConnectedHostsToZoomIn();
+			GUIController.INSTANCE.tellConnectedHostsToZoomIn();
 			return;
 		}
 		

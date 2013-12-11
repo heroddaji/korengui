@@ -1,7 +1,7 @@
 package com.tranhoangdai.korengui.client;
 
 import com.google.gwt.core.client.GWT;
-import com.tranhoangdai.korengui.client.controller.GUIInstructionController;
+import com.tranhoangdai.korengui.client.controller.GUIController;
 import com.tranhoangdai.korengui.client.controller.GlobalTopologyEvenController;
 import com.tranhoangdai.korengui.client.controller.ZoomEventController;
 import com.tranhoangdai.korengui.client.model.Switch;
@@ -20,18 +20,25 @@ public class EventBus {
 	private EventBus(){}	
 
 	public void deliverDownloadGlobalTopologyEvent(Object source){
-		GUIInstructionController.INSTANCE.tellGlobalNetworkInstruction();
+		GUIController.INSTANCE.tellGlobalNetworkInstruction();
 		GlobalTopologyEvenController.INSTANCE.handleEvent(source);
 		
 		networkDownloaded = true;
 	}
 	
-	public void deliverEventUserClickedZoomButton(Object source){
+	public void deliverGetPathFlowEvent(Object source){
 		if(!networkDownloaded){
-			GUIInstructionController.INSTANCE.tellDependentAction();
+			GUIController.INSTANCE.tellDependentAction();
 			return;
 		}
-		GUIInstructionController.INSTANCE.tellZoomInstruction();	
+	}
+	
+	public void deliverEventUserClickedZoomButton(Object source){
+		if(!networkDownloaded){
+			GUIController.INSTANCE.tellDependentAction();
+			return;
+		}
+		GUIController.INSTANCE.tellZoomInstruction();	
 		state = ActionState.ZOOM;
 		/* 
 		 * now  wait for user to click on a node, the click event will be
@@ -44,15 +51,12 @@ public class EventBus {
 		if(state == ActionState.ZOOM){
 			ZoomEventController.INSTANCE.handleEvent(source);
 			state = ActionState.NOTHING;
-			GUIInstructionController.INSTANCE.clear();
+			GUIController.INSTANCE.clear();
 		}
-	}
+	}	
 	
-	public void deliverGetPathFlowEvent(Object source){
-		if(!networkDownloaded){
-			GUIInstructionController.INSTANCE.tellDependentAction();
-			return;
-		}
+	public void deliverEventUserSwitchPanelTab(Integer tabNumber){
+		GUIController.INSTANCE.switchTabsInline(tabNumber);
 	}
 	
 }

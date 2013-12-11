@@ -6,6 +6,9 @@ import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.tranhoangdai.korengui.client.EventBus;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
@@ -22,6 +25,7 @@ public class InfoPanel extends AbstractPanel {
 	
 	public InfoPanel() {
 		super(1.5, Unit.EM);
+	
 	}
 
 	public void showGlobalTopology() {
@@ -32,7 +36,7 @@ public class InfoPanel extends AbstractPanel {
 			add(globalTab, "Network");
 			globalTab.showInfo();
 		} else {
-			selectTab(globalTab);
+			selectTab(globalTab,false);
 		}
 	}
 

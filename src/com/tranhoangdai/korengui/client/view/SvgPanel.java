@@ -9,6 +9,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.tranhoangdai.korengui.client.EventBus;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
@@ -26,26 +27,13 @@ public class SvgPanel extends AbstractPanel  {
 	SvgPanelPathFlowTab pfTab = null;	
 	
 	public SvgPanel() {
-		super(1.5, Unit.EM);
-		setupEventHandlers();
-	}
-
-	private void setupEventHandlers() {
-
-		// handler event when use changes tab, do nothing for now
-		this.addSelectionHandler(new SelectionHandler<Integer>() {
-
-			@Override
-			public void onSelection(SelectionEvent<Integer> event) {
-
-			}
-		});
+		super(1.5, Unit.EM);	
 	}
 	
 	public void drawGlobalTopology(){
 		Log.debug("Draw global network topology");
 		if(globalTab != null){
-			selectTab(globalTab);
+			selectTab(globalTab, false);
 		}
 		else{
 			globalTab = new SvgPanelGlobalTopologyTab(this);
