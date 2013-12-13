@@ -12,6 +12,7 @@ import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.tranhoangdai.korengui.client.EventBus;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
+import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelGlobalTopologyTab;
 import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelPathFlowTab;
@@ -63,6 +64,10 @@ public class SvgPanel extends AbstractPanel  {
 		String name = zoomSwitchModel.getId();
 		add(zoomTab, "Node " + name.substring(name.length() - 5, name.length()));
 		selectTab(zoomTab);
+	}
+	
+	public void drawPathFlow(ModelWithId model1, ModelWithId model2){
+		
 	}
 
 

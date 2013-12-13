@@ -10,6 +10,7 @@ import com.tranhoangdai.korengui.client.model.util.ModelHelper;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
 import com.tranhoangdai.korengui.client.view.InfoPanel;
 import com.tranhoangdai.korengui.client.view.SvgPanel;
+import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
 import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
 
 public class ZoomEventController extends AbstractEventController {
@@ -18,8 +19,8 @@ public class ZoomEventController extends AbstractEventController {
 
 	@Override
 	public void handleEvent(Object source) {
-		NodeSvg zoomNodeSvg = (NodeSvg) source;
-		Switch zoomSwitchModel = (Switch) zoomNodeSvg.getModel();		
+		AbstractElementSvg zoomSvg = (AbstractElementSvg) source;
+		Switch zoomSwitchModel = (Switch) zoomSvg.getModel();		
 		
 		Map<String, Host> childHosts = ModelHelper.getChildHostsOfSourceSwitch(zoomSwitchModel, ClientServiceHelper.INSTANCE.getTopologyHosts());
 		Map<Integer,Link> linkModels = ModelHelper.getLinksOfSourceSwitch(zoomSwitchModel,ClientServiceHelper.INSTANCE.getTopologyHosts());

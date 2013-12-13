@@ -11,6 +11,7 @@ import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.tranhoangdai.korengui.client.EventBus;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
+import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.view.tab.info.InfoPanelGlobalTopologyTab;
 import com.tranhoangdai.korengui.client.view.tab.info.InfoPanelPathFlowTab;
@@ -24,8 +25,7 @@ public class InfoPanel extends AbstractPanel {
 	List<InfoPanelZoomTab> zoomTabs = new ArrayList<InfoPanelZoomTab>();
 	
 	public InfoPanel() {
-		super(1.5, Unit.EM);
-	
+		super(1.5, Unit.EM);	
 	}
 
 	public void showGlobalTopology() {
@@ -49,7 +49,7 @@ public class InfoPanel extends AbstractPanel {
 			}
 		}
 		
-		//not exist zoom tab, create new one
+		//non-exist zoom tab, create new one
 		InfoPanelZoomTab zoomTab = new InfoPanelZoomTab(this, zoomSwitchModel);
 		zoomTab.setChildModels(childHosts);
 		zoomTab.setLinkModels(linkModels);
@@ -58,6 +58,14 @@ public class InfoPanel extends AbstractPanel {
 		String name = zoomSwitchModel.getId();
 		add(zoomTab, "Node " + name.substring(name.length() - 5, name.length()));
 		selectTab(zoomTab);
+	}
+	
+	public void drawPathFlow(ModelWithId model1, ModelWithId model2){
+		if(pathFlowTab == null){
+			
+		}else{
+			selectTab(pathFlowTab);
+		}
 	}
 
 }

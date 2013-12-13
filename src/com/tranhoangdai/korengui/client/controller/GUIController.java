@@ -24,6 +24,14 @@ public class GUIController {
 	public void tellDependentAction() {
 		status.setText("PLEASE GET NETWORK TOPOLOGY FIRST");
 	}
+	
+	public void tellPathFlowAction1(){
+		status.setText("CLICK ON 2 NODES TO GET THE PATH-FLOW BETWEEN THEM, PLEASE SELECT THE FIRST ONE");
+	}
+	
+	public void tellPathFlowAction2(){
+		status.setText("PLEASE SELECT THE SECOND ONE");
+	}
 
 	public void clear() {
 		status.setText("");
