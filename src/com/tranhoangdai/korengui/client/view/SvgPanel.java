@@ -14,6 +14,7 @@ import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.model.util.ModelHelper;
 import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelGlobalTopologyTab;
 import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelPathFlowTab;
 import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelZoomTab;
@@ -66,8 +67,9 @@ public class SvgPanel extends AbstractPanel  {
 		selectTab(zoomTab);
 	}
 	
-	public void drawPathFlow(ModelWithId model1, ModelWithId model2){
+	public void drawPathFlow(Map<Integer, Link>path){
 		
+		//draw now
 	}
 
 

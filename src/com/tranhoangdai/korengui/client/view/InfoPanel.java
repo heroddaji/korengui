@@ -60,7 +60,7 @@ public class InfoPanel extends AbstractPanel {
 		selectTab(zoomTab);
 	}
 	
-	public void drawPathFlow(ModelWithId model1, ModelWithId model2){
+	public void drawPathFlow(Map<Integer, Link> path){
 		if(pathFlowTab == null){
 			
 		}else{

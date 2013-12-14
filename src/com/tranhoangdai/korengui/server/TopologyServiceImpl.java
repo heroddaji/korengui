@@ -21,6 +21,7 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 	String switchApi = "/wm/core/controller/switches/json";
 	String linkApi = "/wm/topology/links/json";
 	String hostApi = "/wm/device/";
+	String pathApi = "/wm/haha";
 	String fileSwitches = "sample-json/nodes.json";
 	String fileLinks = "sample-json/links.json";
 	String fileDevices = "sample-json/devices.json";
@@ -51,8 +52,9 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 
 	@Override
 	public String getPathFlow(String nodeId1, String nodeId2) {
+		//fake result, get whole link, then return first 2-3 links
 		String json = "";
-		json = readFile(filePath);
+		json = readUrl(linkApi);
 		return json;
 	}
 

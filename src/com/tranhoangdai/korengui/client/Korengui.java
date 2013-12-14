@@ -144,7 +144,7 @@ public class Korengui implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
-
+				EventBus.INSTANCE.deliverGetPathFlowEvent(event.getSource());
 			}
 		});
 	}

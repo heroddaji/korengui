@@ -62,4 +62,8 @@ public class GUIController {
 			Log.debug("Other tab is not yet setup");
 		}
 	}
+
+	public void tellSameId() {
+		Window.alert("Please click on 2 different nodes");		
+	}
 }

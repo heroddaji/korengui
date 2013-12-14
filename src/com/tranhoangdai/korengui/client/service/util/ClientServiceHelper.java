@@ -123,7 +123,26 @@ public class ClientServiceHelper {
 
 		topo.getTopologyHosts(callback);
 	}
-
+	
+	public <N,L,H> void getPathFlow(final ClientServiceAsync<N, L, H> callback,String modelId1, String modelId2){
+		TopologyServiceAsync topo = GWT.create(TopologyService.class);
+		AsyncCallback<String> serverCallback = new AsyncCallback<String>() {
+			
+			@Override
+			public void onSuccess(String result) {				
+				Map<Integer,Link>links = JSONSerializationHelper.INSTANCE.createLinks(result);
+				callback.onSuccess(null, (L) links, null);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				Log.error(caught.getMessage());				
+			}
+		};
+		
+		topo.getPathFlow(modelId1, modelId1, serverCallback);
+	}
+	
 	public Map<String, Switch> getTopologySwitches() {
 		return topologySwitches;
 	}

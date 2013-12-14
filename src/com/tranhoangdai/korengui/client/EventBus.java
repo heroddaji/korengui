@@ -69,7 +69,7 @@ public class EventBus {
 		}
 		
 		//click second node
-		if (state == ActionState.FLOW2) {
+		else if (state == ActionState.FLOW2) {			
 			PathFlowEventController.INSTANCE.handleEvent(source);			
 			state = ActionState.NOTHING;
 			GUIController.INSTANCE.clear();
