@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.vectomatic.dom.svg.utils.SVGConstants;
+
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
@@ -41,9 +43,7 @@ public class SvgPanelPathFlowTab extends SvgPanelAbstractDrawTab {
 	private List<LinkSvg> createSvgPathElements() {
 		List<LinkSvg> thePathSvgs = new ArrayList<LinkSvg>();
 		for (Link linkModel : pathModel.values()) {
-			LinkSvg linkSvg= new LinkSvg(linkModel);
-			linkSvg.setAttribute("stroke", "red");
-			linkSvg.setAttribute("stroke-width", "3");			
+			LinkSvg linkSvg= new LinkSvg(linkModel);			
 			thePathSvgs.add(linkSvg);
 		}
 		return thePathSvgs;
@@ -51,7 +51,9 @@ public class SvgPanelPathFlowTab extends SvgPanelAbstractDrawTab {
 
 	private void drawPathSvg() {
 		for (LinkSvg linkSvg : pathSvgs) {
-			linkSvg.findAndMatchMultipleNodes(nodeSvgs);
+			linkSvg.findAndMatchMultipleNodes(nodeSvgs);			
+			linkSvg.getShape().getStyle().setSVGProperty(SVGConstants.CSS_STROKE_PROPERTY, SVGConstants.CSS_RED_VALUE);			
+			linkSvg.getShape().getStyle().setSVGProperty(SVGConstants.CSS_STROKE_WIDTH_PROPERTY, "3");
 			svgElement.getElement().insertFirst(linkSvg.getElement());
 		}
 	}
