@@ -1,6 +1,7 @@
 package com.tranhoangdai.korengui.client.view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,9 @@ import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelZoomTab;
 @SuppressWarnings("unused")
 public class SvgPanel extends AbstractPanel  {
 
-	public static SvgPanel INSTANCE = GWT.create(SvgPanel.class);
-	
+	public static SvgPanel INSTANCE = GWT.create(SvgPanel.class);	
 	List<SvgPanelZoomTab> zoomTabs = new ArrayList<SvgPanelZoomTab>();
+	
 	SvgPanelGlobalTopologyTab globalTab = null;
 	SvgPanelPathFlowTab pfTab = null;	
 	
@@ -40,8 +41,8 @@ public class SvgPanel extends AbstractPanel  {
 		else{
 			globalTab = new SvgPanelGlobalTopologyTab(this);
 			add(globalTab,"Network");
-			globalTab.setSwitchModels(topologySwitches);
-			globalTab.setLinkModels(topologyLinks);
+			globalTab.setGlobalSwitchModels(topologySwitches);
+			globalTab.setGlobalLinkModels(topologyLinks);
 			globalTab.draw();
 		}
 	}
@@ -67,9 +68,24 @@ public class SvgPanel extends AbstractPanel  {
 		selectTab(zoomTab);
 	}
 	
-	public void drawPathFlow(Map<Integer, Link>path){
+	public void drawPathFlow(Map<Integer, Link>path){		
+		if(pfTab != null){
+			selectTab(pfTab);
+		}else{
+			
+			if(path.size() <= 0){
+				return ;
+			}			
+			
+			pfTab = new SvgPanelPathFlowTab(this);
+			pfTab.setGlobalSwitchModels(topologySwitches);
+			pfTab.setGlobalLinkModels(topologyLinks);
+			pfTab.setPathModel(path);
+			pfTab.draw();
+			add(pfTab, "Path");
+			selectTab(pfTab);
+		}
 		
-		//draw now
 	}
 
 

@@ -2,7 +2,9 @@ package com.tranhoangdai.korengui.client.view.tab.svg;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.vectomatic.dom.svg.OMNode;
 import org.vectomatic.dom.svg.OMSVGLength;
@@ -26,9 +28,13 @@ import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
 
 @SuppressWarnings("unchecked")
 public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
-
+	
+	Map<String,Switch> globalSwitchModels = new HashMap<String, Switch>();
+	Map<Integer,Link> globalLinkModels = new HashMap<Integer, Link>();
+	
 	protected OMSVGSVGElement svgElement = null;
 	protected AbstractPanel parent = null;
+	
 	protected float center = 0;
 
 	public SvgPanelAbstractDrawTab(AbstractPanel _parent) {
@@ -113,7 +119,7 @@ public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 	 * 
 	 * @param <E>
 	 */
-	protected <E> void drawLinks(List<LinkSvg> linkSvgs, List<E> nodeSvgs) {
+	protected <E> void drawLinkSvgs(List<LinkSvg> linkSvgs, List<E> nodeSvgs) {
 
 		for (LinkSvg linkSvg : linkSvgs) {
 			linkSvg.findAndMatchMultipleNodes(nodeSvgs);
@@ -130,5 +136,13 @@ public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 	}
 
 	protected abstract void draw();
+
+	public void setGlobalSwitchModels(Map<String, Switch> globalSwitchModels) {
+		this.globalSwitchModels = globalSwitchModels;
+	}
+
+	public void setGlobalLinkModels(Map<Integer, Link> globalLinkModels) {
+		this.globalLinkModels = globalLinkModels;
+	}
 
 }

@@ -37,7 +37,7 @@ public class NodeSvg extends AbstractElementSvg{
 	protected  int y;	
 	protected int scaleFactor = 2;
 	protected ModelWithId nodeModel;
-	protected String imageHref = "images/node.svg";
+	protected String imageHref = "images/router.svg";
 	protected OMSVGImageElement shape;
 	protected  OMSVGTextElement textShape;
 	protected boolean dragging = false;

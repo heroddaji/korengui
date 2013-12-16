@@ -13,9 +13,6 @@ import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
 @SuppressWarnings("unchecked")
 public class SvgPanelGlobalTopologyTab extends SvgPanelAbstractDrawTab {
 
-	Map<String,Switch> switchModels = new HashMap<String, Switch>();
-	Map<Integer,Link> linkModels = new HashMap<Integer, Link>();
-
 	public SvgPanelGlobalTopologyTab(AbstractPanel _parent) {
 		super(_parent);
 	}
@@ -25,27 +22,11 @@ public class SvgPanelGlobalTopologyTab extends SvgPanelAbstractDrawTab {
 		NodeSvg nodeSvgClass = new NodeSvg(null);
 		LinkSvg linkSvgClass = new LinkSvg(null);
 		
-		List<NodeSvg> nodeSvgs =  createSvgElements(nodeSvgClass, switchModels.values());		
-		List<LinkSvg> linkSvgs =  createSvgElements(linkSvgClass, linkModels.values());
+		List<NodeSvg> nodeSvgs =  createSvgElements(nodeSvgClass, globalSwitchModels.values());		
+		List<LinkSvg> linkSvgs =  createSvgElements(linkSvgClass, globalLinkModels.values());
 		
 		drawNodeElementsSvg(nodeSvgs);
-		drawLinks(linkSvgs,nodeSvgs);
+		drawLinkSvgs(linkSvgs,nodeSvgs);
 	}
-
-	public Map<String, Switch> getSwitchModels() {
-		return switchModels;
-	}
-
-	public void setSwitchModels(Map<String, Switch> switchModels) {
-		this.switchModels = switchModels;
-	}
-
-	public Map<Integer, Link> getLinkModels() {
-		return linkModels;
-	}
-
-	public void setLinkModels(Map<Integer, Link> linkModels) {
-		this.linkModels = linkModels;
-	}	
-
+	
 }
