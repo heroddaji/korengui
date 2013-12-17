@@ -8,6 +8,7 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -72,14 +73,40 @@ public class Korengui implements EntryPoint {
 		verticalPanel.setWidth("100%");
 		rootPanel.add(verticalPanel);
 
+		//---------MENU-----------------
 		MenuBar menuBar = new MenuBar(false);
 		verticalPanel.add(menuBar);
 		menuBar.setWidth("100%");
-		MenuBar submenu = new MenuBar();
-		submenu.addItem("New", new MenuBar());
-		MenuItem fileMenu = new MenuItem("File", submenu);
+		
+		MenuBar newMenuBar = new MenuBar();
+		newMenuBar.addItem("New session", new Command() {
+			
+			@Override
+			public void execute() {
+				EventBus.INSTANCE.deliverEventUserClickNewMenu();				
+			}
+		});
+		MenuItem fileMenu = new MenuItem("File", newMenuBar);
 		menuBar.addItem(fileMenu);
-
+		
+		
+		
+		MenuBar aboutMenuBar = new MenuBar();
+		aboutMenuBar.addItem("About KorenGUI", new Command() {
+			
+			@Override
+			public void execute() {
+				EventBus.INSTANCE.deliverEventUserClickAboutMenu();
+				
+			}
+		});
+		
+		MenuItem helpMenu = new MenuItem("Help", aboutMenuBar);
+		menuBar.addItem(helpMenu);
+		
+		//---------MENU-----------------
+		
+		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel);
 		HorizontalPanel horizontalPanel_status = new HorizontalPanel();

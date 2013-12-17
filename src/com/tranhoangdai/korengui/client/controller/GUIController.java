@@ -3,9 +3,11 @@ package com.tranhoangdai.korengui.client.controller;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
 import com.tranhoangdai.korengui.client.view.InfoPanel;
 import com.tranhoangdai.korengui.client.view.SvgPanel;
+import com.tranhoangdai.korengui.client.view.widget.AboutBox;
 
 public class GUIController {
 
@@ -65,5 +67,14 @@ public class GUIController {
 
 	public void tellSameId() {
 		Window.alert("Please click on 2 different nodes");		
+	}
+
+	public void showAboutDiablog() {
+		AboutBox aboutBox = new AboutBox();
+		aboutBox.show();
+	}
+
+	public void refreshWebApp() {
+		Window.Location.reload();		
 	}
 }

@@ -54,23 +54,23 @@ public class EventBus {
 	}
 
 	public void deliverEventUserClickedNode(Object source) {
-		
+
 		if (state == ActionState.ZOOM) {
 			ZoomEventController.INSTANCE.handleEvent(source);
 			state = ActionState.NOTHING;
 			GUIController.INSTANCE.clear();
 		}
-		
+
 		//click first node		
 		if (state == ActionState.FLOW1) {
 			GUIController.INSTANCE.tellPathFlowAction2();
 			PathFlowEventController.INSTANCE.handleEvent(source);
 			state = ActionState.FLOW2;
 		}
-		
+
 		//click second node
-		else if (state == ActionState.FLOW2) {			
-			PathFlowEventController.INSTANCE.handleEvent(source);			
+		else if (state == ActionState.FLOW2) {
+			PathFlowEventController.INSTANCE.handleEvent(source);
 			state = ActionState.NOTHING;
 			GUIController.INSTANCE.clear();
 		}
@@ -78,6 +78,14 @@ public class EventBus {
 
 	public void deliverEventUserSwitchPanelTab(Integer tabNumber) {
 		GUIController.INSTANCE.switchTabsInline(tabNumber);
+	}
+
+	public void deliverEventUserClickNewMenu() {
+		GUIController.INSTANCE.refreshWebApp();
+	}
+
+	public void deliverEventUserClickAboutMenu() {
+		GUIController.INSTANCE.showAboutDiablog();
 	}
 
 	public ActionState getState() {
