@@ -11,6 +11,8 @@ import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
+import com.google.gwt.event.dom.client.ContextMenuEvent;
+import com.google.gwt.event.dom.client.ContextMenuHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.tranhoangdai.korengui.client.model.GeneralModel;
@@ -25,12 +27,17 @@ import com.tranhoangdai.korengui.client.view.svg.LinkSvg;
 import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
 import com.tranhoangdai.korengui.client.view.svg.SwitchSvg;
 import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
+import com.tranhoangdai.korengui.client.view.widget.PanelContextMenu;
 
 @SuppressWarnings("unchecked")
-public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
+public abstract class SvgPanelAbstractDrawTab extends ScrollPanel implements ContextMenuHandler{
+	
+	int id = 0;
+	static int uniqueID = 0;
 	
 	Map<String,Switch> globalSwitchModels = new HashMap<String, Switch>();
 	Map<Integer,Link> globalLinkModels = new HashMap<Integer, Link>();
+	private PanelContextMenu contextMenu;
 	
 	protected OMSVGSVGElement svgElement = null;
 	protected AbstractPanel parent = null;
@@ -38,14 +45,25 @@ public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 	protected float center = 0;
 
 	public SvgPanelAbstractDrawTab(AbstractPanel _parent) {
+		id = ++uniqueID;
 		parent = _parent;
+		contextMenu = new PanelContextMenu(this);
+		addDomHandler(this, ContextMenuEvent.getType());
+		
 		this.setWidth("100%");
-		this.setHeight(new Integer(Window.getClientHeight()) + "px");
+		this.setHeight(new Integer(Window.getClientHeight()) + "px");		
 
 		svgElement = OMSVGParser.currentDocument().createSVGSVGElement();
 		svgElement.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, Window.getClientWidth());
 		svgElement.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, Window.getClientHeight());
 		this.getElement().appendChild(svgElement.getElement());
+	}
+	
+	@Override
+	public void onContextMenu(ContextMenuEvent event) {
+		contextMenu.show(event.getNativeEvent().getClientX(), event.getNativeEvent().getClientY());
+		event.preventDefault();
+		event.stopPropagation();						
 	}
 
 	protected Object createSvgElement(Class svgType, GeneralModel model) {
@@ -143,6 +161,10 @@ public abstract class SvgPanelAbstractDrawTab extends ScrollPanel {
 
 	public void setGlobalLinkModels(Map<Integer, Link> globalLinkModels) {
 		this.globalLinkModels = globalLinkModels;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 }

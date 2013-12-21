@@ -1,6 +1,7 @@
 package com.tranhoangdai.korengui.client;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.Widget;
 import com.tranhoangdai.korengui.client.controller.GUIController;
 import com.tranhoangdai.korengui.client.controller.GlobalTopologyEvenController;
 import com.tranhoangdai.korengui.client.controller.PathFlowEventController;
@@ -86,6 +87,10 @@ public class EventBus {
 
 	public void deliverEventUserClickAboutMenu() {
 		GUIController.INSTANCE.showAboutDiablog();
+	}
+	
+	public void deliverEventUserClickCloseTabContextMenu(Widget tab) {
+		GUIController.INSTANCE.closeTab(tab);
 	}
 
 	public ActionState getState() {

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.bcel.generic.GETSTATIC;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
@@ -34,6 +35,7 @@ public class JSONSerializationHelper {
 	}
 
 	public Map<String, Switch> createSwitches(String jsonValue) {
+		Log.debug("json value:" + jsonValue);
 		Map<String, Switch> switches = new HashMap<String, Switch>();
 		JSONValue value = JSONParser.parseStrict(jsonValue);
 		JSONArray array = value.isArray();
@@ -48,6 +50,7 @@ public class JSONSerializationHelper {
 	}
 
 	public Map<String, Host> createHosts(String jsonValue) {
+		Log.debug("json value:" + jsonValue);
 		Map<String, Host> hosts = new HashMap<String, Host>();
 		JSONValue value = JSONParser.parseStrict(jsonValue);
 		JSONArray array = value.isArray();
@@ -63,6 +66,7 @@ public class JSONSerializationHelper {
 	}
 
 	public Map<Integer, Link> createLinks(String jsonValue) {
+		Log.debug("json value:" + jsonValue);
 		Map<Integer, Link> links = new HashMap<Integer, Link>();
 		JSONValue value = JSONParser.parseStrict(jsonValue);
 		JSONArray array = value.isArray();

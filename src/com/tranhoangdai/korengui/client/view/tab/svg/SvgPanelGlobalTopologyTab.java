@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gwt.event.dom.client.ContextMenuEvent;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.view.AbstractPanel;
@@ -28,5 +29,7 @@ public class SvgPanelGlobalTopologyTab extends SvgPanelAbstractDrawTab {
 		drawNodeElementsSvg(nodeSvgs);
 		drawLinkSvgs(linkSvgs,nodeSvgs);
 	}
+
+	
 	
 }

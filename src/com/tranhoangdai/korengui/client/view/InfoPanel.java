@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ContextMenuEvent;
+import com.google.gwt.event.dom.client.ContextMenuHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.tranhoangdai.korengui.client.EventBus;
@@ -16,17 +18,22 @@ import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.view.tab.info.InfoPanelGlobalTopologyTab;
 import com.tranhoangdai.korengui.client.view.tab.info.InfoPanelPathFlowTab;
 import com.tranhoangdai.korengui.client.view.tab.info.InfoPanelZoomTab;
+import com.tranhoangdai.korengui.client.view.widget.PanelContextMenu;
 
-public class InfoPanel extends AbstractPanel {
+public class InfoPanel extends AbstractPanel  {
 
 	public static InfoPanel INSTANCE = GWT.create(InfoPanel.class);
 	InfoPanelGlobalTopologyTab globalTab = null;
 	InfoPanelPathFlowTab pathFlowTab = null;
-	List<InfoPanelZoomTab> zoomTabs = new ArrayList<InfoPanelZoomTab>();
+	List<InfoPanelZoomTab> zoomTabs = new ArrayList<InfoPanelZoomTab>();	
+	
 	
 	public InfoPanel() {
-		super(1.5, Unit.EM);	
+		super(1.5, Unit.EM);
+
 	}
+	
+	
 
 	public void showGlobalTopology() {
 		if (globalTab == null) {
@@ -60,10 +67,12 @@ public class InfoPanel extends AbstractPanel {
 		selectTab(zoomTab);
 	}
 	
-	public void drawPathFlow(Map<Integer, Link> path){
+	public void showPathFlow(Map<Integer, Link> path){
 		if(pathFlowTab == null){
-			
-		}else{
+			pathFlowTab = new InfoPanelPathFlowTab(this);
+			add(pathFlowTab,"Path");
+			selectTab(pathFlowTab);
+		}else{			
 			selectTab(pathFlowTab);
 		}
 	}

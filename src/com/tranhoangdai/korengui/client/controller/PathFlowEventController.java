@@ -51,7 +51,7 @@ public class PathFlowEventController extends AbstractEventController {
 			@Override
 			public void onSuccess(Map<String, Switch> nodes, Map<Integer, Link> links, Map<String, Host> hosts) {
 				SvgPanel.INSTANCE.drawPathFlow(links);
-				InfoPanel.INSTANCE.drawPathFlow(links);
+				InfoPanel.INSTANCE.showPathFlow(links);
 			}
 
 			@Override

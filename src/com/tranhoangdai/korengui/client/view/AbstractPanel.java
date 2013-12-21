@@ -29,8 +29,6 @@ public class AbstractPanel extends TabLayoutPanel {
 		//switch tab inline with other panel
 		this.addSelectionHandler(new SelectionHandler<Integer>() {
 
-			boolean isTryingToClose = false;
-
 			@Override
 			public void onSelection(final SelectionEvent<Integer> event) {
 				EventBus.INSTANCE.deliverEventUserSwitchPanelTab(event.getSelectedItem());

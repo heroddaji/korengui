@@ -16,77 +16,82 @@ import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.model.util.ModelHelper;
+import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelAbstractDrawTab;
 import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelGlobalTopologyTab;
 import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelPathFlowTab;
 import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelZoomTab;
 
 @SuppressWarnings("unused")
-public class SvgPanel extends AbstractPanel  {
+public class SvgPanel extends AbstractPanel {
 
-	public static SvgPanel INSTANCE = GWT.create(SvgPanel.class);	
-	List<SvgPanelZoomTab> zoomTabs = new ArrayList<SvgPanelZoomTab>();
-	
+	public static SvgPanel INSTANCE = GWT.create(SvgPanel.class);
+
 	SvgPanelGlobalTopologyTab globalTab = null;
-	SvgPanelPathFlowTab pfTab = null;	
-	
+	SvgPanelPathFlowTab pfTab = null;
+	List<SvgPanelZoomTab> zoomTabs = new ArrayList<SvgPanelZoomTab>();
+	List<SvgPanelPathFlowTab> pfTabs = new ArrayList<SvgPanelPathFlowTab>();
+
 	public SvgPanel() {
-		super(1.5, Unit.EM);	
+		super(1.5, Unit.EM);
 	}
-	
-	public void drawGlobalTopology(){
+
+	public void drawGlobalTopology() {
 		Log.debug("Draw global network topology");
-		if(globalTab != null){
+		if (globalTab != null) {
 			selectTab(globalTab, false);
-		}
-		else{
+		} else {
 			globalTab = new SvgPanelGlobalTopologyTab(this);
-			add(globalTab,"Network");
+			add(globalTab, "Network");
 			globalTab.setGlobalSwitchModels(topologySwitches);
 			globalTab.setGlobalLinkModels(topologyLinks);
 			globalTab.draw();
 		}
 	}
-	
-	public void drawZoomTopology(Switch zoomSwitchModel, Map<String,Host> childHosts, Map<Integer, Link> linkModels){
-		for(SvgPanelZoomTab tab: zoomTabs){
-			if(tab.hasZoomModel(zoomSwitchModel)){
+
+	public void drawZoomTopology(Switch zoomSwitchModel, Map<String, Host> childHosts, Map<Integer, Link> linkModels) {
+		for (SvgPanelZoomTab tab : zoomTabs) {
+			if (tab.hasZoomModel(zoomSwitchModel)) {
 				selectTab(tab);
 				return;
 			}
 		}
-		
+
 		//if not exist, create new zoom tab
-		SvgPanelZoomTab zoomTab = new SvgPanelZoomTab(this,zoomSwitchModel);
+		SvgPanelZoomTab zoomTab = new SvgPanelZoomTab(this, zoomSwitchModel);
 		zoomTab.setChildModels(childHosts);
 		zoomTab.setLinkModels(linkModels);
 		zoomTab.draw();
-		
+
 		//add to list of tabs
 		zoomTabs.add(zoomTab);
 		String name = zoomSwitchModel.getId();
 		add(zoomTab, "Node " + name.substring(name.length() - 5, name.length()));
 		selectTab(zoomTab);
 	}
-	
-	public void drawPathFlow(Map<Integer, Link>path){		
-		if(pfTab != null){
-			selectTab(pfTab);
-		}else{
-			
-			if(path.size() <= 0){
-				return ;
-			}			
-			
-			pfTab = new SvgPanelPathFlowTab(this);
-			pfTab.setGlobalSwitchModels(topologySwitches);
-			pfTab.setGlobalLinkModels(topologyLinks);
-			pfTab.setPathModel(path);
-			pfTab.draw();
-			add(pfTab, "Path");
-			selectTab(pfTab);
+
+	public void drawPathFlow(Map<Integer, Link> path) {		
+		if (path.size() <= 0) {
+			return;
 		}
-		
+
+		pfTab = new SvgPanelPathFlowTab(this);
+		pfTab.setGlobalSwitchModels(topologySwitches);
+		pfTab.setGlobalLinkModels(topologyLinks);
+		pfTab.setPathModel(path);
+		pfTab.draw();
+		add(pfTab, "Path");
+		selectTab(pfTab);
+
 	}
 
+	public void closeTab(SvgPanelAbstractDrawTab svgTab) {
+		Log.debug("remove svg tab:", svgTab.getTitle());
+		remove(svgTab);
+		if (svgTab.equals(globalTab)) {
+			globalTab = null;
+		} else if (svgTab.getClass().equals(SvgPanelZoomTab.class)) {
+			zoomTabs.remove(svgTab);
+		}
+	}
 
 }
