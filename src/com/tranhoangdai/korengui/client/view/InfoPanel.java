@@ -18,7 +18,7 @@ import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.view.tab.info.InfoPanelGlobalTopologyTab;
 import com.tranhoangdai.korengui.client.view.tab.info.InfoPanelPathFlowTab;
 import com.tranhoangdai.korengui.client.view.tab.info.InfoPanelZoomTab;
-import com.tranhoangdai.korengui.client.view.widget.PanelContextMenu;
+import com.tranhoangdai.korengui.client.view.widget.ContextMenu;
 
 public class InfoPanel extends AbstractPanel  {
 

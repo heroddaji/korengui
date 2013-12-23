@@ -12,6 +12,8 @@ import org.vectomatic.dom.svg.OMSVGTransformList;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseEvent;
@@ -23,18 +25,22 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.EventBus;
 import com.tranhoangdai.korengui.client.model.GeneralModel;
 import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.view.SvgPanel;
 import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
+import com.tranhoangdai.korengui.client.view.widget.SvgElementTooltip;
 
 public class NodeSvg extends AbstractElementSvg{
-	
+
 	protected  int WIDTH = 60;
-	protected  int HEIGHT = 60;	
-	protected  int x;	
-	protected  int y;	
+	protected  int HEIGHT = 60;
+	protected  int x;
+	protected  int y;
 	protected int scaleFactor = 2;
 	protected ModelWithId nodeModel;
 	protected String imageHref = "images/router.svg";
@@ -43,28 +49,28 @@ public class NodeSvg extends AbstractElementSvg{
 	protected boolean dragging = false;
 	protected OMSVGPoint beforeMovePoint = null;
 	protected boolean isScaleUp = false;
-	
+
 	public NodeSvg(){
-		
+
 	}
-	
+
 	public NodeSvg(GeneralModel _model){
-		this.nodeModel = (Switch) _model;		
-	}	
-	
+		this.nodeModel = (Switch) _model;
+	}
+
 	public void formElement(){
 		setupShape();
-		setupTextShape();		
+		setupTextShape();
 		setupEventHandler();
 		setupGroupShape();
 	}
-	
+
 	protected void setupShape() {
 		shape = new OMSVGImageElement(x, y, WIDTH, HEIGHT, imageHref);
 	}
 
 	protected void setupTextShape() {
-		
+
 		Switch model = (Switch)nodeModel;
 		textShape = new OMSVGTextElement(x, y, OMSVGLength.SVG_LENGTHTYPE_PX, model.getId());
 		// move text to middle of shape
@@ -87,14 +93,14 @@ public class NodeSvg extends AbstractElementSvg{
 
 	}
 
-	protected void setupGroupShape() {	
+	protected void setupGroupShape() {
 		appendChild(shape);
 		appendChild(textShape);
 	}
 
 	protected void setupEventHandler() {
 		shape.addMouseDownHandler(new MouseDownHandler() {
-		
+
 			@Override
 			public void onMouseDown(MouseDownEvent event) {
 				handleMouseDownEvent(event);
@@ -122,6 +128,7 @@ public class NodeSvg extends AbstractElementSvg{
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
 				scaleUp(event);
+				displayTooltip();
 			}
 		});
 
@@ -132,6 +139,11 @@ public class NodeSvg extends AbstractElementSvg{
 				scaleDown(event);
 			}
 		});
+	}
+
+	protected void displayTooltip() {
+
+
 	}
 
 	protected void handleMouseDownEvent(MouseDownEvent event) {
@@ -162,16 +174,16 @@ public class NodeSvg extends AbstractElementSvg{
 
 	protected void scaleDown(MouseEvent<?> event) {
 		isScaleUp = false;
-		
+
 		if (fisrtTimeScaleDown) {
 			scaleDownX = ((shape.getX().getBaseVal().getValue() + shape.getWidth().getBaseVal().getValue() / 2) * (1 - scaleFactor));
 			scaleDownY = ((shape.getY().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (1 - scaleFactor));
 			scaleDownFactor = 1.0f / scaleFactor;
 			fisrtTimeScaleDown = false;
 		}
-		
+
 		SvgTransformationHelper.scaleDown(this, scaleDownX, scaleDownY, scaleDownFactor);
-		
+
 //		OMSVGTransform t1 = null;
 //		OMSVGTransform t2 = null;
 //		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
@@ -188,22 +200,22 @@ public class NodeSvg extends AbstractElementSvg{
 	}
 
 	protected void scaleUp(MouseEvent<?> event) {
-		isScaleUp = true;	
-		
+		isScaleUp = true;
+
 		if (fisrtTimeScaleUp) {
 			scaleUpX = ((shape.getX().getBaseVal().getValue() + shape.getWidth().getBaseVal().getValue() / 2) * (scaleFactor - 1));
 			scaleUpY = ((shape.getX().getBaseVal().getValue() + shape.getHeight().getBaseVal().getValue() / 2) * (scaleFactor - 1));
 			fisrtTimeScaleUp = false;
 		}
-		
+
 		SvgTransformationHelper.scaleUp(this, scaleUpX, scaleUpY, scaleFactor);
-		
-		
+
+
 //		OMSVGTransform t1 = null;
 //		OMSVGTransform t2 = null;
 //		OMSVGSVGElement svg = OMSVGParser.currentDocument().createSVGSVGElement();
-//		
-//		
+//
+//
 //		t1 = svg.createSVGTransform();
 //		t2 = svg.createSVGTransform();
 //		OMSVGTransformList xforms = getTransform().getBaseVal();
@@ -226,16 +238,16 @@ public class NodeSvg extends AbstractElementSvg{
 		GWT.log("client point transform:" + p1.getDescription());
 		return p1;
 	}
-	
+
 	public OMSVGElement getShape() {
 		return shape;
 	}
-	
+
 	@Override
 	public OMSVGElement getText() {
 		return textShape;
-	}	
-	
+	}
+
 
 	public int getX() {
 		return x;
@@ -257,6 +269,6 @@ public class NodeSvg extends AbstractElementSvg{
 	public ModelWithId getModel() {
 		return nodeModel;
 	}
-	
+
 
 }

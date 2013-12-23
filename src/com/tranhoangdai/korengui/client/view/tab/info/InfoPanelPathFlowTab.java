@@ -14,7 +14,7 @@ public class InfoPanelPathFlowTab extends InfoPanelAbstractInfoTab {
 	
 	@Override
 	public void showInfo() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
