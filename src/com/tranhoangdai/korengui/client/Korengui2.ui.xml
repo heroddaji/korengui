@@ -2,10 +2,10 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 
-	<g:HTMLPanel>
-		<b:Row>
+	<b:FluidContainer>
+		<b:FluidRow>
 			<b:Column size="12">
-				<b:Row>
+				<b:FluidRow>
 					<b:Column size="12">
 						<b:ResponsiveNavbar>
 							<b:Brand>Koren GUI</b:Brand>
@@ -17,11 +17,11 @@
 							</b:ButtonGroup>
 						</b:ResponsiveNavbar>
 					</b:Column>
-				</b:Row>
+				</b:FluidRow>
 
-				<b:Row>
+				<b:FluidRow>
 					<b:Column size="12">
-						<b:Row>
+						<b:FluidRow height="40em">
 							<b:Column size="4">
 								<b:TabPanel tabPosition="above" ui:field="leftTabPanel1">
 									<b:TabPane heading="Commands" active="true">
@@ -34,12 +34,14 @@
 							<b:Column size="8">
 								<b:TabPanel tabPosition="above" ui:field="rightTabPanel1">
 									<b:TabPane heading="Global" active="true" ui:field="globalTab">
+										<b:FluidRow ui:field="row" height="20em">
 
+										</b:FluidRow>
 									</b:TabPane>
 								</b:TabPanel>
 							</b:Column>
-						</b:Row>
-						<b:Row>
+						</b:FluidRow>
+						<b:FluidRow>
 							<b:Column size="4">
 								<b:TabPanel tabPosition="above" ui:field="leftTabPanel2">
 									<b:TabPane heading="leftTabPanel2" active="true">
@@ -54,10 +56,10 @@
 									</b:TabPane>
 								</b:TabPanel>
 							</b:Column>
-						</b:Row>
+						</b:FluidRow>
 					</b:Column>
-				</b:Row>
+				</b:FluidRow>
 			</b:Column>
-		</b:Row>
-	</g:HTMLPanel>
+		</b:FluidRow>
+	</b:FluidContainer>
 </ui:UiBinder>

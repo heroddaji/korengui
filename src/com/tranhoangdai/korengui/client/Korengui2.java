@@ -2,6 +2,7 @@ package com.tranhoangdai.korengui.client;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.NavLink;
+import com.github.gwtbootstrap.client.ui.Row;
 import com.github.gwtbootstrap.client.ui.TabPane;
 import com.github.gwtbootstrap.client.ui.TabPanel;
 import com.google.gwt.core.client.GWT;
@@ -29,6 +30,9 @@ public class Korengui2 extends Composite{
 	@UiField
 	TabPane globalTab;
 
+	@UiField
+	Row row;
+
 	public Korengui2() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
@@ -37,9 +41,12 @@ public class Korengui2 extends Composite{
 	void onClick(ClickEvent e){
 
 		Button button = new Button("sdfsd");
-		globalTab.add(button);
+		row.add(button);
+		//globalTab.add(button);
 
 		SvgPanel svgPanel = SvgPanel.INSTANCE;
-		//EventBus.INSTANCE.deliverDownloadGlobalTopologyEvent(this);
+		EventBus.INSTANCE.deliverDownloadGlobalTopologyEvent(this);
+		//globalTab.add(svgPanel);
+		row.add(svgPanel);
 	}
 }
