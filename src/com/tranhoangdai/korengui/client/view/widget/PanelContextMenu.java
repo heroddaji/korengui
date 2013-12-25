@@ -22,7 +22,7 @@ public class PanelContextMenu extends ContextMenu{
 		});
 
 		SvgElementTooltip tooltip = new SvgElementTooltip();
-		addPopupElement(tooltip);
+		//addPopupElement(tooltip);
 		addPopupElement(closeBtn);
 		hide();
 
