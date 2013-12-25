@@ -17,7 +17,7 @@ public class GUIController {
 	Label status;
 
 	public void tellGlobalNetworkInstruction() {
-		status.setText("GETTING NETWORK TOPOLOGY INFORMATION");
+		//status.setText("GETTING NETWORK TOPOLOGY INFORMATION");
 	}
 
 	public void tellZoomInstruction() {
@@ -27,11 +27,11 @@ public class GUIController {
 	public void tellDependentAction() {
 		status.setText("PLEASE GET NETWORK TOPOLOGY FIRST");
 	}
-	
+
 	public void tellPathFlowAction1(){
 		status.setText("CLICK ON 2 NODES TO GET THE PATH-FLOW BETWEEN THEM, PLEASE SELECT THE FIRST ONE");
 	}
-	
+
 	public void tellPathFlowAction2(){
 		status.setText("PLEASE SELECT THE SECOND ONE");
 	}
@@ -55,27 +55,27 @@ public class GUIController {
 	public void switchTabsInline(Integer tabNumber) {
 		try {
 			if(SvgPanel.INSTANCE.getWidgetCount() - 1 >= tabNumber){
-				SvgPanel.INSTANCE.selectTab(tabNumber);	
+				SvgPanel.INSTANCE.selectTab(tabNumber);
 			}
 			if(InfoPanel.INSTANCE.getWidgetCount() - 1 >= tabNumber){
-				InfoPanel.INSTANCE.selectTab(tabNumber);	
+				InfoPanel.INSTANCE.selectTab(tabNumber);
 			}
-			
+
 		} catch (Exception e) {
 			Log.debug("Other tab is not yet setup");
 		}
 	}
-	
+
 	public void closeTab(Widget tab){
 		if (tab instanceof SvgPanelAbstractDrawTab) {
 			SvgPanelAbstractDrawTab svgTab = (SvgPanelAbstractDrawTab) tab;
 			SvgPanel.INSTANCE.closeTab(svgTab);
-			
+
 		}
 	}
 
 	public void tellSameId() {
-		Window.alert("Please click on 2 different nodes");		
+		Window.alert("Please click on 2 different nodes");
 	}
 
 	public void showAboutDiablog() {
@@ -84,6 +84,6 @@ public class GUIController {
 	}
 
 	public void refreshWebApp() {
-		Window.Location.reload();		
+		Window.Location.reload();
 	}
 }

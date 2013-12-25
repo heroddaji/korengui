@@ -54,14 +54,16 @@ public class Korengui implements EntryPoint {
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 			@Override
 			public void execute() {
-				onModuleLoad2();
+
+				//onModuleLoad2();
+				RootPanel.get().add(new Korengui2());
 			}
 		});
 
 	}
 
 	public void onModuleLoad2() {
-	
+
 		if (Log.isDebugEnabled()) {
 			startTimeMillis = System.currentTimeMillis();
 		}
@@ -77,36 +79,36 @@ public class Korengui implements EntryPoint {
 		MenuBar menuBar = new MenuBar(false);
 		verticalPanel.add(menuBar);
 		menuBar.setWidth("100%");
-		
+
 		MenuBar newMenuBar = new MenuBar();
 		newMenuBar.addItem("New session", new Command() {
-			
+
 			@Override
 			public void execute() {
-				EventBus.INSTANCE.deliverEventUserClickNewMenu();				
+				EventBus.INSTANCE.deliverEventUserClickNewMenu();
 			}
 		});
 		MenuItem fileMenu = new MenuItem("File", newMenuBar);
 		menuBar.addItem(fileMenu);
-		
-		
-		
+
+
+
 		MenuBar aboutMenuBar = new MenuBar();
 		aboutMenuBar.addItem("About KorenGUI", new Command() {
-			
+
 			@Override
 			public void execute() {
 				EventBus.INSTANCE.deliverEventUserClickAboutMenu();
-				
+
 			}
 		});
-		
+
 		MenuItem helpMenu = new MenuItem("Help", aboutMenuBar);
 		menuBar.addItem(helpMenu);
-		
+
 		//---------MENU-----------------
-		
-		
+
+
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel);
 		HorizontalPanel horizontalPanel_status = new HorizontalPanel();
