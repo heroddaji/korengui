@@ -10,4 +10,6 @@ public interface TopologyServiceAsync {
 
 	void getPathFlow(String nodeId1, String nodeId2, AsyncCallback<String> callback);
 
+	void getTopologyHosts(AsyncCallback<String> callback);
+
 }

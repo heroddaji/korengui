@@ -1,0 +1,39 @@
+package com.tranhoangdai.korengui.client.controller;
+
+import java.util.Map;
+
+import com.google.gwt.core.client.GWT;
+import com.tranhoangdai.korengui.client.model.Host;
+import com.tranhoangdai.korengui.client.model.Link;
+import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.model.util.ModelHelper;
+import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
+import com.tranhoangdai.korengui.client.view.InfoPanel;
+import com.tranhoangdai.korengui.client.view.SvgPanel;
+import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
+import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
+
+public class ZoomEventController extends AbstractEventController {
+
+	public static ZoomEventController INSTANCE = GWT.create(ZoomEventController.class);
+
+	@Override
+	public void handleEvent(Object source) {
+		AbstractElementSvg zoomSvg = (AbstractElementSvg) source;
+		Switch zoomSwitchModel = (Switch) zoomSvg.getModel();		
+		
+		Map<String, Host> childHosts = ModelHelper.getChildHostsOfSourceSwitch(zoomSwitchModel, ClientServiceHelper.INSTANCE.getTopologyHosts());
+		Map<Integer,Link> linkModels = ModelHelper.getLinksOfSourceSwitch(zoomSwitchModel,ClientServiceHelper.INSTANCE.getTopologyHosts());
+		if(childHosts.size() == 0){
+			GUIController.INSTANCE.tellConnectedHostsToZoomIn();
+			return;
+		}
+		
+		SvgPanel.INSTANCE.drawZoomTopology(zoomSwitchModel,childHosts, linkModels);		
+		InfoPanel.INSTANCE.showZoomTopology(zoomSwitchModel,childHosts, linkModels);
+	}
+	
+	
+	
+
+}

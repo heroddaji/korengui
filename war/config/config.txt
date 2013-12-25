@@ -1,0 +1,9 @@
+host = "http://163.180.118.215"
+port = "8080"
+switchApi = "/wm/core/controller/switches/json"
+linkApi = "/wm/topology/links/json"
+hostApi = "/wm/device/"
+
+
+;host = "http://localhost";
+;port = "9876";

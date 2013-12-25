@@ -1,10 +1,14 @@
 package com.tranhoangdai.korengui.client;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -15,10 +19,11 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.tranhoangdai.korengui.client.imp.Utility;
-import com.tranhoangdai.korengui.client.imp.Utility.ActionState;
-import com.tranhoangdai.korengui.client.imp.link.NodeLink;
-import com.tranhoangdai.korengui.client.imp.node.Node;
+import com.tranhoangdai.korengui.client.controller.GUIController;
+import com.tranhoangdai.korengui.client.model.Link;
+import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.view.InfoPanel;
+import com.tranhoangdai.korengui.client.view.SvgPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -31,8 +36,10 @@ public class Korengui implements EntryPoint {
 	 */
 	private static final String SERVER_ERROR = "An error occurred while " + "attempting to contact the server. Please check your network " + "connection and try again.";
 
-	CellTable<Node> cellTableNode;
-	CellTable<NodeLink> cellTableLink;
+	private long startTimeMillis;
+
+	CellTable<Switch> cellTableNode;
+	CellTable<Link> cellTableLink;
 
 	Label lblStatus = null;
 
@@ -41,6 +48,24 @@ public class Korengui implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 
+		Log.setUncaughtExceptionHandler();
+
+		// use deferred command to catch initialization exceptions in onModuleLoad2
+		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+			@Override
+			public void execute() {
+				onModuleLoad2();
+			}
+		});
+
+	}
+
+	public void onModuleLoad2() {
+	
+		if (Log.isDebugEnabled()) {
+			startTimeMillis = System.currentTimeMillis();
+		}
+
 		// /////////////////////gui components//////////////////////////
 		RootPanel rootPanel = RootPanel.get();
 
@@ -48,18 +73,46 @@ public class Korengui implements EntryPoint {
 		verticalPanel.setWidth("100%");
 		rootPanel.add(verticalPanel);
 
+		//---------MENU-----------------
 		MenuBar menuBar = new MenuBar(false);
 		verticalPanel.add(menuBar);
 		menuBar.setWidth("100%");
-		MenuBar submenu = new MenuBar();
-		submenu.addItem("New", new MenuBar());
-		MenuItem fileMenu = new MenuItem("File", submenu);
+		
+		MenuBar newMenuBar = new MenuBar();
+		newMenuBar.addItem("New session", new Command() {
+			
+			@Override
+			public void execute() {
+				EventBus.INSTANCE.deliverEventUserClickNewMenu();				
+			}
+		});
+		MenuItem fileMenu = new MenuItem("File", newMenuBar);
 		menuBar.addItem(fileMenu);
-
+		
+		
+		
+		MenuBar aboutMenuBar = new MenuBar();
+		aboutMenuBar.addItem("About KorenGUI", new Command() {
+			
+			@Override
+			public void execute() {
+				EventBus.INSTANCE.deliverEventUserClickAboutMenu();
+				
+			}
+		});
+		
+		MenuItem helpMenu = new MenuItem("Help", aboutMenuBar);
+		menuBar.addItem(helpMenu);
+		
+		//---------MENU-----------------
+		
+		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel);
+		HorizontalPanel horizontalPanel_status = new HorizontalPanel();
+		verticalPanel.add(horizontalPanel_status);
 
-		Button btnTopology = new Button("Get topoloy");
+		final Button btnTopology = new Button("Get topoloy");
 		btnTopology.setText("Get topology");
 		horizontalPanel.add(btnTopology);
 
@@ -78,15 +131,16 @@ public class Korengui implements EntryPoint {
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		splitLayoutPanel.addSouth(horizontalPanel_1, 20);
 
-		lblStatus = new Label("Status: normal");
+		lblStatus = new Label("");
 		lblStatus.setPixelSize(30, 30);
-		horizontalPanel_1.add(lblStatus);
+		lblStatus.setWidth("100%");
+		horizontalPanel_status.add(lblStatus);
 
 		// svg panel //
 		final SvgPanel svgPanel = SvgPanel.INSTANCE;
 		ScrollPanel scrollPanel = new ScrollPanel();
 		splitLayoutPanel.addWest(scrollPanel, verticalPanel.getOffsetWidth() / 2);
-		scrollPanel.setWidth("100%");		
+		scrollPanel.setWidth("100%");
 		scrollPanel.setHeight(new Integer(Window.getClientHeight() - 100).toString() + "px");
 		scrollPanel.add(svgPanel);
 		svgPanel.setWidth("100%");
@@ -96,12 +150,12 @@ public class Korengui implements EntryPoint {
 		final InfoPanel infoPanel = InfoPanel.INSTANCE;
 		splitLayoutPanel.addEast(infoPanel, verticalPanel.getOffsetWidth() / 2);
 
+		// ////////////////// button events///////////////
+		GUIController.INSTANCE.setStatus(lblStatus);
 
-		// ////////////////// button events///////////
 		btnTopology.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				lblStatus.setText("Action: Get topology information");
-				Utility.INSTANCE.downloadGlobalTopology();
+				EventBus.INSTANCE.deliverDownloadGlobalTopologyEvent(event.getSource());
 			}
 		});
 
@@ -109,9 +163,7 @@ public class Korengui implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				//event will propagate to visual node in mousedown event handler
-				lblStatus.setText("Action: Click on cluster node to zoom in ");
-				Utility.INSTANCE.setState(ActionState.ZOOM);
+				EventBus.INSTANCE.deliverEventUserClickedZoomButton(event.getSource());
 			}
 		});
 
@@ -119,13 +171,9 @@ public class Korengui implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				//event will propagate to visual node in mousedown event handler
-				lblStatus.setText("Action: Click on 2 nodes to get path flow");				
-				Utility.INSTANCE.setState(ActionState.FLOW);
+				EventBus.INSTANCE.deliverGetPathFlowEvent(event.getSource());
 			}
 		});
-
 	}
-	
 
 }
