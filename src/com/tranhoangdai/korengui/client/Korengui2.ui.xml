@@ -1,0 +1,63 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+
+	<g:HTMLPanel>
+		<b:Row>
+			<b:Column size="12">
+				<b:Row>
+					<b:Column size="12">
+						<b:ResponsiveNavbar>
+							<b:Brand>Koren GUI</b:Brand>
+							<b:ButtonGroup>
+								<b:DropdownButton text="File">
+									<b:NavLink>Reload</b:NavLink>
+								</b:DropdownButton>
+								<b:Button>About</b:Button>
+							</b:ButtonGroup>
+						</b:ResponsiveNavbar>
+					</b:Column>
+				</b:Row>
+
+				<b:Row>
+					<b:Column size="12">
+						<b:Row>
+							<b:Column size="4">
+								<b:TabPanel tabPosition="above" ui:field="leftTabPanel1">
+									<b:TabPane heading="Commands" active="true">
+										<b:NavList>
+											<b:NavLink ui:field="topologyBtn">Get Topology</b:NavLink>
+										</b:NavList>
+									</b:TabPane>
+								</b:TabPanel>
+							</b:Column>
+							<b:Column size="8">
+								<b:TabPanel tabPosition="above" ui:field="rightTabPanel1">
+									<b:TabPane heading="Global" active="true" ui:field="globalTab">
+
+									</b:TabPane>
+								</b:TabPanel>
+							</b:Column>
+						</b:Row>
+						<b:Row>
+							<b:Column size="4">
+								<b:TabPanel tabPosition="above" ui:field="leftTabPanel2">
+									<b:TabPane heading="leftTabPanel2" active="true">
+										<g:Label>Lalala</g:Label>
+									</b:TabPane>
+								</b:TabPanel>
+							</b:Column>
+							<b:Column size="8">
+								<b:TabPanel tabPosition="above" ui:field="rightTabPanel2">
+									<b:TabPane heading="rightTabPanel2" active="true">
+										<g:Label>Lalala</g:Label>
+									</b:TabPane>
+								</b:TabPanel>
+							</b:Column>
+						</b:Row>
+					</b:Column>
+				</b:Row>
+			</b:Column>
+		</b:Row>
+	</g:HTMLPanel>
+</ui:UiBinder>
