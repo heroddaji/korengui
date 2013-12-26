@@ -37,6 +37,7 @@ public class GlobalTopologyEvenController extends AbstractEventController {
 				 * Always pass just the models, then the draw will create only svg elements for
 				 * that tab to draw
 				 */
+
 				SvgPanel.INSTANCE.setModelInformation(switches, links, hosts);
 				SvgPanel.INSTANCE.drawGlobalTopology();
 //				InfoPanel.INSTANCE.setModelInformation(switches, links, hosts);

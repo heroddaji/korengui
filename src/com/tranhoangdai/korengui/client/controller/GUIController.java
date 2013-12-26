@@ -8,7 +8,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.tranhoangdai.korengui.client.view.InfoPanel;
 import com.tranhoangdai.korengui.client.view.SvgPanel;
 import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelAbstractDrawTab;
-import com.tranhoangdai.korengui.client.view.widget.AboutBox;
 
 public class GUIController {
 
@@ -79,8 +78,7 @@ public class GUIController {
 	}
 
 	public void showAboutDiablog() {
-		AboutBox aboutBox = new AboutBox();
-		aboutBox.show();
+
 	}
 
 	public void refreshWebApp() {

@@ -69,7 +69,7 @@ public class SvgPanel extends AbstractPanel {
 		selectTab(zoomTab);
 	}
 
-	public void drawPathFlow(Map<Integer, Link> path) {		
+	public void drawPathFlow(Map<Integer, Link> path) {
 		if (path.size() <= 0) {
 			return;
 		}

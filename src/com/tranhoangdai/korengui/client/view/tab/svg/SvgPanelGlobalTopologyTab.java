@@ -22,14 +22,14 @@ public class SvgPanelGlobalTopologyTab extends SvgPanelAbstractDrawTab {
 	public void draw() {
 		NodeSvg nodeSvgClass = new NodeSvg(null);
 		LinkSvg linkSvgClass = new LinkSvg(null);
-		
-		List<NodeSvg> nodeSvgs =  createSvgElements(nodeSvgClass, globalSwitchModels.values());		
+
+		List<NodeSvg> nodeSvgs =  createSvgElements(nodeSvgClass, globalSwitchModels.values());
 		List<LinkSvg> linkSvgs =  createSvgElements(linkSvgClass, globalLinkModels.values());
-		
+
 		drawNodeElementsSvg(nodeSvgs);
 		drawLinkSvgs(linkSvgs,nodeSvgs);
 	}
 
-	
-	
+
+
 }
