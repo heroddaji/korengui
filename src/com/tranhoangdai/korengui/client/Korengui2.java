@@ -10,8 +10,6 @@ import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.Label;
-import com.github.gwtbootstrap.client.ui.Modal;
 import com.github.gwtbootstrap.client.ui.NavLink;
 import com.github.gwtbootstrap.client.ui.TabPane;
 import com.github.gwtbootstrap.client.ui.TabPanel;
@@ -80,14 +78,15 @@ public class Korengui2 extends Composite {
 		EventBus.INSTANCE.deliverDownloadGlobalTopologyEvent(hero);
 
 		svgElement = OMSVGParser.currentDocument().createSVGSVGElement();
-		svgElement.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, hero.getElement().getClientWidth());
-		svgElement.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, hero.getElement().getClientHeight());
+		svgElement.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, hero.getElement().getOffsetWidth());
+		svgElement.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, hero.getElement().getOffsetHeight());
 
 		NodeSvg nodeSvgClass = new NodeSvg(null);
 		LinkSvg linkSvgClass = new LinkSvg(null);
 		List<NodeSvg> nodeSvgs = createSvgElements(nodeSvgClass, ClientServiceHelper.INSTANCE.getTopologySwitches().values());
 		drawNodeElementsSvg(nodeSvgs);
 
+		hero.getElement().setPropertyString("padding", "0px");
 		if(hero.getElement().getChildCount() > 0){
 			hero.getElement().removeChild(hero.getElement().getLastChild());
 		}

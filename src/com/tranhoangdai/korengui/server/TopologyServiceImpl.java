@@ -17,9 +17,8 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 	//"http://163.180.118.215:8080/wm/core/controller/switches/json";
 	//String host = "http://localhost";
 	//String port = "9876";
-	//String host = "http://163.180.118.215";
-	String host = "hkjhkjhkj";
-	String port = "1234";
+	String host = "http://163.180.118.215";
+	String port= "8080";
 	String switchApi = "/wm/core/controller/switches/json";
 	String linkApi = "/wm/topology/links/json";
 	String hostApi = "/wm/device/";
@@ -31,7 +30,7 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 
 	@Override
 	public String getTopologySwitches() {
-		
+
 		String json = "";
 		String url = host + ":" + port + switchApi;
 		json = readUrl(url);
@@ -90,7 +89,7 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 			if (url.contains(hostApi)) {
 				return readFile(fileDevices);
 			}
-			
+
 			if (url.contains(pathApi)) {
 				return readFile(filePath);
 			}
@@ -100,9 +99,9 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 	}
 
 	public String readFile(String filePath) {
-		
-		ServletContext servletContext = getServletContext();		
-		String path = servletContext.getRealPath("/");		
+
+		ServletContext servletContext = getServletContext();
+		String path = servletContext.getRealPath("/");
 		filePath = path + filePath;
 		System.out.println("Read files:" + filePath);
 		String inputLine = "";

@@ -37,7 +37,7 @@
 							<b:Column size="9">
 								<b:TabPanel tabPosition="above" ui:field="rightTabPanel1">
 									<b:TabPane heading="Global" active="true" ui:field="globalTab">
-										<g:HTMLPanel ui:field="hero" height="30em">
+										<g:HTMLPanel ui:field="hero" height="30em"  >
 
 										</g:HTMLPanel>
 									</b:TabPane>
