@@ -2,22 +2,26 @@ package com.tranhoangdai.korengui.client.controller;
 
 import java.util.Map;
 
+import com.allen_sauer.gwt.log.client.Log;
+import com.github.gwtbootstrap.client.ui.TabPanel;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.logging.client.DefaultLevel.Info;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.user.client.Command;
+import com.tranhoangdai.korengui.client.Korengui2;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceAsync;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
-import com.tranhoangdai.korengui.client.view.InfoPanel;
-import com.tranhoangdai.korengui.client.view.SvgPanel;
+import com.tranhoangdai.korengui.client.ui.DrawingPanel;
 
 @SuppressWarnings("unused")
 public class GlobalTopologyEvenController extends AbstractEventController {
 
 	public static GlobalTopologyEvenController INSTANCE = GWT.create(GlobalTopologyEvenController.class);
 
-	private GlobalTopologyEvenController(){}
+	private GlobalTopologyEvenController() {
+	}
 
 	/**
 	 * Download network topology, then draw
@@ -25,23 +29,29 @@ public class GlobalTopologyEvenController extends AbstractEventController {
 	 * @param source
 	 */
 	@Override
-	public void handleEvent(Object source) {
-		ClientServiceAsync<Map<String,Switch>, Map<Integer,Link>, Map<String,Host>> callback = new ClientServiceAsync<Map<String,Switch>, Map<Integer,Link>, Map<String,Host>>() {
+	public void handleEvent(final Object source) {
+
+		GUIController.INSTANCE.showLoading();
+
+		final ClientServiceAsync<Map<String, Switch>, Map<Integer, Link>, Map<String, Host>> callback = new ClientServiceAsync<Map<String, Switch>, Map<Integer, Link>, Map<String, Host>>() {
 
 			@Override
 			public void onSuccess(Map<String, Switch> switches, Map<Integer, Link> links, Map<String, Host> hosts) {
+				Log.debug("finish download network topology");
 
-				/*
-				 * Never pass svg elements to Svgpanel or Infopanel, since those svg elements
-				 * will be draw on screen, they can get cross references in different tabs.
-				 * Always pass just the models, then the draw will create only svg elements for
-				 * that tab to draw
-				 */
+				Scheduler.get().scheduleDeferred(new Command() {
+					public void execute() {
+						GUIController.INSTANCE.closeLoading();
+						GUIController.INSTANCE.closeLoading();
+					}
+				});
 
-				SvgPanel.INSTANCE.setModelInformation(switches, links, hosts);
-				SvgPanel.INSTANCE.drawGlobalTopology();
-//				InfoPanel.INSTANCE.setModelInformation(switches, links, hosts);
-//				InfoPanel.INSTANCE.showGlobalTopology();
+
+				//draw now
+				Korengui2 korengui2 = (Korengui2)source;
+				TabPanel rightTabPanel1 = korengui2.getRightTabPanel1();
+				DrawingPanel globalDrawingPanel = korengui2.getGlobalDrawingPanel();
+				globalDrawingPanel.draw();
 			}
 
 			@Override
@@ -49,8 +59,12 @@ public class GlobalTopologyEvenController extends AbstractEventController {
 				System.err.println(throwable);
 			}
 		};
+		Scheduler.get().scheduleDeferred(new Command() {
+			public void execute() {
+				ClientServiceHelper.INSTANCE.getGlobalTopology(callback);
+			}
+		});
 
-		ClientServiceHelper.INSTANCE.getGlobalTopology(callback);
 	}
 
 }

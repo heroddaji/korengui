@@ -1,6 +1,8 @@
 package com.tranhoangdai.korengui.client;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranhoangdai.korengui.client.controller.GUIController;
 import com.tranhoangdai.korengui.client.controller.GlobalTopologyEvenController;
@@ -20,10 +22,8 @@ public class EventBus {
 	private EventBus() {
 	}
 
-	public void deliverDownloadGlobalTopologyEvent(Object source) {
-		GUIController.INSTANCE.tellGlobalNetworkInstruction();
+	public void deliverDownloadGlobalTopologyEvent(final Object source) {		
 		GlobalTopologyEvenController.INSTANCE.handleEvent(source);
-
 		networkDownloaded = true;
 	}
 
@@ -62,7 +62,7 @@ public class EventBus {
 			GUIController.INSTANCE.clear();
 		}
 
-		//click first node		
+		//click first node
 		if (state == ActionState.FLOW1) {
 			GUIController.INSTANCE.tellPathFlowAction2();
 			PathFlowEventController.INSTANCE.handleEvent(source);
@@ -88,7 +88,7 @@ public class EventBus {
 	public void deliverEventUserClickAboutMenu() {
 		GUIController.INSTANCE.showAboutDiablog();
 	}
-	
+
 	public void deliverEventUserClickCloseTabContextMenu(Widget tab) {
 		GUIController.INSTANCE.closeTab(tab);
 	}

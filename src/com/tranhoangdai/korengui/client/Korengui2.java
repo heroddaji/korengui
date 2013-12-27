@@ -1,17 +1,7 @@
 package com.tranhoangdai.korengui.client;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.vectomatic.dom.svg.OMNode;
-import org.vectomatic.dom.svg.OMSVGLength;
-import org.vectomatic.dom.svg.OMSVGSVGElement;
-import org.vectomatic.dom.svg.utils.OMSVGParser;
-
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.NavLink;
-import com.github.gwtbootstrap.client.ui.TabPane;
 import com.github.gwtbootstrap.client.ui.TabPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -19,20 +9,9 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.tranhoangdai.korengui.client.model.Host;
-import com.tranhoangdai.korengui.client.model.Link;
-import com.tranhoangdai.korengui.client.model.Switch;
-import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
 import com.tranhoangdai.korengui.client.ui.AboutBox;
-import com.tranhoangdai.korengui.client.view.SvgPanel;
-import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
-import com.tranhoangdai.korengui.client.view.svg.HostSvg;
-import com.tranhoangdai.korengui.client.view.svg.LinkSvg;
-import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
-import com.tranhoangdai.korengui.client.view.svg.SwitchSvg;
-import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
+import com.tranhoangdai.korengui.client.ui.DrawingPanel;
 
 public class Korengui2 extends Composite {
 
@@ -46,108 +25,73 @@ public class Korengui2 extends Composite {
 
 	@UiField
 	TabPanel rightTabPanel1;
-
 	@UiField
-	TabPane globalTab;
-
+	TabPanel leftTabPanel1;
 	@UiField
-	HTMLPanel hero;
-
+	TabPanel rightTabPanel2;
+	@UiField
+	TabPanel leftTabPanel2;
+	@UiField
+	DrawingPanel globalDrawingPanel;
 	@UiField
 	Button aboutBtn;
-
 	@UiField
 	AboutBox aboutBox;
 
-	float center = 0;
-	protected OMSVGSVGElement svgElement = null;
 
 	public Korengui2() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
 	@UiHandler("aboutBtn")
-	void onUserClick(ClickEvent e){
+	void onAboutBtnClick(ClickEvent e){
 		aboutBox.show();
 	}
 
 	@UiHandler("topologyBtn")
-	void onClick(ClickEvent e) {
-
-		SvgPanel svgPanel = SvgPanel.INSTANCE;
-		EventBus.INSTANCE.deliverDownloadGlobalTopologyEvent(hero);
-
-		svgElement = OMSVGParser.currentDocument().createSVGSVGElement();
-		svgElement.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, hero.getElement().getOffsetWidth());
-		svgElement.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, hero.getElement().getOffsetHeight());
-
-		NodeSvg nodeSvgClass = new NodeSvg(null);
-		LinkSvg linkSvgClass = new LinkSvg(null);
-		List<NodeSvg> nodeSvgs = createSvgElements(nodeSvgClass, ClientServiceHelper.INSTANCE.getTopologySwitches().values());
-		drawNodeElementsSvg(nodeSvgs);
-
-		hero.getElement().setPropertyString("padding", "0px");
-		if(hero.getElement().getChildCount() > 0){
-			hero.getElement().removeChild(hero.getElement().getLastChild());
-		}
-		hero.getElement().appendChild(svgElement.getElement());
+	void onGetTopologyBtnClick(ClickEvent e) {
+		EventBus.INSTANCE.deliverDownloadGlobalTopologyEvent(this);
 	}
 
-	protected <E> void drawNodeElementsSvg(List<? extends AbstractElementSvg> eSvgs) {
-		float radius = 200;
-		calCenter();
-
-		float slice = (float) (2 * Math.PI / eSvgs.size());
-
-		int counter = 1;
-		try {
-			for (AbstractElementSvg element : eSvgs) {
-
-				element.formElement();
-				int x = (int) (radius * Math.cos(counter * slice) + center);
-				int y = (int) (radius * Math.sin(counter * slice) + center);
-				SvgTransformationHelper.translateTo(element, x, y);
-				++counter;
-				svgElement.appendChild((OMNode) element);
-			}
-		} catch (Exception e) {
-			System.err.println(e);
-		}
+	public TabPanel getRightTabPanel1() {
+		return rightTabPanel1;
 	}
 
-	protected void calCenter() {
-		if (SvgPanel.INSTANCE.getOffsetHeight() < SvgPanel.INSTANCE.getOffsetWidth()) {
-			center = SvgPanel.INSTANCE.getOffsetHeight() / 2;
-		} else {
-			center = SvgPanel.INSTANCE.getOffsetWidth() / 2;
-		}
+	public void setRightTabPanel1(TabPanel rightTabPanel1) {
+		this.rightTabPanel1 = rightTabPanel1;
 	}
 
-	protected <E, T> List<T> createSvgElements(T svgType, Collection<E> models) {
-
-		List<T> svgs = new ArrayList<T>();
-		AbstractElementSvg svg = null;
-		for (E mod : models) {
-			if (svgType instanceof SwitchSvg) {
-				svg = new SwitchSvg((Switch) mod);
-			}
-
-			else if (svgType instanceof HostSvg) {
-				svg = new HostSvg((Host) mod);
-			}
-
-			else if (svgType instanceof NodeSvg) {
-				svg = new NodeSvg((Switch) mod);
-			}
-
-			else if (svgType instanceof LinkSvg) {
-				svg = new LinkSvg((Link) mod);
-			}
-
-			svgs.add((T) svg);
-
-		}
-
-		return svgs;
+	public TabPanel getLeftTabPanel1() {
+		return leftTabPanel1;
 	}
+
+	public void setLeftTabPanel1(TabPanel leftTabPanel1) {
+		this.leftTabPanel1 = leftTabPanel1;
+	}
+
+	public TabPanel getRightTabPanel2() {
+		return rightTabPanel2;
+	}
+
+	public void setRightTabPanel2(TabPanel rightTabPanel2) {
+		this.rightTabPanel2 = rightTabPanel2;
+	}
+
+	public TabPanel getLeftTabPanel2() {
+		return leftTabPanel2;
+	}
+
+	public void setLeftTabPanel2(TabPanel leftTabPanel2) {
+		this.leftTabPanel2 = leftTabPanel2;
+	}
+
+	public DrawingPanel getGlobalDrawingPanel() {
+		return globalDrawingPanel;
+	}
+
+	public void setGlobalDrawingPanel(DrawingPanel globalDrawingPanel) {
+		this.globalDrawingPanel = globalDrawingPanel;
+	}
+
+
 }

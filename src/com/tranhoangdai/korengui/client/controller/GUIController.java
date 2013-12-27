@@ -5,6 +5,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
+import com.tranhoangdai.korengui.client.ui.LoadingBox;
 import com.tranhoangdai.korengui.client.view.InfoPanel;
 import com.tranhoangdai.korengui.client.view.SvgPanel;
 import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelAbstractDrawTab;
@@ -14,10 +15,15 @@ public class GUIController {
 	public static GUIController INSTANCE = GWT.create(GUIController.class);
 
 	Label status;
+	LoadingBox loadingBox = new LoadingBox();
 
-	public void tellGlobalNetworkInstruction() {
-		//status.setText("GETTING NETWORK TOPOLOGY INFORMATION");
+	public void showLoading() {
+		loadingBox.show();
 	}
+	public void closeLoading() {
+		loadingBox.hide();
+	}
+
 
 	public void tellZoomInstruction() {
 		status.setText("CLICK ON A NODE TO ZOOM IN");

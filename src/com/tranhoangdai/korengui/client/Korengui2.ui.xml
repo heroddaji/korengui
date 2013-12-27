@@ -24,7 +24,7 @@
 
 				<b:FluidRow>
 					<b:Column size="12">
-						<b:FluidRow height="1em">
+						<b:FluidRow height="30em" >
 							<b:Column size="3">
 								<b:TabPanel tabPosition="above" ui:field="leftTabPanel1">
 									<b:TabPane heading="Commands" active="true">
@@ -36,9 +36,13 @@
 							</b:Column>
 							<b:Column size="9">
 								<b:TabPanel tabPosition="above" ui:field="rightTabPanel1">
-									<b:TabPane heading="Global" active="true" ui:field="globalTab">
-										<g:HTMLPanel ui:field="hero" height="30em"  >
+									<b:TabPane heading="Global" active="true">
+										<d:DrawingPanel ui:field="globalDrawingPanel"/>
 
+									</b:TabPane>
+									<b:TabPane heading="Global2" >
+										<g:HTMLPanel  >
+											hehe
 										</g:HTMLPanel>
 									</b:TabPane>
 								</b:TabPanel>
