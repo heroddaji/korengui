@@ -1,0 +1,72 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
+	xmlns:d="urn:import:com.tranhoangdai.korengui.client.ui">
+
+
+	<b:FluidContainer>
+		<b:FluidRow>
+			<b:Column size="12">
+				<b:FluidRow>
+					<b:Column size="12">
+						<b:ResponsiveNavbar>
+							<b:Brand>Koren GUI</b:Brand>
+							<b:ButtonGroup>
+								<b:DropdownButton text="File">
+									<b:NavLink ui:field="reloadLink">Reload</b:NavLink>
+								</b:DropdownButton>
+								<b:Button ui:field="aboutBtn">About</b:Button>
+							</b:ButtonGroup>
+						</b:ResponsiveNavbar>
+						<b:Alert ui:field="alertStatus" type="INFO" close="false" animation="true">&#160;</b:Alert>
+					</b:Column>
+				</b:FluidRow>
+
+				<b:FluidRow>
+					<b:Column size="12">
+						<b:FluidRow height="30em" >
+							<b:Column size="3">
+								<b:TabPanel tabPosition="above" ui:field="leftTabPanel1">
+									<b:TabPane heading="Commands" active="true">
+										<b:NavList>
+											<b:NavLink ui:field="topologyBtn">Get Topology</b:NavLink>
+											<b:NavLink ui:field="zoomBtn">Zoom in</b:NavLink>
+											<b:NavLink ui:field="pathflowBtn">Get pathflow</b:NavLink>
+										</b:NavList>
+									</b:TabPane>
+								</b:TabPanel>
+							</b:Column>
+							<b:Column size="9">
+								<b:TabPanel tabPosition="above" ui:field="rightTabPanel1">
+									<b:TabPane heading="Global" active="true">
+										<d:DrawingPanel ui:field="globalDrawingPanel"/>
+									</b:TabPane>
+								</b:TabPanel>
+							</b:Column>
+						</b:FluidRow>
+						<b:FluidRow>
+							<b:Column size="3">
+								<b:TabPanel tabPosition="above" ui:field="leftTabPanel2">
+									<b:TabPane heading="leftTabPanel2" active="true">
+										<g:Label>Lalala</g:Label>
+									</b:TabPane>
+								</b:TabPanel>
+							</b:Column>
+							<b:Column size="9">
+								<b:TabPanel tabPosition="above" ui:field="rightTabPanel2">
+									<b:TabPane heading="rightTabPanel2" active="true">
+										<g:Label>Lalala</g:Label>
+									</b:TabPane>
+								</b:TabPanel>
+							</b:Column>
+						</b:FluidRow>
+					</b:Column>
+				</b:FluidRow>
+			</b:Column>
+		</b:FluidRow>
+		<!-- Other hidden widget  -->
+		<d:AboutBox ui:field="aboutBox"></d:AboutBox>
+
+	</b:FluidContainer>
+</ui:UiBinder>

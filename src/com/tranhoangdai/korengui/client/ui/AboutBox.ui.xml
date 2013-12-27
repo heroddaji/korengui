@@ -1,0 +1,16 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+
+	<g:HTMLPanel>
+		<b:Modal ui:field="modal" title="Koren GUI" backdrop="STATIC"
+			keyboard="true" animation="true">
+			<g:Label>This application gives users the visual interaction with
+				network topology for project "Technical feasibility test for Open
+				Mobile Network testbed" in Kyung Hee University</g:Label>
+			<b:ModalFooter>
+				<b:Button icon="OK" type="PRIMARY" ui:field="closeBtn">Close</b:Button>
+			</b:ModalFooter>
+		</b:Modal>
+	</g:HTMLPanel>
+</ui:UiBinder>
