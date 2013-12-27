@@ -18,9 +18,7 @@ import com.tranhoangdai.korengui.client.ui.DrawingPanel;
 @SuppressWarnings("unused")
 public class GlobalTopologyEvenController extends AbstractEventController {
 
-	public static GlobalTopologyEvenController INSTANCE = GWT.create(GlobalTopologyEvenController.class);
-
-	private GlobalTopologyEvenController() {
+	public GlobalTopologyEvenController() {
 	}
 
 	/**
@@ -31,8 +29,6 @@ public class GlobalTopologyEvenController extends AbstractEventController {
 	@Override
 	public void handleEvent(final Object source) {
 
-		GUIController.INSTANCE.showLoading();
-
 		final ClientServiceAsync<Map<String, Switch>, Map<Integer, Link>, Map<String, Host>> callback = new ClientServiceAsync<Map<String, Switch>, Map<Integer, Link>, Map<String, Host>>() {
 
 			@Override
@@ -41,8 +37,6 @@ public class GlobalTopologyEvenController extends AbstractEventController {
 
 				Scheduler.get().scheduleDeferred(new Command() {
 					public void execute() {
-						GUIController.INSTANCE.closeLoading();
-						GUIController.INSTANCE.closeLoading();
 					}
 				});
 
@@ -51,7 +45,7 @@ public class GlobalTopologyEvenController extends AbstractEventController {
 				Korengui2 korengui2 = (Korengui2)source;
 				TabPanel rightTabPanel1 = korengui2.getRightTabPanel1();
 				DrawingPanel globalDrawingPanel = korengui2.getGlobalDrawingPanel();
-				globalDrawingPanel.draw();
+				globalDrawingPanel.drawGlobalTopology();
 			}
 
 			@Override

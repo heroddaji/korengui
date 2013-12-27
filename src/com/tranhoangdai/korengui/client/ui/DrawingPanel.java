@@ -38,6 +38,7 @@ import com.tranhoangdai.korengui.client.view.widget.PanelContextMenu;
 public class DrawingPanel extends Composite implements ContextMenuHandler {
 
 	private static DrawingPanelUiBinder uiBinder = GWT.create(DrawingPanelUiBinder.class);
+
 	interface DrawingPanelUiBinder extends UiBinder<Widget, DrawingPanel> {
 	}
 
@@ -61,23 +62,22 @@ public class DrawingPanel extends Composite implements ContextMenuHandler {
 
 	}
 
-	public void draw(){
+	public void drawGlobalTopology() {
 		setupSvgElement();
 
 		NodeSvg nodeSvgClass = new NodeSvg(null);
 		LinkSvg linkSvgClass = new LinkSvg(null);
 
-		List<NodeSvg> nodeSvgs =  createSvgElements(nodeSvgClass, ClientServiceHelper.INSTANCE.getTopologySwitches().values());
-		List<LinkSvg> linkSvgs =  createSvgElements(linkSvgClass, ClientServiceHelper.INSTANCE.getTopologyLinks().values());
+		List<NodeSvg> nodeSvgs = createSvgElements(nodeSvgClass, ClientServiceHelper.INSTANCE.getTopologySwitches().values());
+		List<LinkSvg> linkSvgs = createSvgElements(linkSvgClass, ClientServiceHelper.INSTANCE.getTopologyLinks().values());
 
 		drawNodeElementsSvg(nodeSvgs);
-		drawLinkSvgs(linkSvgs,nodeSvgs);
+		drawLinkSvgs(linkSvgs, nodeSvgs);
 	}
-
 
 	private void setupSvgElement() {
 
-		if(svgElement.getChildNodes().getLength() > 0){
+		if (svgElement.getChildNodes().getLength() > 0) {
 			svgElement = new OMSVGSVGElement();
 		}
 		width = getElement().getClientWidth() - 10;
@@ -138,7 +138,7 @@ public class DrawingPanel extends Composite implements ContextMenuHandler {
 	}
 
 	protected <E> void drawNodeElementsSvg(List<? extends AbstractElementSvg> eSvgs) {
-		float radius = (float) (getElement().getClientHeight()/ 3);
+		float radius = (float) (getElement().getClientHeight() / 3);
 		int centerx = getElement().getClientWidth() / 2;
 		int centery = getElement().getClientHeight() / 2;
 
@@ -179,15 +179,45 @@ public class DrawingPanel extends Composite implements ContextMenuHandler {
 		return id;
 	}
 
-	 protected int calCenter() {
-		 int center = 0;
-         if (getOffsetHeight() < getOffsetWidth()) {
-                 center = getAbsoluteTop() +  getOffsetHeight() / 2;
-         } else {
-                 center = getAbsoluteLeft() + getOffsetWidth() / 2;
-         }
-         return center;
- }
+	protected int calCenter() {
+		int center = 0;
+		if (getOffsetHeight() < getOffsetWidth()) {
+			center = getAbsoluteTop() + getOffsetHeight() / 2;
+		} else {
+			center = getAbsoluteLeft() + getOffsetWidth() / 2;
+		}
+		return center;
+	}
 
+	public void drawZoom(Switch zoomSwitchModel, Map<String, Host> childHosts, Map<Integer, Link> linkModels) {
+		SwitchSvg zoomSwitchSvg = (SwitchSvg) createSvgElement(SwitchSvg.class, zoomSwitchModel);
+
+		HostSvg hostSvgClass = new HostSvg();
+		LinkSvg linkSvgClass = new LinkSvg();
+		List<LinkSvg> linkSvgs = createSvgElements(linkSvgClass, linkModels.values());
+		List<HostSvg> hostSvgs = createSvgElements(hostSvgClass, childHosts.values());
+
+		drawZoomSwitchSvg(zoomSwitchSvg);
+		drawNodeElementsSvg(hostSvgs);
+		drawZoomLinkSvgs(zoomSwitchSvg, hostSvgs, linkSvgs);
+	}
+
+	private void drawZoomLinkSvgs(SwitchSvg zoomElementSvg, List<HostSvg> hostSvgs, List<LinkSvg> linkSvgs) {
+
+		for (int i = 0; i < hostSvgs.size(); i++) {
+			LinkSvg linkSvg = linkSvgs.get(i);
+			HostSvg hostSvg = hostSvgs.get(i);
+			linkSvg.findAndMatchZoomNode(zoomElementSvg, hostSvg);
+			svgElement.getElement().insertFirst(linkSvg.getElement());
+		}
+
+	}
+
+	private void drawZoomSwitchSvg(SwitchSvg zoomSvg) {
+		calCenter();
+		zoomSvg.formElement();
+		SvgTransformationHelper.translateTo(zoomSvg, (int) center, (int) center);
+		svgElement.appendChild((OMNode) zoomSvg);
+	}
 
 }

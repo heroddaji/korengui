@@ -28,6 +28,7 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.tranhoangdai.korengui.client.EventBus;
+import com.tranhoangdai.korengui.client.Korengui;
 import com.tranhoangdai.korengui.client.model.GeneralModel;
 import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
@@ -148,7 +149,7 @@ public class NodeSvg extends AbstractElementSvg{
 
 	protected void handleMouseDownEvent(MouseDownEvent event) {
 
-		EventBus.INSTANCE.deliverEventUserClickedNode(this);
+		Korengui.INSTANCE.getEventBus().deliverEventUserClickedNode(this);
 		event.stopPropagation();
 		event.preventDefault();
 	}

@@ -31,7 +31,7 @@ public class AbstractPanel extends TabLayoutPanel {
 
 			@Override
 			public void onSelection(final SelectionEvent<Integer> event) {
-				EventBus.INSTANCE.deliverEventUserSwitchPanelTab(event.getSelectedItem());
+				//EventBus.INSTANCE.deliverEventUserSwitchPanelTab(event.getSelectedItem());
 			}
 		});
 

@@ -7,6 +7,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.GWT;
 import com.tranhoangdai.korengui.client.EventBus;
 import com.tranhoangdai.korengui.client.EventBus.ActionState;
+import com.tranhoangdai.korengui.client.Korengui;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.ModelWithId;
@@ -18,8 +19,6 @@ import com.tranhoangdai.korengui.client.view.SvgPanel;
 import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
 
 public class PathFlowEventController extends AbstractEventController {
-	
-	public static PathFlowEventController INSTANCE = GWT.create(PathFlowEventController.class);
 
 	ModelWithId model1 = null;
 	ModelWithId model2 = null;
@@ -28,17 +27,16 @@ public class PathFlowEventController extends AbstractEventController {
 	public void handleEvent(Object source) {
 		AbstractElementSvg clickedSvg = (AbstractElementSvg) source;
 
-		if (EventBus.INSTANCE.getState() == ActionState.FLOW1) {
+		if (Korengui.INSTANCE.getEventBus().getState() == ActionState.FLOW1) {
 			Log.debug("clicked first node");
 			model1 = clickedSvg.getModel();
 		}
 
-		if (EventBus.INSTANCE.getState() == ActionState.FLOW2 && model1 != null) {
+		if (Korengui.INSTANCE.getEventBus().getState() == ActionState.FLOW2 && model1 != null) {
 			Log.debug("clicked second node");
 			model2 = clickedSvg.getModel();
 
 			if (model1.getId().equals(model2.getId())) {
-				GUIController.INSTANCE.tellSameId();
 			} else {
 				performAction();
 			}

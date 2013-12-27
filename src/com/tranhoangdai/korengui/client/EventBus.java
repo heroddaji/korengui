@@ -15,25 +15,29 @@ public class EventBus {
 		NOTHING, GLOBAL, ZOOM, FLOW1, FLOW2
 	}
 
-	public static EventBus INSTANCE = GWT.create(EventBus.class);
 	boolean networkDownloaded = false;
 	private ActionState state = ActionState.NOTHING;
 
-	private EventBus() {
+	GUIController guiController = null;
+
+	public EventBus() {
+		 guiController = new GUIController();
 	}
 
-	public void deliverDownloadGlobalTopologyEvent(final Object source) {		
-		GlobalTopologyEvenController.INSTANCE.handleEvent(source);
+	public void deliverDownloadGlobalTopologyEvent(final Object source) {
+		guiController.showLoading();
+		Korengui.INSTANCE.getGlobalTopologyEvenController().handleEvent(source);
 		networkDownloaded = true;
+		guiController.closeLoading();
 	}
 
 	public void deliverGetPathFlowEvent(Object source) {
 		if (!networkDownloaded) {
-			GUIController.INSTANCE.tellDependentAction();
+			guiController.tellDependentAction();
 			return;
 		}
 
-		GUIController.INSTANCE.tellPathFlowAction1();
+		guiController.tellPathFlowAction1();
 		state = ActionState.FLOW1;
 		/*
 		 * now wait for user to click on a node, the click event will be sent
@@ -43,10 +47,10 @@ public class EventBus {
 
 	public void deliverEventUserClickedZoomButton(Object source) {
 		if (!networkDownloaded) {
-			GUIController.INSTANCE.tellDependentAction();
+			guiController.tellDependentAction();
 			return;
 		}
-		GUIController.INSTANCE.tellZoomInstruction();
+		guiController.tellZoomInstruction();
 		state = ActionState.ZOOM;
 		/*
 		 * now wait for user to click on a node, the click event will be sent
@@ -57,40 +61,33 @@ public class EventBus {
 	public void deliverEventUserClickedNode(Object source) {
 
 		if (state == ActionState.ZOOM) {
-			ZoomEventController.INSTANCE.handleEvent(source);
+			Korengui.INSTANCE.getZoomEventController().handleEvent(source);
 			state = ActionState.NOTHING;
-			GUIController.INSTANCE.clear();
+			guiController.clear();
 		}
 
 		//click first node
 		if (state == ActionState.FLOW1) {
-			GUIController.INSTANCE.tellPathFlowAction2();
-			PathFlowEventController.INSTANCE.handleEvent(source);
+			guiController.tellPathFlowAction2();
+			Korengui.INSTANCE.getPathFlowEventController().handleEvent(source);
 			state = ActionState.FLOW2;
 		}
 
 		//click second node
 		else if (state == ActionState.FLOW2) {
-			PathFlowEventController.INSTANCE.handleEvent(source);
+			Korengui.INSTANCE.getPathFlowEventController().handleEvent(source);
 			state = ActionState.NOTHING;
-			GUIController.INSTANCE.clear();
+			guiController.clear();
 		}
 	}
 
 	public void deliverEventUserSwitchPanelTab(Integer tabNumber) {
-		GUIController.INSTANCE.switchTabsInline(tabNumber);
+		guiController.switchTabsInline(tabNumber);
 	}
 
-	public void deliverEventUserClickNewMenu() {
-		GUIController.INSTANCE.refreshWebApp();
-	}
-
-	public void deliverEventUserClickAboutMenu() {
-		GUIController.INSTANCE.showAboutDiablog();
-	}
 
 	public void deliverEventUserClickCloseTabContextMenu(Widget tab) {
-		GUIController.INSTANCE.closeTab(tab);
+		guiController.closeTab(tab);
 	}
 
 	public ActionState getState() {

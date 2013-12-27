@@ -14,11 +14,12 @@
 							<b:Brand>Koren GUI</b:Brand>
 							<b:ButtonGroup>
 								<b:DropdownButton text="File">
-									<b:NavLink>Reload</b:NavLink>
+									<b:NavLink ui:field="reloadLink">Reload</b:NavLink>
 								</b:DropdownButton>
 								<b:Button ui:field="aboutBtn">About</b:Button>
 							</b:ButtonGroup>
 						</b:ResponsiveNavbar>
+						<b:Alert ui:field="alertStatus" type="INFO" close="false" animation="true">&#160;</b:Alert>
 					</b:Column>
 				</b:FluidRow>
 
@@ -30,6 +31,8 @@
 									<b:TabPane heading="Commands" active="true">
 										<b:NavList>
 											<b:NavLink ui:field="topologyBtn">Get Topology</b:NavLink>
+											<b:NavLink ui:field="zoomBtn">Zoom in</b:NavLink>
+											<b:NavLink ui:field="pathflowBtn">Get pathflow</b:NavLink>
 										</b:NavList>
 									</b:TabPane>
 								</b:TabPanel>
@@ -38,12 +41,6 @@
 								<b:TabPanel tabPosition="above" ui:field="rightTabPanel1">
 									<b:TabPane heading="Global" active="true">
 										<d:DrawingPanel ui:field="globalDrawingPanel"/>
-
-									</b:TabPane>
-									<b:TabPane heading="Global2" >
-										<g:HTMLPanel  >
-											hehe
-										</g:HTMLPanel>
 									</b:TabPane>
 								</b:TabPanel>
 							</b:Column>

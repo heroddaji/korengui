@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranhoangdai.korengui.client.EventBus;
+import com.tranhoangdai.korengui.client.Korengui;
 
 public class PanelContextMenu extends ContextMenu{
 
@@ -16,7 +17,7 @@ public class PanelContextMenu extends ContextMenu{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EventBus.INSTANCE.deliverEventUserClickCloseTabContextMenu(parent);
+				Korengui.INSTANCE.getEventBus().deliverEventUserClickCloseTabContextMenu(parent);
 				hide();
 			}
 		});
