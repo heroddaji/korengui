@@ -1,3 +1,2 @@
 # Module korengui
 # RPC service class, partial path of RPC policy file
-com.tranhoangdai.korengui.client.service.TopologyService, 4DC3DF459DA26185BC621658C2FD401D.gwt.rpc
