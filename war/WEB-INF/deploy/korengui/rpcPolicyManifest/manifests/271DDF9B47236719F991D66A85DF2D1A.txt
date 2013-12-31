@@ -1,0 +1,2 @@
+serviceClass: com.tranhoangdai.korengui.client.service.TopologyService
+path: 4DC3DF459DA26185BC621658C2FD401D.gwt.rpc

@@ -1,0 +1,333 @@
+[
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "00:0e:2e:59:65:6e"
+    ],
+    "ipv4": [],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:30:01",
+        "port": 3,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385520193236
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "00:25:22:19:5b:6a"
+    ],
+    "ipv4": [],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:00:01",
+        "port": 1,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385524047993
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "00:26:66:46:e5:0c"
+    ],
+    "ipv4": [],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:00:03",
+        "port": 2,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385523921808,
+    "dhcpClientName": "quagga"
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "fa:16:3e:09:38:3c"
+    ],
+    "ipv4": [
+      "203.255.254.85",
+      "203.255.254.88",
+      "203.255.254.92",
+      "203.255.254.93",
+      "203.255.254.94"
+    ],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:00:01",
+        "port": 1,
+        "errorStatus": null
+      },
+      {
+        "switchDPID": "00:00:00:00:00:00:00:03",
+        "port": 2,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385524094190
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "10:8c:cf:28:3f:c0"
+    ],
+    "ipv4": [
+      "203.255.254.65"
+    ],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:30:01",
+        "port": 3,
+        "errorStatus": null
+      },
+      {
+        "switchDPID": "00:00:00:00:00:00:00:03",
+        "port": 2,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385524092234
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "00:0f:8f:b4:b9:d7"
+    ],
+    "ipv4": [],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:30:01",
+        "port": 3,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385524052483
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "90:e2:ba:4c:af:29"
+    ],
+    "ipv4": [],
+    "vlan": [],
+    "attachmentPoint": [],
+    "lastSeen": 1385518884284
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "10:68:3f:7d:09:41"
+    ],
+    "ipv4": [],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:00:06",
+        "port": 6,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385523827958,
+    "dhcpClientName": "android-b5955a403f9bebe0"
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "24:77:03:06:7a:cc"
+    ],
+    "ipv4": [
+      "203.255.254.71"
+    ],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:00:06",
+        "port": 5,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385524066116
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "90:e2:ba:4c:ae:6e"
+    ],
+    "ipv4": [],
+    "vlan": [],
+    "attachmentPoint": [],
+    "lastSeen": 1385518885020
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "00:1f:e2:07:6f:37"
+    ],
+    "ipv4": [
+      "203.255.254.81"
+    ],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:00:04",
+        "port": 3,
+        "errorStatus": null
+      },
+      {
+        "switchDPID": "00:00:00:00:00:00:00:03",
+        "port": 2,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385524085098
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "00:17:ca:ad:71:24"
+    ],
+    "ipv4": [],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:00:06",
+        "port": 5,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385524092229
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "18:67:b0:10:64:e4"
+    ],
+    "ipv4": [
+      "169.254.56.33",
+      "203.255.254.72"
+    ],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:00:06",
+        "port": 6,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385521763213,
+    "dhcpClientName": "test01"
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "bc:5f:f4:c7:ce:66"
+    ],
+    "ipv4": [
+      "203.255.254.70"
+    ],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:00:01",
+        "port": 4,
+        "errorStatus": null
+      },
+      {
+        "switchDPID": "00:00:00:00:00:00:00:03",
+        "port": 2,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385524054527
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "ec:44:76:65:53:98"
+    ],
+    "ipv4": [],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:00:03",
+        "port": 2,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385524065423
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "bc:5f:f4:c7:ce:65"
+    ],
+    "ipv4": [
+      "203.255.254.78"
+    ],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:30:01",
+        "port": 3,
+        "errorStatus": null
+      },
+      {
+        "switchDPID": "00:00:00:00:00:00:00:02",
+        "port": 1,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385524037834
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "e0:f8:47:2c:56:ee"
+    ],
+    "ipv4": [],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:00:06",
+        "port": 6,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385520391302,
+    "dhcpClientName": "donghaui-MBP"
+  },
+  {
+    "entityClass": "DefaultEntityClass",
+    "mac": [
+      "00:24:54:93:2f:4a"
+    ],
+    "ipv4": [
+      "203.255.254.82"
+    ],
+    "vlan": [],
+    "attachmentPoint": [
+      {
+        "switchDPID": "00:00:00:00:00:00:00:04",
+        "port": 2,
+        "errorStatus": null
+      },
+      {
+        "switchDPID": "00:00:00:00:00:00:00:03",
+        "port": 2,
+        "errorStatus": null
+      }
+    ],
+    "lastSeen": 1385524079154
+  }
+]
