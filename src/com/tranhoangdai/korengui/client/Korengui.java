@@ -34,7 +34,7 @@ import com.tranhoangdai.korengui.client.view.SvgPanel;
 public class Korengui implements EntryPoint {
 	public static Korengui INSTANCE = GWT.create(Korengui.class);
 	private static final String SERVER_ERROR = "An error occurred while " + "attempting to contact the server. Please check your network " + "connection and try again.";
-	Korengui2 korengui2= null;
+	static Korengui2 korengui2= null;
 	EventBus eventBus = null;
 	GlobalTopologyEvenController globalTopologyEvenController = null;
 	ZoomEventController zoomEventController = null;

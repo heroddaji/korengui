@@ -3,8 +3,6 @@ package com.tranhoangdai.korengui.client.controller;
 import java.util.Map;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.github.gwtbootstrap.client.ui.TabPanel;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
 import com.tranhoangdai.korengui.client.Korengui2;
@@ -13,7 +11,7 @@ import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceAsync;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
-import com.tranhoangdai.korengui.client.ui.DrawingPanel;
+import com.tranhoangdai.korengui.client.ui.SvgPanel;
 
 @SuppressWarnings("unused")
 public class GlobalTopologyEvenController extends AbstractEventController {
@@ -43,9 +41,8 @@ public class GlobalTopologyEvenController extends AbstractEventController {
 
 				//draw now
 				Korengui2 korengui2 = (Korengui2)source;
-				TabPanel rightTabPanel1 = korengui2.getRightTabPanel1();
-				DrawingPanel globalDrawingPanel = korengui2.getGlobalDrawingPanel();
-				globalDrawingPanel.drawGlobalTopology();
+				SvgPanel rightTabPanel1 = korengui2.getRightTabPanel1();
+				rightTabPanel1.showGlobalTopology();
 			}
 
 			@Override

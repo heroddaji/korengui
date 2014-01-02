@@ -2,7 +2,6 @@ package com.tranhoangdai.korengui.client.ui;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,6 @@ import com.google.gwt.event.dom.client.ContextMenuEvent;
 import com.google.gwt.event.dom.client.ContextMenuHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -25,8 +23,6 @@ import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
-import com.tranhoangdai.korengui.client.view.AbstractPanel;
-import com.tranhoangdai.korengui.client.view.SvgPanel;
 import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
 import com.tranhoangdai.korengui.client.view.svg.HostSvg;
 import com.tranhoangdai.korengui.client.view.svg.LinkSvg;
@@ -35,11 +31,11 @@ import com.tranhoangdai.korengui.client.view.svg.SwitchSvg;
 import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
 import com.tranhoangdai.korengui.client.view.widget.PanelContextMenu;
 
-public class DrawingPanel extends Composite implements ContextMenuHandler {
+public class DrawingPane extends Composite implements ContextMenuHandler {
 
-	private static DrawingPanelUiBinder uiBinder = GWT.create(DrawingPanelUiBinder.class);
+	private static DrawingPaneUiBinder uiBinder = GWT.create(DrawingPaneUiBinder.class);
 
-	interface DrawingPanelUiBinder extends UiBinder<Widget, DrawingPanel> {
+	interface DrawingPaneUiBinder extends UiBinder<Widget, DrawingPane> {
 	}
 
 	OMSVGSVGElement svgElement = null;
@@ -52,7 +48,7 @@ public class DrawingPanel extends Composite implements ContextMenuHandler {
 	private PanelContextMenu contextMenu;
 	protected float center = 0;
 
-	public DrawingPanel() {
+	public DrawingPane() {
 		initWidget(uiBinder.createAndBindUi(this));
 		id = ++uniqueID;
 		contextMenu = new PanelContextMenu(this);
@@ -189,12 +185,12 @@ public class DrawingPanel extends Composite implements ContextMenuHandler {
 		return center;
 	}
 
-	public void drawZoom(Switch zoomSwitchModel, Map<String, Host> childHosts, Map<Integer, Link> linkModels) {
+	public void drawZoom(Switch zoomSwitchModel, Map<String, Host> childHosts, Map<Integer, Link> childLinks) {
 		SwitchSvg zoomSwitchSvg = (SwitchSvg) createSvgElement(SwitchSvg.class, zoomSwitchModel);
 
 		HostSvg hostSvgClass = new HostSvg();
 		LinkSvg linkSvgClass = new LinkSvg();
-		List<LinkSvg> linkSvgs = createSvgElements(linkSvgClass, linkModels.values());
+		List<LinkSvg> linkSvgs = createSvgElements(linkSvgClass, childLinks.values());
 		List<HostSvg> hostSvgs = createSvgElements(hostSvgClass, childHosts.values());
 
 		drawZoomSwitchSvg(zoomSwitchSvg);
