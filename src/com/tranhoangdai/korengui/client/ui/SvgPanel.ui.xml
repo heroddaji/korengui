@@ -6,7 +6,7 @@
 
 	<g:HTMLPanel>
 		<b:TabPanel tabPosition="above" ui:field="panel">
-			<b:TabPane heading="Global" active="true">
+			<b:TabPane heading="Global" active="true" ui:field="firstTabPane">
 				<d:DrawingPane ui:field="globalDrawingPane" />
 			</b:TabPane>
 		</b:TabPanel>

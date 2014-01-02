@@ -1,5 +1,7 @@
 package com.tranhoangdai.korengui.client.ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.github.gwtbootstrap.client.ui.TabPane;
@@ -15,18 +17,24 @@ import com.tranhoangdai.korengui.client.model.Switch;
 
 public class SvgPanel extends Composite {
 
+
 	private static SvgPanelUiBinder uiBinder = GWT.create(SvgPanelUiBinder.class);
 
 	interface SvgPanelUiBinder extends UiBinder<Widget, SvgPanel> {
 	}
 
+	List<TabPane> tabs = new ArrayList<TabPane>();
+
 	@UiField
 	TabPanel panel;
+	@UiField
+	TabPane firstTabPane;
 	@UiField
 	DrawingPane globalDrawingPane;
 
 	public SvgPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
+		tabs.add(firstTabPane);
 	}
 
 	public void showGlobalTopology() {
@@ -35,12 +43,13 @@ public class SvgPanel extends Composite {
 
 	public void showZoomTopology(Switch  zoomModel, Map<String, Host>childHosts, Map<Integer, Link> childLinks) {
 		TabPane zoomPane = new TabPane("Zoom:"+ zoomModel.getDpid());
-		zoomPane.setActive(true);
 
 		DrawingPane zoomDrawingPane = new DrawingPane();
 		zoomDrawingPane.drawZoom(zoomModel, childHosts, childLinks);
 
 		panel.add(zoomPane);
+		tabs.add(zoomPane);
+		panel.selectTab(tabs.indexOf(zoomPane));
 		zoomPane.add(zoomDrawingPane);
 
 	}
