@@ -7,8 +7,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.ui.ModelCellTable;
 import com.tranhoangdai.korengui.client.view.InfoPanel;
-import com.tranhoangdai.korengui.client.view.widget.ModelCellTable;
 
 public class InfoPanelGlobalTopologyTab extends InfoPanelAbstractInfoTab {
 

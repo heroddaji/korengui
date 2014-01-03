@@ -1,0 +1,14 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
+	xmlns:d="urn:import:com.tranhoangdai.korengui.client.ui">
+
+	<g:HTMLPanel>
+		<b:TabPanel tabPosition="above" ui:field="panel">
+			<b:TabPane heading="Global" active="true" ui:field="firstTabPane">
+				<d:InfoPane ui:field="globalInfoPane" />
+			</b:TabPane>
+		</b:TabPanel>
+	</g:HTMLPanel>
+</ui:UiBinder>

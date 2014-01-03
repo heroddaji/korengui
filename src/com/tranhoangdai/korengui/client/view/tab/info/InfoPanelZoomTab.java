@@ -8,8 +8,8 @@ import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.ui.ModelCellTable;
 import com.tranhoangdai.korengui.client.view.InfoPanel;
-import com.tranhoangdai.korengui.client.view.widget.ModelCellTable;
 
 public class InfoPanelZoomTab extends InfoPanelAbstractInfoTab{
 	

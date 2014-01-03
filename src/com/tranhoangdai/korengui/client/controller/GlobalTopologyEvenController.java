@@ -11,6 +11,7 @@ import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceAsync;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
+import com.tranhoangdai.korengui.client.ui.InfoPanel;
 import com.tranhoangdai.korengui.client.ui.SvgPanel;
 
 @SuppressWarnings("unused")
@@ -33,16 +34,13 @@ public class GlobalTopologyEvenController extends AbstractEventController {
 			public void onSuccess(Map<String, Switch> switches, Map<Integer, Link> links, Map<String, Host> hosts) {
 				Log.debug("finish download network topology");
 
-				Scheduler.get().scheduleDeferred(new Command() {
-					public void execute() {
-					}
-				});
-
-
 				//draw now
 				Korengui2 korengui2 = (Korengui2)source;
 				SvgPanel rightTabPanel1 = korengui2.getRightTabPanel1();
 				rightTabPanel1.showGlobalTopology();
+
+				//show info
+				//InfoPanel
 			}
 
 			@Override

@@ -15,6 +15,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranhoangdai.korengui.client.ui.AboutBox;
+import com.tranhoangdai.korengui.client.ui.InfoPanel;
 import com.tranhoangdai.korengui.client.ui.SvgPanel;
 
 
@@ -36,7 +37,7 @@ public class Korengui2 extends Composite {
 	@UiField
 	SvgPanel rightTabPanel1;
 	@UiField
-	TabPanel rightTabPanel2;
+	InfoPanel rightTabPanel2;
 	@UiField
 	TabPanel leftTabPanel2;
 
@@ -53,8 +54,6 @@ public class Korengui2 extends Composite {
 	public Korengui2() {
 		initWidget(uiBinder.createAndBindUi(this));
 
-		rightTabPanel2.add(new TabPane("haha"));
-		rightTabPanel2.add(new TabPane("haha2"));
 	}
 
 	@UiHandler("reloadLink")

@@ -1,10 +1,10 @@
-package com.tranhoangdai.korengui.client.view.widget;
+package com.tranhoangdai.korengui.client.ui;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gwt.user.cellview.client.CellTable;
+import com.github.gwtbootstrap.client.ui.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.tranhoangdai.korengui.client.model.ModelWithId;
@@ -12,8 +12,8 @@ import com.tranhoangdai.korengui.client.model.ModelWithId;
 @SuppressWarnings("unused")
 public class ModelCellTable<T> extends CellTable<T> {
 
-	public ModelCellTable(String... columnAttributes) {		
-		for (final String columnAttr : columnAttributes) {						
+	public ModelCellTable(String... columnAttributes) {
+		for (final String columnAttr : columnAttributes) {
 			TextColumn<Object> column = new TextColumn<Object>() {
 
 				@Override
@@ -22,7 +22,7 @@ public class ModelCellTable<T> extends CellTable<T> {
 					return model.callMethod(columnAttr);
 				}
 			};
-			
+
 			addColumn((Column<T, ?>) column,columnAttr);
 		}
 	}
