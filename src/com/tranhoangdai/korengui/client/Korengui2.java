@@ -15,7 +15,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranhoangdai.korengui.client.ui.AboutBox;
-import com.tranhoangdai.korengui.client.ui.InfoPanel;
+import com.tranhoangdai.korengui.client.ui.TablePanel;
 import com.tranhoangdai.korengui.client.ui.SvgPanel;
 
 
@@ -37,7 +37,7 @@ public class Korengui2 extends Composite {
 	@UiField
 	SvgPanel rightTabPanel1;
 	@UiField
-	InfoPanel rightTabPanel2;
+	TablePanel rightTabPanel2;
 	@UiField
 	TabPanel leftTabPanel2;
 
@@ -88,6 +88,10 @@ public class Korengui2 extends Composite {
 
 	public SvgPanel getRightTabPanel1() {
 		return rightTabPanel1;
+	}
+
+	public TablePanel getRightTabPanel2() {
+		return rightTabPanel2;
 	}
 
 

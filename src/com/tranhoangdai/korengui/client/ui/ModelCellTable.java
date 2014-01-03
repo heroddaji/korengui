@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.Label;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.tranhoangdai.korengui.client.model.ModelWithId;
@@ -25,6 +26,9 @@ public class ModelCellTable<T> extends CellTable<T> {
 
 			addColumn((Column<T, ?>) column,columnAttr);
 		}
+
+		setEmptyTableWidget(new Label("No data"));
+		setRowCount(0);
 	}
 
 	public <K, V> void addModelData(Map<K, V> models) {

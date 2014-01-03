@@ -11,7 +11,7 @@ import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceAsync;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
-import com.tranhoangdai.korengui.client.ui.InfoPanel;
+import com.tranhoangdai.korengui.client.ui.TablePanel;
 import com.tranhoangdai.korengui.client.ui.SvgPanel;
 
 @SuppressWarnings("unused")
@@ -40,7 +40,8 @@ public class GlobalTopologyEvenController extends AbstractEventController {
 				rightTabPanel1.showGlobalTopology();
 
 				//show info
-				//InfoPanel
+				TablePanel infoPanel = korengui2.getRightTabPanel2();
+				infoPanel.showGlobalTopology();
 			}
 
 			@Override

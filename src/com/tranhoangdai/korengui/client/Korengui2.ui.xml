@@ -51,7 +51,7 @@
 								</b:TabPanel>
 							</b:Column>
 							<b:Column size="9">
-								<d:InfoPanel ui:field="rightTabPanel2"></d:InfoPanel>
+								<d:TablePanel ui:field="rightTabPanel2"></d:TablePanel>
 							</b:Column>
 						</b:FluidRow>
 					</b:Column>

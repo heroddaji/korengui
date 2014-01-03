@@ -1,39 +1,44 @@
 package com.tranhoangdai.korengui.client.ui;
 
-import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.Label;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.tranhoangdai.korengui.client.model.Host;
+import com.tranhoangdai.korengui.client.model.Link;
+import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
+import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
 
-public class InfoPane<T> extends Composite {
+public class InfoPane extends Composite {
 
 	private static InfoPaneUiBinder uiBinder = GWT.create(InfoPaneUiBinder.class);
 
 	interface InfoPaneUiBinder extends UiBinder<Widget, InfoPane> {
 	}
 
-	@UiField(provided = true)
-	CellTable<T> cell = new CellTable<T>();
+	@UiField
+	HTMLPanel htmlPanel;
+
+	ModelCellTable<Switch> switchesCellTable = null;
+	ModelCellTable<Link> linksCellTable = null;
+	ModelCellTable<Host> hostsCellTable = null;
 
 	public InfoPane() {
 		initWidget(uiBinder.createAndBindUi(this));
+		init();
 
-		TextColumn<Switch> idCol = new TextColumn<Switch>() {
+	}
 
-			@Override
-			public String getValue(Switch object) {
-				return String.valueOf(object.getId());
-			}
-		};
-		cell.addColumn((Column<T, ?>) idCol,"id");
-		cell.setRowCount(0);
-		cell.setEmptyTableWidget(new Label("Get network topololy to see data"));
+	private void  init(){
+		switchesCellTable = new ModelCellTable<Switch>(ModelWithId.MODEL_GETID, ModelWithId.SWITCH_GETROLE);
+		htmlPanel.add(switchesCellTable);
+	}
+
+	public void showGlobalTopology(){
+		switchesCellTable.addModelData(ClientServiceHelper.INSTANCE.getTopologySwitches());
 	}
 
 }
