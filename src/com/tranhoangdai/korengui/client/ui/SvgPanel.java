@@ -42,15 +42,23 @@ public class SvgPanel extends Composite {
 	}
 
 	public void showZoomTopology(Switch  zoomModel, Map<String, Host>childHosts, Map<Integer, Link> childLinks) {
+
+		for(TabPane tp : tabs){
+			if(tp.getHeading().equals("Zoom:"+zoomModel.getId())){
+				panel.selectTab(tabs.indexOf(tp));
+				return;
+			}
+		}
+
+		// should add the pane before drawing, since the drawing uses location of parent object
 		TabPane zoomPane = new TabPane("Zoom:"+ zoomModel.getDpid());
-
-		DrawingPane zoomDrawingPane = new DrawingPane();
-		zoomDrawingPane.drawZoom(zoomModel, childHosts, childLinks);
-
 		panel.add(zoomPane);
 		tabs.add(zoomPane);
 		panel.selectTab(tabs.indexOf(zoomPane));
+
+		DrawingPane zoomDrawingPane = new DrawingPane();
 		zoomPane.add(zoomDrawingPane);
+		zoomDrawingPane.drawZoom(zoomModel, childHosts, childLinks);
 
 	}
 

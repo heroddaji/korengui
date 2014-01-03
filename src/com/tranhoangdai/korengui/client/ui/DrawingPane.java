@@ -46,7 +46,8 @@ public class DrawingPane extends Composite implements ContextMenuHandler {
 	int height = 0;
 	static int uniqueID = 0;
 	private PanelContextMenu contextMenu;
-	protected float center = 0;
+	protected float centery = 0;
+	protected float centerx = 0;
 
 	public DrawingPane() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -135,8 +136,7 @@ public class DrawingPane extends Composite implements ContextMenuHandler {
 
 	protected <E> void drawNodeElementsSvg(List<? extends AbstractElementSvg> eSvgs) {
 		float radius = (float) (getElement().getClientHeight() / 3);
-		int centerx = getElement().getClientWidth() / 2;
-		int centery = getElement().getClientHeight() / 2;
+		calCenter();
 
 		float slice = (float) (2 * Math.PI / eSvgs.size());
 
@@ -175,14 +175,9 @@ public class DrawingPane extends Composite implements ContextMenuHandler {
 		return id;
 	}
 
-	protected int calCenter() {
-		int center = 0;
-		if (getOffsetHeight() < getOffsetWidth()) {
-			center = getAbsoluteTop() + getOffsetHeight() / 2;
-		} else {
-			center = getAbsoluteLeft() + getOffsetWidth() / 2;
-		}
-		return center;
+	protected void calCenter() {
+		centerx = getElement().getClientWidth() / 2;
+		centery = getElement().getClientHeight() / 2;
 	}
 
 	public void drawZoom(Switch zoomSwitchModel, Map<String, Host> childHosts, Map<Integer, Link> childLinks) {
@@ -212,7 +207,7 @@ public class DrawingPane extends Composite implements ContextMenuHandler {
 	private void drawZoomSwitchSvg(SwitchSvg zoomSvg) {
 		calCenter();
 		zoomSvg.formElement();
-		SvgTransformationHelper.translateTo(zoomSvg, (int) center, (int) center);
+		SvgTransformationHelper.translateTo(zoomSvg, (int) centerx, (int) centery);
 		svgElement.appendChild((OMNode) zoomSvg);
 	}
 
