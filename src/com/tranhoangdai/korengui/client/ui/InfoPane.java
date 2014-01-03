@@ -1,5 +1,7 @@
 package com.tranhoangdai.korengui.client.ui;
 
+import java.util.Map;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -38,7 +40,17 @@ public class InfoPane extends Composite {
 	}
 
 	public void showGlobalTopology(){
+
 		switchesCellTable.addModelData(ClientServiceHelper.INSTANCE.getTopologySwitches());
+	}
+
+	public void showZoomTopology(Switch  zoomModel, Map<String, Host>childHosts, Map<Integer, Link> childLinks){
+		if(hostsCellTable == null){
+			hostsCellTable = new ModelCellTable<Host>(ModelWithId.MODEL_GETID);
+		}
+		switchesCellTable.addModelData(zoomModel);
+		hostsCellTable.addModelData(childHosts);
+		htmlPanel.add(hostsCellTable);
 	}
 
 }

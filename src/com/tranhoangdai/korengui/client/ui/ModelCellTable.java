@@ -29,6 +29,9 @@ public class ModelCellTable<T> extends CellTable<T> {
 
 		setEmptyTableWidget(new Label("No data"));
 		setRowCount(0);
+		setBordered(true);
+		setCondensed(true);
+		setStriped(true);
 	}
 
 	public <K, V> void addModelData(Map<K, V> models) {
