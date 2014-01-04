@@ -24,9 +24,14 @@ public class InfoPane extends Composite {
 	@UiField
 	HTMLPanel htmlPanel;
 
-	ModelCellTable<Switch> switchesCellTable = null;
-	ModelCellTable<Link> linksCellTable = null;
-	ModelCellTable<Host> hostsCellTable = null;
+	@UiField
+	ModelCellTable<Switch> switchesCellTable;
+
+	@UiField
+	ModelCellTable<Link> linksCellTable;
+
+	@UiField
+	ModelCellTable<Host> hostsCellTable;
 
 	public InfoPane() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -35,13 +40,14 @@ public class InfoPane extends Composite {
 	}
 
 	private void  init(){
-		switchesCellTable = new ModelCellTable<Switch>(ModelWithId.MODEL_GETID, ModelWithId.SWITCH_GETROLE);
-		htmlPanel.add(switchesCellTable);
+		switchesCellTable.setAttributes(ModelWithId.MODEL_GETID, ModelWithId.SWITCH_GETROLE);
+		linksCellTable.setAttributes(ModelWithId.MODEL_GETID, ModelWithId.LINK_GETSRCID,ModelWithId.LINK_GETSRCPORT, ModelWithId.LINK_GETDSTID, ModelWithId.LINK_GETDSTPORT);
+		hostsCellTable.setAttributes(ModelWithId.MODEL_GETID);
 	}
 
 	public void showGlobalTopology(){
-
 		switchesCellTable.addModelData(ClientServiceHelper.INSTANCE.getTopologySwitches());
+		linksCellTable.addModelData(ClientServiceHelper.INSTANCE.getTopologyLinks());
 	}
 
 	public void showZoomTopology(Switch  zoomModel, Map<String, Host>childHosts, Map<Integer, Link> childLinks){
@@ -50,7 +56,7 @@ public class InfoPane extends Composite {
 		}
 		switchesCellTable.addModelData(zoomModel);
 		hostsCellTable.addModelData(childHosts);
-		htmlPanel.add(hostsCellTable);
+
 	}
 
 }

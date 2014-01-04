@@ -3,6 +3,18 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
 	xmlns:d="urn:import:com.tranhoangdai.korengui.client.ui">
 	<g:HTMLPanel ui:field="htmlPanel">
+		<b:TabPanel tabPosition="left">
+			<b:TabPane heading="Switches" active="true">
+				<d:ModelCellTable ui:field="switchesCellTable"></d:ModelCellTable>
+			</b:TabPane>
+			<b:TabPane heading="Links">
+				<d:ModelCellTable ui:field="linksCellTable"></d:ModelCellTable>
+			</b:TabPane>
+
+			<b:TabPane heading="Hosts">
+				<d:ModelCellTable ui:field="hostsCellTable"></d:ModelCellTable>
+			</b:TabPane>
+		</b:TabPanel>
 
 	</g:HTMLPanel>
 </ui:UiBinder>

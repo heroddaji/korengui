@@ -94,6 +94,14 @@ public class Korengui2 extends Composite {
 		return rightTabPanel2;
 	}
 
+	public Alert getAlertStatus() {
+		return alertStatus;
+	}
+
+	public void setAlertStatus(Alert alertStatus) {
+		this.alertStatus = alertStatus;
+	}
+
 
 
 

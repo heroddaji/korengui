@@ -13,11 +13,11 @@ import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelAbstractDrawTab;
 public class GUIController {
 
 	Korengui2 koren2 = null;
-
+	Alert alertStatus = null;
 	LoadingBox loadingBox = new LoadingBox();
 
 	public GUIController(){
-
+		alertStatus = Korengui.INSTANCE.getKorengui2().getAlertStatus();
 	}
 
 
@@ -31,38 +31,33 @@ public class GUIController {
 
 	public void tellZoomInstruction() {
 
-//		//alertStatus.clear();
-		//alertStatus.setText("Select a Node to zoom into it");
+		alertStatus.clear();
+		alertStatus.setText("Select a Node to zoom into it");
 	}
 
 	public void tellDependentAction() {
-		//alertStatus.clear();
-		//alertStatus.setText("Get network topology first");
+		alertStatus.clear();
+		alertStatus.setText("Get network topology first");
 	}
 
 	public void tellPathFlowAction1(){
-		//alertStatus.clear();
-		//alertStatus.setText("Select 2 different nodes to get the path-flow connection");
+		alertStatus.clear();
+		alertStatus.setText("Select 2 different nodes to get the path-flow connection");
 	}
 
 	public void tellPathFlowAction2(){
-		//alertStatus.clear();
-		//alertStatus.setText("Now select the second Node");
+		alertStatus.clear();
+		alertStatus.setText("Now select the second Node");
 	}
 
 	public void clear() {
-		//alertStatus.clear();
-		//alertStatus.setText("");
+		alertStatus.clear();
+		alertStatus.setText("");
 	}
 
 	public void tellEmptyNode() {
-		//alertStatus.clear();
-		//alertStatus.setText("This node is empty");
-	}
-
-
-	public void setStatus(Alert alert) {
-		//alertStatus = alert;
+		alertStatus.clear();
+		alertStatus.setText("This node is empty");
 	}
 
 	public void switchTabsInline(Integer tabNumber) {

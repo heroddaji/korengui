@@ -13,7 +13,15 @@ import com.tranhoangdai.korengui.client.model.ModelWithId;
 @SuppressWarnings("unused")
 public class ModelCellTable<T> extends CellTable<T> {
 
+	public ModelCellTable(){
+
+	}
+
 	public ModelCellTable(String... columnAttributes) {
+		setAttributes(columnAttributes);
+	}
+
+	public void setAttributes(String... columnAttributes){
 		for (final String columnAttr : columnAttributes) {
 			TextColumn<Object> column = new TextColumn<Object>() {
 
