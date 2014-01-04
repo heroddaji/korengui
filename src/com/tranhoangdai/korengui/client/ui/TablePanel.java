@@ -65,5 +65,15 @@ public class TablePanel extends Composite {
 
 	}
 
+	public boolean hasTab(TabPane tab){
+		boolean result = false;
+
+		if (tabs.contains(tab)){
+			result = true;
+		}
+
+		return result;
+	}
+
 
 }

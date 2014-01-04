@@ -1,5 +1,6 @@
 package com.tranhoangdai.korengui.client;
 
+import com.github.gwtbootstrap.client.ui.TabPane;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
@@ -81,8 +82,8 @@ public class EventBus {
 		}
 	}
 
-	public void deliverEventUserSwitchPanelTab(Integer tabNumber) {
-		guiController.switchTabsInline(tabNumber);
+	public void deliverEventUserSwitchPanelTab(Object dstTab) {
+		guiController.switchTabsInline(dstTab);
 	}
 
 

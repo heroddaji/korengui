@@ -4,18 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.allen_sauer.gwt.log.client.GWTLogger;
+import com.allen_sauer.gwt.log.client.Log;
 import com.github.gwtbootstrap.client.ui.TabPane;
 import com.github.gwtbootstrap.client.ui.TabPanel;
+import com.github.gwtbootstrap.client.ui.TabPanel.ShowEvent;
+import com.github.gwtbootstrap.client.ui.event.ShowHandler;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import com.tranhoangdai.korengui.client.EventBus;
+import com.tranhoangdai.korengui.client.Korengui;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 
-public class SvgPanel extends Composite {
+public class SvgPanel extends Composite implements TabPanel.ShowEvent.Handler{
 
 
 	private static SvgPanelUiBinder uiBinder = GWT.create(SvgPanelUiBinder.class);
@@ -35,6 +42,8 @@ public class SvgPanel extends Composite {
 	public SvgPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
 		tabs.add(firstTabPane);
+		panel.addShowHandler(this);
+
 	}
 
 	public void showGlobalTopology() {
@@ -61,5 +70,22 @@ public class SvgPanel extends Composite {
 		zoomDrawingPane.drawZoom(zoomModel, childHosts, childLinks);
 
 	}
+
+	@Override
+	public void onShow(ShowEvent showEvent) {
+		Korengui.INSTANCE.getEventBus().deliverEventUserSwitchPanelTab(showEvent.getTarget().getTabPane());
+	}
+
+	public boolean hasTab(TabPane tab){
+		boolean result = false;
+
+		if (tabs.contains(tab)){
+			result = true;
+		}
+
+		return result;
+	}
+
+
 
 }
