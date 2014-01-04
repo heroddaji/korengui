@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Switch  extends ModelWithId {
-	
+
 	protected List<Port> ports = new ArrayList<Port>();
 	protected Attributes attributes;
-	protected Description description;	
+	protected Description description;
 	protected double action;
 	protected double buffers;
 	protected double capabilities;
@@ -15,7 +15,7 @@ public class Switch  extends ModelWithId {
 	protected double connectedSince;
 	protected String dpid;
 	protected String harole;
-	
+
 
 	@Override
 	public String callMethod(String methodName) {
@@ -27,14 +27,35 @@ public class Switch  extends ModelWithId {
 		if (methodName.equals(ModelWithId.SWITCH_GETROLE)) {
 			result = getHarole();
 		}
-		
+		if (methodName.equals(ModelWithId.SWITCH_INETADDRESS)) {
+			result= getInetAddress();
+		}
+		if (methodName.equals(ModelWithId.SWITCH_ACTION)) {
+			result= String.valueOf(getAction());
+		}
+		if (methodName.equals(ModelWithId.SWITCH_BUFFERS)) {
+			result= String.valueOf(getBuffers());
+		}
+		if (methodName.equals(ModelWithId.SWITCH_CAPABILITIES)) {
+			result= String.valueOf(getCapabilities());
+		}
+
+
+		/*
+		 * public static final String SWITCH_GETROLE= "Role";
+	public static final String SWITCH_ACTION= "Action";
+	public static final String SWITCH_BUFFERS= "Buffers";
+	public static final String SWITCH_CAPABILITIES= "Capabilities";
+	public static final String SWITCH_INETADDRESS= "INetAddress";
+		 */
+
 		return result;
 	}
-	
+
 	public String getId(){
 		return getDpid();
 	}
-	
+
 	public List<Port> getPorts() {
 		return ports;
 	}

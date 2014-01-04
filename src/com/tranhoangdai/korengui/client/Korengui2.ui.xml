@@ -46,7 +46,7 @@
 							<b:Column size="3">
 								<b:TabPanel tabPosition="above" ui:field="leftTabPanel2">
 									<b:TabPane heading="Pathflow" active="true">
-										<g:Label>Lalala</g:Label>
+										<g:Label>No data</g:Label>
 									</b:TabPane>
 								</b:TabPanel>
 							</b:Column>

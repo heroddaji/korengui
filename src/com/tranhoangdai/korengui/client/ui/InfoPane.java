@@ -40,9 +40,9 @@ public class InfoPane extends Composite {
 	}
 
 	private void  init(){
-		switchesCellTable.setAttributes(ModelWithId.MODEL_GETID, ModelWithId.SWITCH_GETROLE);
+		switchesCellTable.setAttributes(ModelWithId.MODEL_GETID, ModelWithId.SWITCH_GETROLE,ModelWithId.SWITCH_INETADDRESS,ModelWithId.SWITCH_ACTION,ModelWithId.SWITCH_BUFFERS,ModelWithId.SWITCH_CAPABILITIES);
 		linksCellTable.setAttributes(ModelWithId.MODEL_GETID, ModelWithId.LINK_GETSRCID,ModelWithId.LINK_GETSRCPORT, ModelWithId.LINK_GETDSTID, ModelWithId.LINK_GETDSTPORT);
-		hostsCellTable.setAttributes(ModelWithId.MODEL_GETID);
+		hostsCellTable.setAttributes(ModelWithId.MODEL_GETID,ModelWithId.HOST_DHCPCLIENTNAME,ModelWithId.HOST_IPV4,ModelWithId.HOST_VLAN,ModelWithId.HOST_LASTSEEN);
 	}
 
 	public void showGlobalTopology(){
