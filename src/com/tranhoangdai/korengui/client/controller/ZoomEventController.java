@@ -15,7 +15,7 @@ import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
 import com.tranhoangdai.korengui.client.ui.DrawingPane;
 import com.tranhoangdai.korengui.client.ui.SvgPanel;
 import com.tranhoangdai.korengui.client.ui.TablePanel;
-import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
+import com.tranhoangdai.korengui.client.ui.svg.AbstractElementSvg;
 
 public class ZoomEventController extends AbstractEventController {
 

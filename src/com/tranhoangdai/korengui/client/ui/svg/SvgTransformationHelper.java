@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.view.svg.util;
+package com.tranhoangdai.korengui.client.ui.svg;
 
 import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.OMSVGGElement;
@@ -7,8 +7,6 @@ import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.OMSVGTransform;
 import org.vectomatic.dom.svg.OMSVGTransformList;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
-
-import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
 
 public class SvgTransformationHelper {
 

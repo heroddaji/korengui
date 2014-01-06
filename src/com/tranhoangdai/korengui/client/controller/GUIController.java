@@ -10,7 +10,6 @@ import com.tranhoangdai.korengui.client.Korengui2;
 import com.tranhoangdai.korengui.client.ui.LoadingBox;
 import com.tranhoangdai.korengui.client.ui.SvgPanel;
 import com.tranhoangdai.korengui.client.ui.TablePanel;
-import com.tranhoangdai.korengui.client.view.tab.svg.SvgPanelAbstractDrawTab;
 
 public class GUIController {
 
@@ -78,11 +77,7 @@ public class GUIController {
 	}
 
 	public void closeTab(Widget tab){
-		if (tab instanceof SvgPanelAbstractDrawTab) {
-			SvgPanelAbstractDrawTab svgTab = (SvgPanelAbstractDrawTab) tab;
-		//	SvgPanel.INSTANCE.closeTab(svgTab);
 
-		}
 	}
 
 	public void tellSameId() {

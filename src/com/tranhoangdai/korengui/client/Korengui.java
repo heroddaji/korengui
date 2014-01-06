@@ -1,32 +1,15 @@
 package com.tranhoangdai.korengui.client;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.github.gwtbootstrap.client.ui.TabPanel;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.MenuBar;
-import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.SplitLayoutPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tranhoangdai.korengui.client.controller.GlobalTopologyEvenController;
 import com.tranhoangdai.korengui.client.controller.PathFlowEventController;
 import com.tranhoangdai.korengui.client.controller.ZoomEventController;
-import com.tranhoangdai.korengui.client.model.Link;
-import com.tranhoangdai.korengui.client.model.Switch;
-import com.tranhoangdai.korengui.client.view.InfoPanel;
-import com.tranhoangdai.korengui.client.view.SvgPanel;
+import com.tranhoangdai.korengui.resources.KorenResources;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -41,6 +24,10 @@ public class Korengui implements EntryPoint {
 	PathFlowEventController pathFlowEventController = null;
 
 	public void onModuleLoad() {
+
+		//inject resource
+		KorenResources.INSTANCE.css().ensureInjected();
+
 
 		Log.setUncaughtExceptionHandler();
 

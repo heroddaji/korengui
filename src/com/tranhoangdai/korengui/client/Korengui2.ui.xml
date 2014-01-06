@@ -33,6 +33,7 @@
 											<b:NavLink ui:field="topologyBtn">Get Topology</b:NavLink>
 											<b:NavLink ui:field="zoomBtn">Zoom in</b:NavLink>
 											<b:NavLink ui:field="pathflowBtn">Get pathflow</b:NavLink>
+											<b:NavLink ui:field="aliveStatusBtn">Alive status</b:NavLink>
 										</b:NavList>
 									</b:TabPane>
 								</b:TabPanel>

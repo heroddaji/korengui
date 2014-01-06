@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.view.svg;
+package com.tranhoangdai.korengui.client.ui.svg;
 
 import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.OMSVGImageElement;
@@ -7,13 +7,9 @@ import org.vectomatic.dom.svg.OMSVGMatrix;
 import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.OMSVGTextElement;
-import org.vectomatic.dom.svg.OMSVGTransform;
-import org.vectomatic.dom.svg.OMSVGTransformList;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseEvent;
@@ -25,16 +21,10 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TabLayoutPanel;
-import com.tranhoangdai.korengui.client.EventBus;
 import com.tranhoangdai.korengui.client.Korengui;
 import com.tranhoangdai.korengui.client.model.GeneralModel;
 import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
-import com.tranhoangdai.korengui.client.view.SvgPanel;
-import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
-import com.tranhoangdai.korengui.client.view.widget.SvgElementTooltip;
 
 public class NodeSvg extends AbstractElementSvg{
 

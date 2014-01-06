@@ -23,13 +23,13 @@ import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
-import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
-import com.tranhoangdai.korengui.client.view.svg.HostSvg;
-import com.tranhoangdai.korengui.client.view.svg.LinkSvg;
-import com.tranhoangdai.korengui.client.view.svg.NodeSvg;
-import com.tranhoangdai.korengui.client.view.svg.SwitchSvg;
-import com.tranhoangdai.korengui.client.view.svg.util.SvgTransformationHelper;
-import com.tranhoangdai.korengui.client.view.widget.PanelContextMenu;
+import com.tranhoangdai.korengui.client.ui.svg.AbstractElementSvg;
+import com.tranhoangdai.korengui.client.ui.svg.HostSvg;
+import com.tranhoangdai.korengui.client.ui.svg.LinkSvg;
+import com.tranhoangdai.korengui.client.ui.svg.NodeSvg;
+import com.tranhoangdai.korengui.client.ui.svg.SvgTransformationHelper;
+import com.tranhoangdai.korengui.client.ui.svg.SwitchSvg;
+import com.tranhoangdai.korengui.client.ui.widget.PanelContextMenu;
 
 public class DrawingPane extends Composite implements ContextMenuHandler {
 

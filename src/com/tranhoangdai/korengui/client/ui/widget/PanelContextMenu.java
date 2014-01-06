@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.view.widget;
+package com.tranhoangdai.korengui.client.ui.widget;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

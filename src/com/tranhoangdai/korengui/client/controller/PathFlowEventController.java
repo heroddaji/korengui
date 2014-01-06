@@ -1,11 +1,8 @@
 package com.tranhoangdai.korengui.client.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.core.client.GWT;
-import com.tranhoangdai.korengui.client.EventBus;
 import com.tranhoangdai.korengui.client.EventBus.ActionState;
 import com.tranhoangdai.korengui.client.Korengui;
 import com.tranhoangdai.korengui.client.model.Host;
@@ -14,9 +11,8 @@ import com.tranhoangdai.korengui.client.model.ModelWithId;
 import com.tranhoangdai.korengui.client.model.Switch;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceAsync;
 import com.tranhoangdai.korengui.client.service.util.ClientServiceHelper;
-import com.tranhoangdai.korengui.client.view.InfoPanel;
-import com.tranhoangdai.korengui.client.view.SvgPanel;
-import com.tranhoangdai.korengui.client.view.svg.AbstractElementSvg;
+import com.tranhoangdai.korengui.client.ui.SvgPanel;
+import com.tranhoangdai.korengui.client.ui.svg.AbstractElementSvg;
 
 public class PathFlowEventController extends AbstractEventController {
 
@@ -48,8 +44,7 @@ public class PathFlowEventController extends AbstractEventController {
 
 			@Override
 			public void onSuccess(Map<String, Switch> nodes, Map<Integer, Link> links, Map<String, Host> hosts) {
-				SvgPanel.INSTANCE.drawPathFlow(links);
-				InfoPanel.INSTANCE.showPathFlow(links);
+
 			}
 
 			@Override

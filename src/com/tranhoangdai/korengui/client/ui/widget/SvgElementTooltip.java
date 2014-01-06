@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.tranhoangdai.korengui.client.view.widget;
+package com.tranhoangdai.korengui.client.ui.widget;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;

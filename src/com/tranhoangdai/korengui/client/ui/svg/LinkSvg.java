@@ -1,4 +1,4 @@
-package com.tranhoangdai.korengui.client.view.svg;
+package com.tranhoangdai.korengui.client.ui.svg;
 
 import java.util.List;
 
