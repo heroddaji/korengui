@@ -4,10 +4,10 @@
 	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
 	xmlns:d="urn:import:com.tranhoangdai.korengui.client.ui">
 	<ui:with type="com.tranhoangdai.korengui.resources.KorenResources" field="res"></ui:with>
-	<g:HTMLPanel styleName="{res.css.daiBorder}">
+	<g:HTMLPanel>
 		<b:TabPanel tabPosition="above" ui:field="panel">
 			<b:TabPane heading="Global" active="true" ui:field="firstTabPane">
-				<d:DrawingPane ui:field="globalDrawingPane" />
+				<d:DrawingPane ui:field="globalDrawingPane" styleName="{res.css.daiBorder}"/>
 			</b:TabPane>
 		</b:TabPanel>
 	</g:HTMLPanel>
