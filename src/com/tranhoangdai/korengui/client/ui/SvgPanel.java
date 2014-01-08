@@ -4,26 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.allen_sauer.gwt.log.client.GWTLogger;
-import com.allen_sauer.gwt.log.client.Log;
 import com.github.gwtbootstrap.client.ui.TabPane;
 import com.github.gwtbootstrap.client.ui.TabPanel;
-import com.github.gwtbootstrap.client.ui.TabPanel.ShowEvent;
-import com.github.gwtbootstrap.client.ui.event.ShowHandler;
+import com.github.gwtbootstrap.client.ui.event.ShownEvent;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import com.tranhoangdai.korengui.client.EventBus;
 import com.tranhoangdai.korengui.client.Korengui;
 import com.tranhoangdai.korengui.client.model.Host;
 import com.tranhoangdai.korengui.client.model.Link;
 import com.tranhoangdai.korengui.client.model.Switch;
 
-public class SvgPanel extends Composite implements TabPanel.ShowEvent.Handler{
-
+public class SvgPanel extends Composite implements TabPanel.ShownEvent.Handler {
 
 	private static SvgPanelUiBinder uiBinder = GWT.create(SvgPanelUiBinder.class);
 
@@ -42,7 +36,7 @@ public class SvgPanel extends Composite implements TabPanel.ShowEvent.Handler{
 	public SvgPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
 		tabs.add(firstTabPane);
-		panel.addShowHandler(this);
+		panel.addShownHandler(this);
 
 	}
 
@@ -50,17 +44,17 @@ public class SvgPanel extends Composite implements TabPanel.ShowEvent.Handler{
 		globalDrawingPane.drawGlobalTopology();
 	}
 
-	public void showZoomTopology(Switch  zoomModel, Map<String, Host>childHosts, Map<Integer, Link> childLinks) {
+	public void showZoomTopology(Switch zoomModel, Map<String, Host> childHosts, Map<Integer, Link> childLinks) {
 
-		for(TabPane tp : tabs){
-			if(tp.getHeading().equals("Zoom:"+zoomModel.getId())){
+		for (TabPane tp : tabs) {
+			if (tp.getHeading().equals("Zoom:" + zoomModel.getId())) {
 				panel.selectTab(tabs.indexOf(tp));
 				return;
 			}
 		}
 
 		// should add the pane before drawing, since the drawing uses location of parent object
-		TabPane zoomPane = new TabPane("Zoom:"+ zoomModel.getDpid());
+		TabPane zoomPane = new TabPane("Zoom:" + zoomModel.getDpid());
 		panel.add(zoomPane);
 		tabs.add(zoomPane);
 		panel.selectTab(tabs.indexOf(zoomPane));
@@ -71,21 +65,19 @@ public class SvgPanel extends Composite implements TabPanel.ShowEvent.Handler{
 
 	}
 
+	public int hasTab(TabPane tab) {
+		int index = tabs.indexOf(tab);
+		return index;
+	}
+
+	public TabPanel getPanel() {
+		return panel;
+	}
+
 	@Override
-	public void onShow(ShowEvent showEvent) {
-		Korengui.INSTANCE.getEventBus().deliverEventUserSwitchPanelTab(showEvent.getTarget().getTabPane());
+	public void onShow(com.github.gwtbootstrap.client.ui.TabPanel.ShownEvent shownEvent) {
+		Korengui.INSTANCE.getEventBus().deliverEventUserSwitchPanelTab(shownEvent.getTarget().getTabPane());
+
 	}
-
-	public boolean hasTab(TabPane tab){
-		boolean result = false;
-
-		if (tabs.contains(tab)){
-			result = true;
-		}
-
-		return result;
-	}
-
-
 
 }

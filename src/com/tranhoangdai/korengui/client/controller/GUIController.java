@@ -1,5 +1,7 @@
 package com.tranhoangdai.korengui.client.controller;
 
+import javax.swing.text.TabExpander;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.TabPane;
@@ -66,9 +68,18 @@ public class GUIController {
 
 		SvgPanel svgPanel = Korengui.INSTANCE.getKorengui2().getRightTabPanel1();
 		TablePanel tablePanel = Korengui.INSTANCE.getKorengui2().getRightTabPanel2();
-		try {
-			if(svgPanel.hasTab(tab)){
 
+		try {
+			int index = -1;
+			if(svgPanel.hasTab(tab) > -1 ){
+				index = svgPanel.hasTab(tab);
+			}
+			if(tablePanel.hasTab(tab) > -1 ){
+				index = tablePanel.hasTab(tab);
+			}
+			if(index > -1){
+				svgPanel.getPanel().selectTab(index);
+				tablePanel.getPanel().selectTab(index);
 			}
 
 		} catch (Exception e) {
