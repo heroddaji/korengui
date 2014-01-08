@@ -80,7 +80,14 @@ public class TablePanel extends Composite implements TabPanel.ShownEvent.Handler
 
 	@Override
 	public void onShow(ShownEvent shownEvent) {
-		Korengui.INSTANCE.getEventBus().deliverEventUserSwitchPanelTab(shownEvent.getTarget().getTabPane());
+		try {
+			if (tabs.contains(shownEvent.getTarget().getTabPane())) {
+				Korengui.INSTANCE.getEventBus().deliverEventUserSwitchPanelTab(shownEvent.getTarget().getTabPane());
+			}
+
+		} catch (Exception e) {
+			//do nothing
+		}
 
 	}
 

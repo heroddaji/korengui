@@ -52,6 +52,8 @@ public class DrawingPane extends Composite implements ContextMenuHandler {
 	public DrawingPane() {
 		initWidget(uiBinder.createAndBindUi(this));
 		id = ++uniqueID;
+		
+		
 		contextMenu = new PanelContextMenu(this);
 		addDomHandler(this, ContextMenuEvent.getType());
 		svgElement = OMSVGParser.currentDocument().createSVGSVGElement();

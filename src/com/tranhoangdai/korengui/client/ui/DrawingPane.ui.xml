@@ -1,7 +1,8 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
-	<g:HTMLPanel height="30em" width="inherit" ui:field="htmlPanel">
+	<ui:with type="com.tranhoangdai.korengui.resources.KorenResources" field="res"></ui:with>
+	<g:HTMLPanel height="30em" width="inherit" ui:field="htmlPanel" styleName="{res.css.daiBorder}">
 
 	</g:HTMLPanel>
 </ui:UiBinder>
