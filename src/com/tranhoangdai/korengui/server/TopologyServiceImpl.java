@@ -1,6 +1,7 @@
 package com.tranhoangdai.korengui.server;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -102,7 +103,8 @@ public class TopologyServiceImpl extends RemoteServiceServlet implements Topolog
 
 		ServletContext servletContext = getServletContext();
 		String path = servletContext.getRealPath("/");
-		filePath = path + filePath;
+		String pathSeperator = File.separator;
+		filePath = path + pathSeperator +filePath;
 		System.out.println("Read files:" + filePath);
 		String inputLine = "";
 		String inputLine2 = "";

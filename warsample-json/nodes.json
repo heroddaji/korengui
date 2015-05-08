@@ -1,0 +1,476 @@
+[
+  {
+    "actions": 4095,
+    "attributes": {
+      "supportsOfppFlood": true,
+      "supportsNxRole": true,
+      "FastWildcards": 4194303,
+      "supportsOfppTable": true
+    },
+    "ports": [
+      {
+        "portNumber": 3,
+        "hardwareAddress": "00:22:64:22:0c:6f",
+        "name": "eth3",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 672,
+        "advertisedFeatures": 1727,
+        "supportedFeatures": 703,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 2,
+        "hardwareAddress": "00:22:64:22:0c:6e",
+        "name": "eth2",
+        "config": 0,
+        "state": 512,
+        "currentFeatures": 672,
+        "advertisedFeatures": 1727,
+        "supportedFeatures": 703,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 5,
+        "hardwareAddress": "00:26:66:46:e5:07",
+        "name": "eth5",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 544,
+        "advertisedFeatures": 3775,
+        "supportedFeatures": 703,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 4,
+        "hardwareAddress": "64:e5:99:f0:e6:03",
+        "name": "eth4",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 544,
+        "advertisedFeatures": 3775,
+        "supportedFeatures": 703,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 65534,
+        "hardwareAddress": "00:1b:21:9e:36:59",
+        "name": "br0",
+        "config": 1,
+        "state": 1,
+        "currentFeatures": 0,
+        "advertisedFeatures": 0,
+        "supportedFeatures": 0,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 1,
+        "hardwareAddress": "00:1b:21:9e:36:59",
+        "name": "eth1",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 672,
+        "advertisedFeatures": 1711,
+        "supportedFeatures": 687,
+        "peerFeatures": 0
+      }
+    ],
+    "buffers": 256,
+    "description": {
+      "software": "1.4.0+build0",
+      "hardware": "Open vSwitch",
+      "manufacturer": "Nicira Networks, Inc.",
+      "serialNum": "None",
+      "datapath": "None"
+    },
+    "capabilities": 199,
+    "inetAddress": "/163.180.118.200:38202",
+    "connectedSince": 1385718537119,
+    "dpid": "00:00:00:00:00:00:00:01",
+    "harole": "MASTER"
+  },
+  {
+    "actions": 4095,
+    "attributes": {
+      "supportsOfppFlood": true,
+      "supportsNxRole": true,
+      "FastWildcards": 4194303,
+      "supportsOfppTable": true
+    },
+    "ports": [
+      {
+        "portNumber": 3,
+        "hardwareAddress": "00:26:66:46:e5:0c",
+        "name": "eth3",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 544,
+        "advertisedFeatures": 3775,
+        "supportedFeatures": 703,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 1,
+        "hardwareAddress": "64:e5:99:f0:e7:ab",
+        "name": "eth1",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 544,
+        "advertisedFeatures": 3775,
+        "supportedFeatures": 703,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 2,
+        "hardwareAddress": "00:23:54:81:b5:38",
+        "name": "eth2",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 544,
+        "advertisedFeatures": 3775,
+        "supportedFeatures": 703,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 65534,
+        "hardwareAddress": "00:23:54:81:b5:38",
+        "name": "dp101",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 0,
+        "advertisedFeatures": 0,
+        "supportedFeatures": 0,
+        "peerFeatures": 0
+      }
+    ],
+    "buffers": 256,
+    "description": {
+      "software": "1.11.0",
+      "hardware": "Open vSwitch",
+      "manufacturer": "Nicira, Inc.",
+      "serialNum": "None",
+      "datapath": "None"
+    },
+    "capabilities": 199,
+    "inetAddress": "/163.180.118.212:42189",
+    "connectedSince": 1385718537156,
+    "dpid": "00:00:00:00:00:00:30:01",
+    "harole": "MASTER"
+  },
+  {
+    "actions": 4095,
+    "attributes": {
+      "supportsOfppFlood": true,
+      "supportsNxRole": true,
+      "FastWildcards": 4194303,
+      "supportsOfppTable": true
+    },
+    "ports": [
+      {
+        "portNumber": 1,
+        "hardwareAddress": "00:1b:21:54:97:d9",
+        "name": "eth1",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 672,
+        "advertisedFeatures": 1711,
+        "supportedFeatures": 687,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 2,
+        "hardwareAddress": "00:22:64:22:0c:48",
+        "name": "eth2",
+        "config": 0,
+        "state": 512,
+        "currentFeatures": 672,
+        "advertisedFeatures": 1727,
+        "supportedFeatures": 703,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 3,
+        "hardwareAddress": "00:22:64:22:0c:49",
+        "name": "eth3",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 672,
+        "advertisedFeatures": 1727,
+        "supportedFeatures": 703,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 4,
+        "hardwareAddress": "64:e5:99:f0:e4:5d",
+        "name": "eth4",
+        "config": 0,
+        "state": 1,
+        "currentFeatures": 513,
+        "advertisedFeatures": 3775,
+        "supportedFeatures": 703,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 65534,
+        "hardwareAddress": "00:1b:21:54:97:d9",
+        "name": "br0",
+        "config": 1,
+        "state": 1,
+        "currentFeatures": 0,
+        "advertisedFeatures": 0,
+        "supportedFeatures": 0,
+        "peerFeatures": 0
+      }
+    ],
+    "buffers": 256,
+    "description": {
+      "software": "1.4.0+build0",
+      "hardware": "Open vSwitch",
+      "manufacturer": "Nicira Networks, Inc.",
+      "serialNum": "None",
+      "datapath": "None"
+    },
+    "capabilities": 199,
+    "inetAddress": "/163.180.118.232:51620",
+    "connectedSince": 1385518179440,
+    "dpid": "00:00:00:00:00:00:00:02",
+    "harole": "MASTER"
+  },
+  {
+    "actions": 4095,
+    "attributes": {
+      "supportsOfppFlood": true,
+      "supportsNxRole": true,
+      "FastWildcards": 4194303,
+      "supportsOfppTable": true
+    },
+    "ports": [
+      {
+        "portNumber": 1,
+        "hardwareAddress": "00:26:66:45:7c:e2",
+        "name": "eth1",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 544,
+        "advertisedFeatures": 3775,
+        "supportedFeatures": 703,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 2,
+        "hardwareAddress": "00:26:66:45:7e:7e",
+        "name": "eth2",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 544,
+        "advertisedFeatures": 3775,
+        "supportedFeatures": 703,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 65534,
+        "hardwareAddress": "00:26:66:45:7c:e2",
+        "name": "br0",
+        "config": 1,
+        "state": 1,
+        "currentFeatures": 0,
+        "advertisedFeatures": 0,
+        "supportedFeatures": 0,
+        "peerFeatures": 0
+      }
+    ],
+    "buffers": 256,
+    "description": {
+      "software": "1.4.0+build0",
+      "hardware": "Open vSwitch",
+      "manufacturer": "Nicira Networks, Inc.",
+      "serialNum": "None",
+      "datapath": "None"
+    },
+    "capabilities": 199,
+    "inetAddress": "/163.180.118.221:59133",
+    "connectedSince": 1385518179200,
+    "dpid": "00:00:00:00:00:00:00:03",
+    "harole": "MASTER"
+  },
+  {
+    "actions": 4095,
+    "attributes": {
+      "supportsOfppFlood": true,
+      "supportsNxRole": true,
+      "FastWildcards": 4194303,
+      "supportsOfppTable": true
+    },
+    "ports": [
+      {
+        "portNumber": 3,
+        "hardwareAddress": "90:e2:ba:4c:af:28",
+        "name": "eth3",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 672,
+        "advertisedFeatures": 1711,
+        "supportedFeatures": 687,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 2,
+        "hardwareAddress": "90:e2:ba:4c:ae:6f",
+        "name": "eth2",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 672,
+        "advertisedFeatures": 1711,
+        "supportedFeatures": 687,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 4,
+        "hardwareAddress": "90:e2:ba:4c:af:29",
+        "name": "eth4",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 672,
+        "advertisedFeatures": 1711,
+        "supportedFeatures": 687,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 65534,
+        "hardwareAddress": "90:e2:ba:4c:ae:6e",
+        "name": "br0",
+        "config": 1,
+        "state": 1,
+        "currentFeatures": 0,
+        "advertisedFeatures": 0,
+        "supportedFeatures": 0,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 1,
+        "hardwareAddress": "90:e2:ba:4c:ae:6e",
+        "name": "eth1",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 672,
+        "advertisedFeatures": 1711,
+        "supportedFeatures": 687,
+        "peerFeatures": 0
+      }
+    ],
+    "buffers": 256,
+    "description": {
+      "software": "1.4.0+build0",
+      "hardware": "Open vSwitch",
+      "manufacturer": "Nicira Networks, Inc.",
+      "serialNum": "None",
+      "datapath": "None"
+    },
+    "capabilities": 199,
+    "inetAddress": "/163.180.118.201:36592",
+    "connectedSince": 1385718536484,
+    "dpid": "00:00:00:00:00:00:00:04",
+    "harole": "MASTER"
+  },
+  {
+    "actions": 4095,
+    "attributes": {
+      "supportsOfppFlood": true,
+      "supportsNxRole": true,
+      "FastWildcards": 4194303,
+      "supportsOfppTable": true
+    },
+    "ports": [
+      {
+        "portNumber": 3,
+        "hardwareAddress": "10:6f:3f:0e:f9:0a",
+        "name": "eth0.3",
+        "config": 0,
+        "state": 512,
+        "currentFeatures": 544,
+        "advertisedFeatures": 32,
+        "supportedFeatures": 32,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 1,
+        "hardwareAddress": "10:6f:3f:0e:f9:0a",
+        "name": "eth0.1",
+        "config": 0,
+        "state": 512,
+        "currentFeatures": 544,
+        "advertisedFeatures": 32,
+        "supportedFeatures": 32,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 5,
+        "hardwareAddress": "10:6f:3f:0e:f9:0a",
+        "name": "wlan0",
+        "config": 0,
+        "state": 512,
+        "currentFeatures": 0,
+        "advertisedFeatures": 0,
+        "supportedFeatures": 0,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 6,
+        "hardwareAddress": "10:6f:3f:0e:f9:0b",
+        "name": "wlan1",
+        "config": 0,
+        "state": 512,
+        "currentFeatures": 0,
+        "advertisedFeatures": 0,
+        "supportedFeatures": 0,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 4,
+        "hardwareAddress": "10:6f:3f:0e:f9:0a",
+        "name": "eth0.4",
+        "config": 0,
+        "state": 512,
+        "currentFeatures": 544,
+        "advertisedFeatures": 32,
+        "supportedFeatures": 32,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 2,
+        "hardwareAddress": "10:6f:3f:0e:f9:0a",
+        "name": "eth0.2",
+        "config": 0,
+        "state": 512,
+        "currentFeatures": 544,
+        "advertisedFeatures": 32,
+        "supportedFeatures": 32,
+        "peerFeatures": 0
+      },
+      {
+        "portNumber": 65534,
+        "hardwareAddress": "10:6f:3f:0e:f9:0a",
+        "name": "br0",
+        "config": 0,
+        "state": 0,
+        "currentFeatures": 0,
+        "advertisedFeatures": 0,
+        "supportedFeatures": 0,
+        "peerFeatures": 0
+      }
+    ],
+    "buffers": 256,
+    "description": {
+      "software": "1.10.0",
+      "hardware": "Open vSwitch",
+      "manufacturer": "Nicira, Inc.",
+      "serialNum": "None",
+      "datapath": "None"
+    },
+    "capabilities": 199,
+    "inetAddress": "/163.180.118.202:55701",
+    "connectedSince": 1385781471371,
+    "dpid": "00:00:00:00:00:00:00:06",
+    "harole": "MASTER"
+  }
+]

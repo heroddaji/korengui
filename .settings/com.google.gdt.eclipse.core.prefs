@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 jarsExcludedFromWebInfLib=
+lastWarOutDir=E\:/Dropbox/MyStuffs/portfolio/web-KorenGUI-gwt-html5/korengui/war
 warSrcDir=war
-warSrcDirIsOutput=true
+warSrcDirIsOutput=false
